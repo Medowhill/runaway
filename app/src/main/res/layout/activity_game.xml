@@ -4,4 +4,10 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
+    <com.medowhill.jaemin.runaway.view.DirectionControl
+        android:id="@+id/game_directionControl"
+        android:layout_width="@dimen/directionControlSize"
+        android:layout_height="@dimen/directionControlSize"
+        android:layout_gravity="left|bottom" />
+
 </FrameLayout>
