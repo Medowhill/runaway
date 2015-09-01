@@ -10,6 +10,7 @@ import android.view.SurfaceView;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.object.Player;
+import com.medowhill.jaemin.runaway.object.Stage;
 
 /**
  * Created by Jaemin on 2015-09-01.
@@ -22,7 +23,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private float ratio = 0;
 
-    private Player player;
+    private Stage stage;
 
     private Paint paintNonArea, paintArea;
 
@@ -86,8 +87,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         this.directionControl = directionControl;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     public void startGame() {
@@ -123,6 +124,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 canvas.scale(ratio, ratio);
 
                                 canvas.drawRect(0, 0, WIDTH, HEIGHT, paintNonArea);
+
+                                Player player = stage.getPlayer();
 
                                 player.setDirection(directionControl.getDirection());
                                 player.move();

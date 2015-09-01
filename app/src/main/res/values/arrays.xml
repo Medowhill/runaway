@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="stageInfo">
+        <item>p,100,100,10,20/s,100,100/e,2300,1500/w,0,0</item>
+    </string-array>
+
+</resources>
