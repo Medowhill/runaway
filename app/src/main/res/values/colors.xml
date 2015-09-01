@@ -3,4 +3,9 @@
 
     <color name="directionControl">#40ffffff</color>
 
+    <color name="gameViewNonArea">#606060</color>
+    <color name="gameViewArea">#ffffff</color>
+
+    <color name="player">#00bbbb</color>
+
 </resources>

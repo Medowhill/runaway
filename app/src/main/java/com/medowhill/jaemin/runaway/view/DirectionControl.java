@@ -17,8 +17,6 @@ public class DirectionControl extends View {
 
     private final float OUTER_SIZE = 0.375f, INNER_SIZE = 0.325f, MOVING = 0.1f, NONE_LIMIT = 0.1f;
 
-    private int width, height;
-
     private Paint paint;
 
     private int direction = Direction.NONE;
@@ -48,17 +46,10 @@ public class DirectionControl extends View {
                 break;
         }
 
+        int width = getWidth(), height = getHeight();
         canvas.drawRect(width * (0.5f - OUTER_SIZE), height * (0.5f - OUTER_SIZE), width * (0.5f + OUTER_SIZE), height * (0.5f + OUTER_SIZE), paint);
         canvas.drawRect(width * (0.5f - INNER_SIZE + dx), height * (0.5f - INNER_SIZE + dy),
                 width * (0.5f + INNER_SIZE + dx), height * (0.5f + INNER_SIZE + dy), paint);
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-
-        width = w;
-        height = h;
     }
 
     @Override
@@ -67,6 +58,8 @@ public class DirectionControl extends View {
             direction = Direction.NONE;
             invalidate();
         } else {
+            int width = getWidth(), height = getHeight();
+
             float x = event.getX() - width / 2, y = event.getY() - height / 2;
 
             int newDirection;
@@ -93,5 +86,9 @@ public class DirectionControl extends View {
         }
 
         return true;
+    }
+
+    public int getDirection() {
+        return direction;
     }
 }

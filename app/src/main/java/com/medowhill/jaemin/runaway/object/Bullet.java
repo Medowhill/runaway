@@ -5,4 +5,7 @@ package com.medowhill.jaemin.runaway.object;
  */
 public class Bullet extends GameObject {
 
+    public Bullet(float x, float y, float speed, int color) {
+        super(x, y, speed, color);
+    }
 }

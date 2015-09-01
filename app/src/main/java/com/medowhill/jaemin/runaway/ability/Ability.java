@@ -5,6 +5,31 @@ package com.medowhill.jaemin.runaway.ability;
  */
 public abstract class Ability {
 
+    final int WAITING_FRAME;
 
+    int remainWaitingFrame;
 
+    Ability(int waitingFrame) {
+        this.WAITING_FRAME = waitingFrame;
+    }
+
+    public void use() {
+        if (remainWaitingFrame == 0) {
+            remainWaitingFrame = WAITING_FRAME;
+        }
+    }
+
+    public float getRemainRatio() {
+        return 1.f * remainWaitingFrame / WAITING_FRAME;
+    }
+
+    public void decreaseRemaining(int frame) {
+        remainWaitingFrame -= frame;
+        if (remainWaitingFrame < 0)
+            remainWaitingFrame = 0;
+    }
+
+    public int getRemainWaitingFrame() {
+        return remainWaitingFrame;
+    }
 }
