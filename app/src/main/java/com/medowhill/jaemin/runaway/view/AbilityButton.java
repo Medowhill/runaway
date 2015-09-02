@@ -1,81 +1,101 @@
 package com.medowhill.jaemin.runaway.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.View;
 
+import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
 
 /**
  * Created by Jaemin on 2015-09-01.
  */
-public class AbilityButton extends SurfaceView implements SurfaceHolder.Callback {
+public class AbilityButton extends View {
 
-    private boolean touched = false, clicked = false;
+    private final float OUTER_SIZE = 0.375f, INNER_SIZE = 0.325f;
+
+    private boolean touched = false, clicked = false, cool = false;
 
     private Ability ability;
 
-    private boolean invalidate;
+    private Bitmap icon;
 
-    private SurfaceThread surfaceThread;
+    private Paint paintBorder, paintTouched, paintCool;
 
     public AbilityButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
 
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        surfaceThread = new SurfaceThread();
-        surfaceThread.start();
-    }
+        paintBorder = new Paint();
+        paintBorder.setColor(getResources().getColor(R.color.abilityButtonBorder));
 
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-    }
+        paintTouched = new Paint();
+        paintTouched.setColor(getResources().getColor(R.color.abilityButtonTouched));
 
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        boolean retry = true;
-
-        surfaceThread.run = false;
-        while (retry) {
-            try {
-                surfaceThread.join();
-                retry = false;
-            } catch (InterruptedException e) {
-            }
-        }
+        paintCool = new Paint();
+        paintCool.setColor(getResources().getColor(R.color.abilityButtonCool));
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (clicked)
+            return true;
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 touched = true;
-                invalidate = true;
+                invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (touched) {
                     float x = event.getX(), y = event.getY();
                     if (x < 0 || x > getWidth() || y < 0 || y > getHeight()) {
                         touched = false;
-                        invalidate = true;
+                        invalidate();
                     }
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 if (touched) {
                     touched = false;
-                    clicked = true;
-                    invalidate = true;
+                    if (!cool)
+                        clicked = true;
+                    invalidate();
                 }
                 break;
         }
 
         return true;
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        int width = getWidth(), height = getHeight();
+        canvas.drawRect(width * (0.5f - OUTER_SIZE), height * (0.5f - OUTER_SIZE),
+                width * (0.5f + OUTER_SIZE), height * (0.5f + OUTER_SIZE), paintBorder);
+
+        if (icon == null) {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), ability.getIconResourceID());
+            icon = Bitmap.createScaledBitmap(bitmap, (int) (getWidth() * 2 * INNER_SIZE), (int) (getHeight() * 2 * INNER_SIZE), false);
+            bitmap.recycle();
+            bitmap = null;
+        }
+        canvas.drawBitmap(icon, width * (0.5f - INNER_SIZE), height * (0.5f - INNER_SIZE), null);
+
+        if (touched) {
+            canvas.drawRect(width * (0.5f - INNER_SIZE), height * (0.5f - INNER_SIZE),
+                    width * (0.5f + INNER_SIZE), height * (0.5f + INNER_SIZE), paintBorder);
+        }
+
+        if (cool) {
+            float ratio = ability.getRemainRatio();
+            canvas.drawRect(width * (0.5f - INNER_SIZE) * ratio, height * (0.5f - INNER_SIZE) * ratio,
+                    width * (0.5f + INNER_SIZE) * ratio, height * (0.5f + INNER_SIZE) * ratio, paintCool);
+        }
     }
 
     public boolean isClicked() {
@@ -84,44 +104,15 @@ public class AbilityButton extends SurfaceView implements SurfaceHolder.Callback
 
     public void clearClick() {
         clicked = false;
-        surfaceThread.coolDown = true;
+        cool = true;
+        invalidate();
     }
 
-    private class SurfaceThread extends Thread {
+    public Ability getAbility() {
+        return ability;
+    }
 
-        boolean coolDown = false;
-
-        private SurfaceHolder surfaceHolder;
-        private boolean run = true;
-        private int lastRemaining;
-
-        public SurfaceThread() {
-            surfaceHolder = getHolder();
-        }
-
-        public void run() {
-            while (run) {
-                if (invalidate || coolDown && lastRemaining != ability.getRemainWaitingFrame()) {
-
-                    if (coolDown) {
-                        lastRemaining = ability.getRemainWaitingFrame();
-                        if (lastRemaining == 0)
-                            coolDown = false;
-                    }
-
-                    Canvas canvas = null;
-                    try {
-                        canvas = surfaceHolder.lockCanvas(null);
-                        if (canvas != null) {
-
-                        }
-                    } finally {
-                        if (canvas != null)
-                            surfaceHolder.unlockCanvasAndPost(canvas);
-                        invalidate = false;
-                    }
-                }
-            }
-        }
+    public void setAbility(Ability ability) {
+        this.ability = ability;
     }
 }

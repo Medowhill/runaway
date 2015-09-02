@@ -6,4 +6,7 @@
 
     <integer name="frame">40</integer>
 
+    <integer name="baseSize">50</integer>
+    <integer name="playerSize">2</integer>
+
 </resources>

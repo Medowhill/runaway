@@ -86,6 +86,13 @@ public abstract class GameObject {
             return 0;
     }
 
+    public void modifySpeedMultiplier(float dSpeed) {
+        speedMultiplier += dSpeed;
+    }
+
+    public void addBuff(Buff buff) {
+        buffs.add(buff);
+    }
 
     void moveUntilWall(Wall wall) {
         float location = wall.LOCATION;

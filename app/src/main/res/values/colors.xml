@@ -3,10 +3,14 @@
 
     <color name="directionControl">#40ffffff</color>
 
-    <color name="gameViewNonArea">#606060</color>
-    <color name="gameViewArea">#ffffff</color>
-    <color name="gameViewFinish">#bb00bb</color>
+    <color name="abilityButtonBorder">#40ffffff</color>
+    <color name="abilityButtonTouched">#60ffffff</color>
+    <color name="abilityButtonCool">#60000000</color>
 
-    <color name="player">#00bbbb</color>
+    <color name="gameViewNonArea">#606060</color>
+    <color name="gameViewArea">#ffc0ff</color>
+    <color name="gameViewFinish">#b000b0</color>
+
+    <color name="player">#00b0b0</color>
 
 </resources>

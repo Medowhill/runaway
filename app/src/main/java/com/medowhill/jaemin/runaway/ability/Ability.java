@@ -1,19 +1,27 @@
 package com.medowhill.jaemin.runaway.ability;
 
+import com.medowhill.jaemin.runaway.object.GameObject;
+
 /**
  * Created by Jaemin on 2015-09-01.
  */
 public abstract class Ability {
 
+    final public int iconResourceID;
+
     final int WAITING_FRAME;
+
+    final int LEVEL;
 
     int remainWaitingFrame;
 
-    Ability(int waitingFrame) {
+    Ability(int level, int waitingFrame, int iconResourceID) {
+        this.LEVEL = level;
         this.WAITING_FRAME = waitingFrame;
+        this.iconResourceID = iconResourceID;
     }
 
-    public void use() {
+    public void use(GameObject gameObject) {
         if (remainWaitingFrame == 0) {
             remainWaitingFrame = WAITING_FRAME;
         }
@@ -31,5 +39,9 @@ public abstract class Ability {
 
     public int getRemainWaitingFrame() {
         return remainWaitingFrame;
+    }
+
+    public int getIconResourceID() {
+        return iconResourceID;
     }
 }

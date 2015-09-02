@@ -34,6 +34,8 @@ public class Stage {
         area = new Path();
         area.moveTo(0, 0);
 
+        int baseSize = context.getResources().getInteger(R.integer.baseSize);
+
         for (int i = 0; i < datas.length; i++) {
             String data_ = datas[i];
             String[] datas_ = data_.split(",");
@@ -44,7 +46,7 @@ public class Stage {
                     player.setX(Float.parseFloat(datas_[1]));
                     player.setY(Float.parseFloat(datas_[2]));
                     player.setSpeed(Float.parseFloat(datas_[3]));
-                    player.setSize(Integer.parseInt(datas_[4]));
+                    player.setSize(context.getResources().getInteger(R.integer.playerSize) * baseSize);
                     player.setColor(context.getResources().getColor(R.color.player));
                     break;
                 case 'w':
@@ -55,7 +57,7 @@ public class Stage {
                             float x_ = Float.parseFloat(datas_[j]);
                             walls.add(new Wall(true, x, x_, y));
                             x = x_;
-                            if (x < xMax)
+                            if (x > xMax)
                                 xMax = x;
                         } else {
                             float y_ = Float.parseFloat(datas_[j]);

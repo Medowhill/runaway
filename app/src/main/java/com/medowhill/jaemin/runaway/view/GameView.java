@@ -17,7 +17,7 @@ import com.medowhill.jaemin.runaway.object.Stage;
  */
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
-    private final int WIDTH, HEIGHT;
+    private final int WIDTH, HEIGHT, BASE_SIZE;
 
     private final int FRAME, FRAME_LENGTH;
 
@@ -25,9 +25,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private Stage stage;
 
-    private Paint paintNonArea, paintArea;
+    private Paint paintNonArea, paintArea, paintFinish;
 
     private DirectionControl directionControl;
+    private AbilityButton[] abilityButtons;
 
     private SurfaceThread surfaceThread;
 
@@ -36,6 +37,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         WIDTH = getResources().getInteger(R.integer.gameWidth);
         HEIGHT = getResources().getInteger(R.integer.gameHeight);
+        BASE_SIZE = getResources().getInteger(R.integer.baseSize);
 
         FRAME = context.getResources().getInteger(R.integer.frame);
         FRAME_LENGTH = 1000 / FRAME;
@@ -45,6 +47,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         paintArea = new Paint();
         paintArea.setColor(getResources().getColor(R.color.gameViewArea));
+
+        paintFinish = new Paint();
+        paintFinish.setColor(getResources().getColor(R.color.gameViewFinish));
 
         getHolder().addCallback(this);
 
@@ -87,6 +92,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         this.directionControl = directionControl;
     }
 
+    public void setAbilityButtons(AbilityButton[] abilityButtons) {
+        this.abilityButtons = abilityButtons;
+    }
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -127,12 +136,34 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 Player player = stage.getPlayer();
 
-                                if(player.getX() < )
-
-                                canvas.drawPath(stage.area, paintArea);
+                                for (int i = 0; i < abilityButtons.length; i++) {
+                                    AbilityButton abilityButton = abilityButtons[i];
+                                    if (abilityButton.isClicked()) {
+                                        abilityButton.getAbility().use(player);
+                                        abilityButton.clearClick();
+                                    }
+                                }
 
                                 player.setDirection(directionControl.getDirection());
                                 player.move(stage.walls);
+
+                                float dx = WIDTH / 4, dy = HEIGHT / 4;
+                                if (stage.getxMax() - WIDTH / 4 < player.getX())
+                                    dx = 3 * WIDTH / 4 - stage.getxMax();
+                                else if (WIDTH / 4 < player.getX())
+                                    dx = WIDTH / 2 - player.getX();
+                                if (stage.getyMax() - HEIGHT / 4 < player.getY())
+                                    dy = 3 * HEIGHT / 4 - stage.getyMax();
+                                else if (HEIGHT / 4 < player.getY())
+                                    dy = HEIGHT / 2 - player.getY();
+
+                                canvas.translate(dx, dy);
+
+                                canvas.drawPath(stage.area, paintArea);
+
+                                canvas.drawRect(stage.getxFinish() - BASE_SIZE, stage.getyFinish() - BASE_SIZE,
+                                        stage.getxFinish() + BASE_SIZE, stage.getyFinish() + BASE_SIZE, paintFinish);
+
                                 player.draw(canvas);
                             }
                         } finally {

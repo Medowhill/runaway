@@ -15,7 +15,7 @@ import com.medowhill.jaemin.runaway.R;
  */
 public class DirectionControl extends View {
 
-    private final float OUTER_SIZE = 0.375f, INNER_SIZE = 0.325f, MOVING = 0.1f, NONE_LIMIT = 0.1f;
+    private final float OUTER_SIZE = 0.375f, INNER_SIZE = 0.325f, MOVING = 0.1f, NONE_LIMIT = 0.2f;
 
     private Paint paint;
 
