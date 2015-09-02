@@ -1,6 +1,7 @@
 package com.medowhill.jaemin.runaway.object;
 
 import android.content.Context;
+import android.graphics.Path;
 
 import com.medowhill.jaemin.runaway.R;
 
@@ -15,6 +16,8 @@ public class Stage {
 
     public final ArrayList<Wall> walls;
 
+    public final Path area;
+
     private Player player;
 
     private float xStart, yStart, xFinish, yFinish;
@@ -26,19 +29,36 @@ public class Stage {
 
         enemies = new ArrayList<>();
         walls = new ArrayList<>();
+        area = new Path();
+        area.moveTo(0, 0);
 
         for (int i = 0; i < datas.length; i++) {
             String data_ = datas[i];
             String[] datas_ = data_.split(",");
+            float x, y;
             switch (data_.charAt(0)) {
                 case 'p':
-                    float x = Float.parseFloat(datas_[1]);
-                    float y = Float.parseFloat(datas_[2]);
+                    x = Float.parseFloat(datas_[1]);
+                    y = Float.parseFloat(datas_[2]);
                     float speed = Float.parseFloat(datas_[3]);
                     int size = Integer.parseInt(datas_[4]);
                     player = new Player(x, y, speed, size, context.getResources().getColor(R.color.player));
                     break;
                 case 'w':
+                    x = 0;
+                    y = 0;
+                    for (int j = 1; j < datas_.length; j++) {
+                        if (j % 2 == 1) {
+                            float x_ = Float.parseFloat(datas_[j]);
+                            Wall wall = new Wall(Wall.HORIZONTAL, x, x_, y);
+                            x = x_;
+                        } else {
+                            float y_ = Float.parseFloat(datas_[j]);
+                            Wall wall = new Wall(Wall.VERTICAL, y, y_, x);
+                            y = y_;
+                        }
+                        area.lineTo(x, y);
+                    }
                     break;
                 case 'e':
                     break;

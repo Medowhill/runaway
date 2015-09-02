@@ -44,7 +44,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         paintNonArea.setColor(getResources().getColor(R.color.gameViewNonArea));
 
         paintArea = new Paint();
-        paintNonArea.setColor(getResources().getColor(R.color.gameViewArea));
+        paintArea.setColor(getResources().getColor(R.color.gameViewArea));
 
         getHolder().addCallback(this);
 
@@ -55,8 +55,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        float widthRatio = 1.f * WIDTH / w;
-        float heightRatio = 1.f * HEIGHT / h;
+        float widthRatio = 1.f * w / WIDTH;
+        float heightRatio = 1.f * h / HEIGHT;
         ratio = Math.min(widthRatio, heightRatio);
     }
 
@@ -124,6 +124,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 canvas.scale(ratio, ratio);
 
                                 canvas.drawRect(0, 0, WIDTH, HEIGHT, paintNonArea);
+
+                                canvas.drawPath(stage.area, paintArea);
 
                                 Player player = stage.getPlayer();
 

@@ -14,12 +14,9 @@ import java.util.ArrayList;
  */
 public abstract class GameObject {
 
+    final float speed;
     float x, y;
-
     int direction = Direction.NONE;
-
-    float speed;
-
     float speedMultiplier = 1;
 
     float width, height;
@@ -43,23 +40,29 @@ public abstract class GameObject {
     }
 
     public void move() {
-        switch (direction) {
-            case Direction.UP:
-                y -= speed * speedMultiplier;
-                break;
-            case Direction.RIGHT:
-                x += speed * speedMultiplier;
-                break;
-            case Direction.DOWN:
-                y += speed * speedMultiplier;
-                break;
-            case Direction.LEFT:
-                x -= speed * speedMultiplier;
-                break;
-        }
+        x += getXSpeed();
+        y += getYSpeed();
     }
 
     public void draw(Canvas canvas) {
         canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint);
+    }
+
+    float getXSpeed() {
+        if (direction == Direction.LEFT)
+            return -1 * speed * speedMultiplier;
+        else if (direction == Direction.RIGHT)
+            return speed * speedMultiplier;
+        else
+            return 0;
+    }
+
+    float getYSpeed() {
+        if (direction == Direction.UP)
+            return -1 * speed * speedMultiplier;
+        else if (direction == Direction.DOWN)
+            return speed * speedMultiplier;
+        else
+            return 0;
     }
 }
