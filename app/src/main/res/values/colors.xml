@@ -5,6 +5,7 @@
 
     <color name="gameViewNonArea">#606060</color>
     <color name="gameViewArea">#ffffff</color>
+    <color name="gameViewFinish">#bb00bb</color>
 
     <color name="player">#00bbbb</color>
 

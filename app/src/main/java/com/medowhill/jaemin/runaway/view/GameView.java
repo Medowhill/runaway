@@ -125,12 +125,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 canvas.drawRect(0, 0, WIDTH, HEIGHT, paintNonArea);
 
-                                canvas.drawPath(stage.area, paintArea);
-
                                 Player player = stage.getPlayer();
 
+                                if(player.getX() < )
+
+                                canvas.drawPath(stage.area, paintArea);
+
                                 player.setDirection(directionControl.getDirection());
-                                player.move();
+                                player.move(stage.walls);
                                 player.draw(canvas);
                             }
                         } finally {

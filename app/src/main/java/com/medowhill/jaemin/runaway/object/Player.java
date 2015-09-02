@@ -5,9 +5,15 @@ package com.medowhill.jaemin.runaway.object;
  */
 public class Player extends GameObject {
 
-    public Player(float x, float y, float speed, int size, int color) {
-        super(x, y, speed, color);
+    public float getX() {
+        return this.x;
+    }
 
+    public float getY() {
+        return this.y;
+    }
+
+    void setSize(float size) {
         this.width = size;
         this.height = size;
     }

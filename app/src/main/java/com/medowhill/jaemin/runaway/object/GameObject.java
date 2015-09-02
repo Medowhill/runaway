@@ -14,9 +14,12 @@ import java.util.ArrayList;
  */
 public abstract class GameObject {
 
-    final float speed;
+    float speed;
+
     float x, y;
+
     int direction = Direction.NONE;
+
     float speedMultiplier = 1;
 
     float width, height;
@@ -27,19 +30,36 @@ public abstract class GameObject {
 
     ArrayList<Buff> buffs;
 
-    GameObject(float x, float y, float speed, int color) {
-        this.x = x;
-        this.y = y;
-        this.speed = speed;
-
+    GameObject() {
         this.paint = new Paint();
-        this.paint.setColor(color);
 
         abilities = new ArrayList<>();
         buffs = new ArrayList<>();
     }
 
-    public void move() {
+    void setX(float x) {
+        this.x = x;
+    }
+
+    void setY(float y) {
+        this.y = y;
+    }
+
+    void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    void setColor(int color) {
+        paint.setColor(color);
+    }
+
+    public void move(ArrayList<Wall> walls) {
+        for (Wall wall : walls) {
+            if (willTouchAfterMove(wall)) {
+                moveUntilWall(wall);
+                return;
+            }
+        }
         x += getXSpeed();
         y += getYSpeed();
     }
@@ -64,5 +84,51 @@ public abstract class GameObject {
             return speed * speedMultiplier;
         else
             return 0;
+    }
+
+
+    void moveUntilWall(Wall wall) {
+        float location = wall.LOCATION;
+
+        if (wall.HORIZONTAL) {
+            if (location < y)
+                y = location + height / 2;
+            else
+                y = location - height / 2;
+        } else {
+            if (location < x)
+                x = location + width / 2;
+            else
+                x = location - width / 2;
+        }
+    }
+
+    boolean willTouchAfterMove(Wall wall) {
+        float start = wall.START, end = wall.END, location = wall.LOCATION;
+
+        switch (direction) {
+            case Direction.DOWN:
+            case Direction.UP:
+                if (!wall.HORIZONTAL)
+                    return false;
+                if (start - width / 2 < x && x < end + width / 2) {
+                    float y_ = y + getYSpeed();
+                    return Math.min(y, y_) - height / 2 < location && location < Math.max(y, y_) + height / 2;
+                } else
+                    return false;
+
+            case Direction.RIGHT:
+            case Direction.LEFT:
+                if (wall.HORIZONTAL)
+                    return false;
+                if (start - height / 2 < y && y < end + height / 2) {
+                    float x_ = x + getXSpeed();
+                    return Math.min(x, x_) - width / 2 < location && location < Math.max(x, x_) + width / 2;
+                } else
+                    return false;
+
+            default:
+                return false;
+        }
     }
 }

@@ -18,9 +18,11 @@ public class Stage {
 
     public final Path area;
 
+    private float xMax, yMax;
+
     private Player player;
 
-    private float xStart, yStart, xFinish, yFinish;
+    private float xFinish, yFinish;
 
     public Stage(Context context, int stage) {
         String data = context.getResources().getStringArray(R.array.stageInfo)[stage - 1];
@@ -38,11 +40,12 @@ public class Stage {
             float x, y;
             switch (data_.charAt(0)) {
                 case 'p':
-                    x = Float.parseFloat(datas_[1]);
-                    y = Float.parseFloat(datas_[2]);
-                    float speed = Float.parseFloat(datas_[3]);
-                    int size = Integer.parseInt(datas_[4]);
-                    player = new Player(x, y, speed, size, context.getResources().getColor(R.color.player));
+                    player = new Player();
+                    player.setX(Float.parseFloat(datas_[1]));
+                    player.setY(Float.parseFloat(datas_[2]));
+                    player.setSpeed(Float.parseFloat(datas_[3]));
+                    player.setSize(Integer.parseInt(datas_[4]));
+                    player.setColor(context.getResources().getColor(R.color.player));
                     break;
                 case 'w':
                     x = 0;
@@ -50,21 +53,21 @@ public class Stage {
                     for (int j = 1; j < datas_.length; j++) {
                         if (j % 2 == 1) {
                             float x_ = Float.parseFloat(datas_[j]);
-                            Wall wall = new Wall(Wall.HORIZONTAL, x, x_, y);
+                            walls.add(new Wall(true, x, x_, y));
                             x = x_;
+                            if (x < xMax)
+                                xMax = x;
                         } else {
                             float y_ = Float.parseFloat(datas_[j]);
-                            Wall wall = new Wall(Wall.VERTICAL, y, y_, x);
+                            walls.add(new Wall(false, y, y_, x));
                             y = y_;
+                            if (y > yMax)
+                                yMax = y;
                         }
                         area.lineTo(x, y);
                     }
                     break;
                 case 'e':
-                    break;
-                case 's':
-                    xStart = Float.parseFloat(datas_[1]);
-                    yStart = Float.parseFloat(datas_[2]);
                     break;
                 case 'f':
                     xFinish = Float.parseFloat(datas_[1]);
@@ -82,15 +85,15 @@ public class Stage {
         return xFinish;
     }
 
-    public float getxStart() {
-        return xStart;
-    }
-
     public float getyFinish() {
         return yFinish;
     }
 
-    public float getyStart() {
-        return yStart;
+    public float getxMax() {
+        return xMax;
+    }
+
+    public float getyMax() {
+        return yMax;
     }
 }
