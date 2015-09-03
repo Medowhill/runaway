@@ -3,6 +3,7 @@ package com.medowhill.jaemin.runaway.object;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.medowhill.jaemin.runaway.Direction;
 import com.medowhill.jaemin.runaway.R;
 
 import java.util.ArrayList;
@@ -12,9 +13,13 @@ import java.util.ArrayList;
  */
 public class Player extends GameObject {
 
-    Paint paintInvisible, paintImmortal;
+    boolean usingIllusion = false, isIllusion = false;
 
-    public Player(float x, float y) {
+    Player illusion;
+
+    Paint paintInvisible, paintImmortal, paintIllusion;
+
+    public Player(float x, float y, boolean isIllusion) {
         super(context.getResources().getInteger(R.integer.playerSize) * context.getResources().getInteger(R.integer.baseSize),
                 context.getResources().getInteger(R.integer.playerSize) * context.getResources().getInteger(R.integer.baseSize),
                 context.getResources().getColor(R.color.playerNormal), x, y, context.getResources().getInteger(R.integer.playerSpeed));
@@ -24,6 +29,14 @@ public class Player extends GameObject {
 
         paintImmortal = new Paint();
         paintImmortal.setColor(context.getResources().getColor(R.color.playerImmortal));
+
+        paintIllusion = new Paint();
+        paintIllusion.setColor(context.getResources().getColor(R.color.playerIllusion));
+
+        this.isIllusion = isIllusion;
+
+        if (!isIllusion)
+            illusion = new Player(0, 0, true);
     }
 
     public float getX() {
@@ -34,9 +47,31 @@ public class Player extends GameObject {
         return this.y;
     }
 
+    public boolean isUsingIllusion() {
+        return usingIllusion;
+    }
+
+    public void setUsingIllusion(boolean usingIllusion) {
+        this.usingIllusion = usingIllusion;
+    }
+
+    public Player getIllusion() {
+        return illusion;
+    }
+
+    public void setIllusionLocation() {
+        illusion.x = x;
+        illusion.y = y;
+    }
+
     public void setDirection(int direction) {
-        if (directionModifiable)
+        if (directionModifiable) {
             this.direction = direction;
+            if (direction == Direction.NONE)
+                illusion.direction = Direction.NONE;
+            else
+                illusion.direction = (direction + 2) % 4;
+        }
     }
 
     @Override
@@ -58,7 +93,9 @@ public class Player extends GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        if (!mortal)
+        if (isIllusion)
+            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintIllusion);
+        else if (!mortal)
             canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintImmortal);
         else if (!visible)
             canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintInvisible);

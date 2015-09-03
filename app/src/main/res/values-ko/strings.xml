@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">평면 탈출</string>
+    <string name="abilityDashName">돌진</string>
+    <string name="abilityHidingName">은신</string>
+    <string name="abilityIllusionName">환영</string>
+    <string name="abilityProtectionName">보호막</string>
+    <string name="abilityTeleportationName">공간 이동</string>
 </resources>

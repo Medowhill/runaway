@@ -4,7 +4,6 @@ import com.medowhill.jaemin.runaway.Direction;
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.buff.Buff;
 import com.medowhill.jaemin.runaway.buff.CannotModifyDirectionBuff;
-import com.medowhill.jaemin.runaway.buff.CannotUseAbilityBuff;
 import com.medowhill.jaemin.runaway.buff.SpeedChangeBuff;
 import com.medowhill.jaemin.runaway.object.GameObject;
 
@@ -34,8 +33,6 @@ public class Dash extends Ability {
         Buff buff = new SpeedChangeBuff(gameObject, frame, speed);
         gameObject.addBuff(buff);
         buff = new CannotModifyDirectionBuff(gameObject, frame);
-        gameObject.addBuff(buff);
-        buff = new CannotUseAbilityBuff(gameObject, frame);
         gameObject.addBuff(buff);
     }
 }

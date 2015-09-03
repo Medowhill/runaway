@@ -5,7 +5,6 @@ import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.buff.Buff;
 import com.medowhill.jaemin.runaway.buff.CannotModifyDirectionBuff;
 import com.medowhill.jaemin.runaway.buff.CannotMoveBuff;
-import com.medowhill.jaemin.runaway.buff.CannotUseAbilityBuff;
 import com.medowhill.jaemin.runaway.buff.DelayBuff;
 import com.medowhill.jaemin.runaway.buff.SpeedChangeBuff;
 import com.medowhill.jaemin.runaway.object.GameObject;
@@ -36,8 +35,6 @@ public class Teleportation extends Ability {
         buff = new CannotModifyDirectionBuff(gameObject, frame);
         gameObject.addBuff(buff);
         buff = new CannotMoveBuff(gameObject, frame);
-        gameObject.addBuff(buff);
-        buff = new CannotUseAbilityBuff(gameObject, frame);
         gameObject.addBuff(buff);
     }
 }

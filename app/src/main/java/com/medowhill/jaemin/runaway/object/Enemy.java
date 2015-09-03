@@ -20,7 +20,7 @@ public abstract class Enemy extends GameObject {
 
     int directingFrame = 0;
 
-    boolean detect = false, active = false;
+    boolean detect = false, detectIllusion = false, active = false;
 
     Paint paintDetecting;
 
@@ -42,6 +42,13 @@ public abstract class Enemy extends GameObject {
     }
 
     public void detect(GameObject gameObject, ArrayList<Wall> walls) {
+        detectIllusion = false;
+        if (gameObject instanceof Player) {
+            Player player = (Player) gameObject;
+            if (player.isUsingIllusion())
+                detectIllusion(player.getIllusion(), walls);
+        }
+
         float x1 = gameObject.x, y1 = gameObject.y;
 
         detect = false;
@@ -73,6 +80,36 @@ public abstract class Enemy extends GameObject {
         active = true;
     }
 
+    void detectIllusion(GameObject gameObject, ArrayList<Wall> walls) {
+        float x1 = gameObject.x, y1 = gameObject.y;
+
+        if (!gameObject.isVisible())
+            return;
+
+        if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > sight * sight)
+            return;
+
+        for (Wall wall : walls) {
+            if (wall.HORIZONTAL) {
+                if ((y1 - wall.LOCATION) * (y - wall.LOCATION) < 0) {
+                    float x_ = (wall.LOCATION - y1) / (y - y1) * (x - x1) + x1;
+                    if (wall.START < x_ && x_ < wall.END)
+                        return;
+                }
+            } else {
+                if ((x1 - wall.LOCATION) * (x - wall.LOCATION) < 0) {
+                    float y_ = (wall.LOCATION - x1) / (x - x1) * (y - y1) + y1;
+                    if (wall.START < y_ && y_ < wall.END)
+                        return;
+                }
+            }
+        }
+
+        detectIllusion = true;
+        directingFrame = 0;
+        active = true;
+    }
+
     public void setDirection(GameObject gameObject, ArrayList<Wall> walls) {
         float x1 = gameObject.x, y1 = gameObject.y;
 
@@ -83,7 +120,24 @@ public abstract class Enemy extends GameObject {
 
         detect(gameObject, walls);
 
-        if (detect) {
+        if (detect || detectIllusion) {
+            if (detect && detectIllusion) {
+                if (gameObject instanceof Player) {
+                    Player player = (Player) gameObject;
+                    float x2 = player.getIllusion().x, y2 = player.getIllusion().y;
+                    if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > (x2 - x) * (x2 - x) + (y2 - y) * (y2 - y)) {
+                        x1 = x2;
+                        y1 = y2;
+                    }
+                }
+            } else if (!detect && detectIllusion) {
+                if (gameObject instanceof Player) {
+                    Player player = (Player) gameObject;
+                    x1 = player.getIllusion().x;
+                    y1 = player.getIllusion().y;
+                }
+            }
+
             float dx = x - x1, dy = y - y1;
             if (Math.abs(dx) < Math.abs(dy)) {
                 if (dy < 0)

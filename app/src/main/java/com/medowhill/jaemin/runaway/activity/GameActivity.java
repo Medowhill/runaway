@@ -1,6 +1,7 @@
 package com.medowhill.jaemin.runaway.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +11,7 @@ import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
 import com.medowhill.jaemin.runaway.ability.Dash;
 import com.medowhill.jaemin.runaway.ability.Hiding;
+import com.medowhill.jaemin.runaway.ability.Illusion;
 import com.medowhill.jaemin.runaway.ability.Protection;
 import com.medowhill.jaemin.runaway.ability.Teleportation;
 import com.medowhill.jaemin.runaway.object.GameObject;
@@ -23,6 +25,9 @@ import java.util.ArrayList;
 public class GameActivity extends Activity {
 
     final int[] ABILITY_BUTTON_ID = new int[]{R.id.abilityButton1, R.id.abilityButton2, R.id.abilityButton3, R.id.abilityButton4};
+
+    Ability[][] abilityArray = new Ability[][]{{new Dash(1), new Teleportation(1)},
+            {new Hiding(1), new Protection(1)}, {new Illusion(1)}, {}};
 
     GameView gameView;
     DirectionControl directionControl;
@@ -63,10 +68,12 @@ public class GameActivity extends Activity {
 
         Stage stage = new Stage(this, 1);
         ArrayList<Ability> playerAbilities = stage.getPlayer().getAbilities();
-        playerAbilities.add(new Dash(1));
-        playerAbilities.add(new Teleportation(1));
-        playerAbilities.add(new Hiding(1));
-        playerAbilities.add(new Protection(1));
+        Intent intent = getIntent();
+        int[] abilities = intent.getIntArrayExtra("Ability");
+        for (int i = 0; i < abilities.length; i++) {
+            if (abilities[i] != -1)
+                playerAbilities.add(abilityArray[i][abilities[i]]);
+        }
 
         for (int i = 0; i < abilityButtons.length; i++) {
             if (playerAbilities.size() > i)

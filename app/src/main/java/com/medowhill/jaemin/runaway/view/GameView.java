@@ -192,6 +192,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                     }
 
                                     player.move(stage.walls);
+                                    if (player.isUsingIllusion())
+                                        player.getIllusion().move(stage.walls);
                                 }
 
                                 ArrayList<Enemy> enemies = stage.enemies;
@@ -223,6 +225,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 canvas.drawRect(stage.getxFinish() - BASE_SIZE, stage.getyFinish() - BASE_SIZE,
                                         stage.getxFinish() + BASE_SIZE, stage.getyFinish() + BASE_SIZE, paintFinish);
 
+                                if (player.isUsingIllusion())
+                                    player.getIllusion().draw(canvas);
                                 player.draw(canvas);
                                 for (Enemy enemy : enemies)
                                     enemy.draw(canvas);

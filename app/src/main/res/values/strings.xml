@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">Run Away</string>
 
+    <string name="abilityDashName">Dash</string>
+    <string name="abilityTeleportationName">Teleportation</string>
+    <string name="abilityHidingName">Hiding</string>
+    <string name="abilityProtectionName">Protection</string>
+    <string name="abilityIllusionName">Illusion</string>
 </resources>

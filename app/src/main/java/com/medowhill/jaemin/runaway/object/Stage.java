@@ -42,7 +42,7 @@ public class Stage {
                 case 'p':
                     x = Float.parseFloat(datas[1]);
                     y = Float.parseFloat(datas[2]);
-                    player = new Player(x, y);
+                    player = new Player(x, y, false);
                     break;
                 case 'w':
                     x = 0;
