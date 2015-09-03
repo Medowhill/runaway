@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -26,16 +27,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private final int WIDTH, HEIGHT, BASE_SIZE;
 
-    private final int FRAME, FRAME_LENGTH;
+    private final int FRAME, FRAME_LENGTH, GAME_OVER_FRAME;
 
     private float ratio = 0;
 
     private Stage stage;
 
-    private Paint paintNonArea, paintArea, paintFinish;
+    private Paint paintNonArea, paintArea, paintFinish, paintGameOver;
 
     private DirectionControl directionControl;
     private AbilityButton[] abilityButtons;
+    private Handler gameOverHandler;
 
     private SurfaceThread surfaceThread;
 
@@ -48,6 +50,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         FRAME = context.getResources().getInteger(R.integer.frame);
         FRAME_LENGTH = 1000 / FRAME;
+        GAME_OVER_FRAME = context.getResources().getInteger(R.integer.gameOverFrame);
 
         paintNonArea = new Paint();
         paintNonArea.setColor(getResources().getColor(R.color.gameViewNonArea));
@@ -57,6 +60,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         paintFinish = new Paint();
         paintFinish.setColor(getResources().getColor(R.color.gameViewFinish));
+
+        paintGameOver = new Paint();
 
         getHolder().addCallback(this);
 
@@ -95,6 +100,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    public void setGameOverHandler(Handler gameOverHandler) {
+        this.gameOverHandler = gameOverHandler;
+    }
+
     public void setDirectionControl(DirectionControl directionControl) {
         this.directionControl = directionControl;
     }
@@ -115,8 +124,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private class SurfaceThread extends Thread {
 
         SurfaceHolder surfaceHolder;
-        boolean run = true, gameStart = false;
+        boolean run = true, gameStart = false, gameOver = false;
         long lastTime;
+        int gameOverFrame;
 
         public SurfaceThread() {
             surfaceHolder = getHolder();
@@ -143,50 +153,56 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 Player player = stage.getPlayer();
 
-                                player.setDirection(directionControl.getDirection());
+                                if (!gameOver) {
+                                    player.setDirection(directionControl.getDirection());
 
-                                for (int i = 0; i < player.getAbilities().size(); i++) {
-                                    AbilityButton abilityButton = abilityButtons[i];
-                                    Ability ability = player.getAbilities().get(i);
+                                    for (int i = 0; i < player.getAbilities().size(); i++) {
+                                        AbilityButton abilityButton = abilityButtons[i];
+                                        Ability ability = player.getAbilities().get(i);
 
-                                    if (abilityButton.isClicked()) {
-                                        if (player.isAbilityUsable() && !ability.isWaiting())
-                                            ability.use(player);
-                                        abilityButton.clearClick();
+                                        if (abilityButton.isClicked()) {
+                                            if (player.isAbilityUsable() && !ability.isWaiting())
+                                                ability.use(player);
+                                            abilityButton.clearClick();
+                                        }
+
+                                        if (ability.isWaiting()) {
+                                            Message message = new Message();
+                                            message.arg1 = ability.getRemainWaitingFrame();
+                                            message.arg2 = ability.WAITING_FRAME;
+                                            abilityButton.getDrawHandler().sendMessage(message);
+                                            ability.decreaseRemaining(1);
+                                        }
                                     }
 
-                                    if (ability.isWaiting()) {
-                                        Message message = new Message();
-                                        message.arg1 = ability.getRemainWaitingFrame();
-                                        message.arg2 = ability.WAITING_FRAME;
-                                        abilityButton.getDrawHandler().sendMessage(message);
-                                        ability.decreaseRemaining(1);
+                                    for (int i = 0; i < player.getBuffs().size(); i++) {
+                                        Buff buff = player.getBuffs().get(i);
+
+                                        if (!buff.isStart()) {
+                                            buff.startBuff();
+                                            buff.setStart(true);
+                                        } else if (buff.isEnd()) {
+                                            buff.endBuff();
+                                            player.getBuffs().remove(i);
+                                            i--;
+                                        } else {
+                                            buff.duringBuff();
+                                        }
+                                        buff.framePass();
                                     }
+
+                                    player.move(stage.walls);
                                 }
-
-                                for (int i = 0; i < player.getBuffs().size(); i++) {
-                                    Buff buff = player.getBuffs().get(i);
-
-                                    if (!buff.isStart()) {
-                                        buff.startBuff();
-                                        buff.setStart(true);
-                                    } else if (buff.isEnd()) {
-                                        buff.endBuff();
-                                        player.getBuffs().remove(i);
-                                        i--;
-                                    } else {
-                                        buff.duringBuff();
-                                    }
-                                    buff.framePass();
-                                }
-
-                                player.move(stage.walls);
 
                                 ArrayList<Enemy> enemies = stage.enemies;
                                 for (Enemy enemy : enemies) {
                                     enemy.setDirection(player, stage.walls);
                                     enemy.move(stage.walls);
-                                    if (player.touch(enemy)) {
+                                    if (player.isMortal() && !gameOver && player.touch(enemy)) {
+                                        gameOver = true;
+                                        Message message = new Message();
+                                        message.what = 0;
+                                        gameOverHandler.sendMessage(message);
                                     }
                                 }
 
@@ -210,6 +226,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 player.draw(canvas);
                                 for (Enemy enemy : enemies)
                                     enemy.draw(canvas);
+
+                                if (gameOver) {
+                                    canvas.translate(-dx, -dy);
+
+                                    paintGameOver.setColor(Color.argb(255 * gameOverFrame / GAME_OVER_FRAME, 0, 0, 0));
+                                    canvas.drawRect(0, 0, WIDTH, HEIGHT, paintGameOver);
+                                    gameOverFrame++;
+                                    if (gameOverFrame == GAME_OVER_FRAME) {
+                                        run = false;
+                                        Message message = new Message();
+                                        message.what = 1;
+                                        gameOverHandler.sendMessage(message);
+                                    }
+                                }
 
                                 // Log
                                 long time = System.currentTimeMillis() - lastTime;

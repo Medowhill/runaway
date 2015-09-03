@@ -2,6 +2,8 @@ package com.medowhill.jaemin.runaway.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 
 import com.medowhill.jaemin.runaway.R;
@@ -26,6 +28,22 @@ public class GameActivity extends Activity {
     DirectionControl directionControl;
     AbilityButton[] abilityButtons;
 
+    Handler gameOverHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    directionControl.setVisibility(View.GONE);
+                    for (int i = 0; i < abilityButtons.length; i++)
+                        abilityButtons[i].setVisibility(View.GONE);
+                    break;
+                case 1:
+                    finish();
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +57,7 @@ public class GameActivity extends Activity {
             abilityButtons[i] = (AbilityButton) findViewById(ABILITY_BUTTON_ID[i]);
 
         GameObject.setContext(this);
+        gameView.setGameOverHandler(gameOverHandler);
         gameView.setDirectionControl(directionControl);
         gameView.setAbilityButtons(abilityButtons);
 
