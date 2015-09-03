@@ -25,42 +25,37 @@ public class Stage {
     private float xFinish, yFinish;
 
     public Stage(Context context, int stage) {
-        String data = context.getResources().getStringArray(R.array.stageInfo)[stage - 1];
+        String stageData = context.getResources().getStringArray(R.array.stageInfo)[stage - 1];
 
-        String[] datas = data.split("/");
+        String[] stageDatas = stageData.split("/");
 
         enemies = new ArrayList<>();
         walls = new ArrayList<>();
         area = new Path();
         area.moveTo(0, 0);
 
-        int baseSize = context.getResources().getInteger(R.integer.baseSize);
-
-        for (int i = 0; i < datas.length; i++) {
-            String data_ = datas[i];
-            String[] datas_ = data_.split(",");
+        for (int i = 0; i < stageDatas.length; i++) {
+            String data = stageDatas[i];
+            String[] datas = data.split(",");
             float x, y;
-            switch (data_.charAt(0)) {
+            switch (data.charAt(0)) {
                 case 'p':
-                    player = new Player();
-                    player.setX(Float.parseFloat(datas_[1]));
-                    player.setY(Float.parseFloat(datas_[2]));
-                    player.setSpeed(Float.parseFloat(datas_[3]));
-                    player.setSize(context.getResources().getInteger(R.integer.playerSize) * baseSize);
-                    player.setColor(context.getResources().getColor(R.color.player));
+                    x = Float.parseFloat(datas[1]);
+                    y = Float.parseFloat(datas[2]);
+                    player = new Player(x, y);
                     break;
                 case 'w':
                     x = 0;
                     y = 0;
-                    for (int j = 1; j < datas_.length; j++) {
+                    for (int j = 1; j < datas.length; j++) {
                         if (j % 2 == 1) {
-                            float x_ = Float.parseFloat(datas_[j]);
+                            float x_ = Float.parseFloat(datas[j]);
                             walls.add(new Wall(true, x, x_, y));
                             x = x_;
                             if (x > xMax)
                                 xMax = x;
                         } else {
-                            float y_ = Float.parseFloat(datas_[j]);
+                            float y_ = Float.parseFloat(datas[j]);
                             walls.add(new Wall(false, y, y_, x));
                             y = y_;
                             if (y > yMax)
@@ -70,10 +65,19 @@ public class Stage {
                     }
                     break;
                 case 'e':
+                    Enemy enemy = null;
+                    x = Float.parseFloat(datas[2]);
+                    y = Float.parseFloat(datas[3]);
+                    switch (datas[1].charAt(0)) {
+                        case 'o':
+                            enemy = new Observer(x, y);
+                            break;
+                    }
+                    enemies.add(enemy);
                     break;
                 case 'f':
-                    xFinish = Float.parseFloat(datas_[1]);
-                    yFinish = Float.parseFloat(datas_[2]);
+                    xFinish = Float.parseFloat(datas[1]);
+                    yFinish = Float.parseFloat(datas[2]);
                     break;
             }
         }

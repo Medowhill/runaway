@@ -8,9 +8,12 @@
     <color name="abilityButtonCool">#60000000</color>
 
     <color name="gameViewNonArea">#606060</color>
-    <color name="gameViewArea">#ffc0ff</color>
-    <color name="gameViewFinish">#b000b0</color>
+    <color name="gameViewArea">#ffe0ff</color>
+    <color name="gameViewFinish">#900090</color>
 
     <color name="player">#00b0b0</color>
+
+    <color name="observerNormal">#a00000</color>
+    <color name="observerDetecting">#d00000</color>
 
 </resources>

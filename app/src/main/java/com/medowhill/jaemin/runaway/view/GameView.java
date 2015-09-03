@@ -6,14 +6,18 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
 import com.medowhill.jaemin.runaway.buff.Buff;
+import com.medowhill.jaemin.runaway.object.Enemy;
 import com.medowhill.jaemin.runaway.object.Player;
 import com.medowhill.jaemin.runaway.object.Stage;
+
+import java.util.ArrayList;
 
 /**
  * Created by Jaemin on 2015-09-01.
@@ -146,7 +150,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                     Ability ability = player.getAbilities().get(i);
 
                                     if (abilityButton.isClicked()) {
-                                        if (!ability.isWaiting())
+                                        if (player.isAbilityUsable() && !ability.isWaiting())
                                             ability.use(player);
                                         abilityButton.clearClick();
                                     }
@@ -178,6 +182,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 player.move(stage.walls);
 
+                                ArrayList<Enemy> enemies = stage.enemies;
+                                for (Enemy enemy : enemies) {
+                                    enemy.setDirection(player, stage.walls);
+                                    enemy.move(stage.walls);
+                                    if (player.touch(enemy)) {
+                                    }
+                                }
+
                                 float dx = WIDTH / 4, dy = HEIGHT / 4;
                                 if (stage.getxMax() - WIDTH / 4 < player.getX())
                                     dx = 3 * WIDTH / 4 - stage.getxMax();
@@ -196,6 +208,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                         stage.getxFinish() + BASE_SIZE, stage.getyFinish() + BASE_SIZE, paintFinish);
 
                                 player.draw(canvas);
+                                for (Enemy enemy : enemies)
+                                    enemy.draw(canvas);
+
+                                // Log
+                                long time = System.currentTimeMillis() - lastTime;
+                                if (time > FRAME_LENGTH)
+                                    Log.w("RunAway", time + "ms");
                             }
                         } finally {
                             if (canvas != null)

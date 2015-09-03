@@ -6,6 +6,8 @@ import android.view.View;
 
 import com.medowhill.jaemin.runaway.ability.Ability;
 import com.medowhill.jaemin.runaway.ability.Dash;
+import com.medowhill.jaemin.runaway.ability.Teleportation;
+import com.medowhill.jaemin.runaway.object.GameObject;
 import com.medowhill.jaemin.runaway.object.Stage;
 import com.medowhill.jaemin.runaway.view.AbilityButton;
 import com.medowhill.jaemin.runaway.view.DirectionControl;
@@ -33,12 +35,14 @@ public class GameActivity extends Activity {
         for (int i = 0; i < abilityButtons.length; i++)
             abilityButtons[i] = (AbilityButton) findViewById(ABILITY_BUTTON_ID[i]);
 
+        GameObject.setContext(this);
         gameView.setDirectionControl(directionControl);
         gameView.setAbilityButtons(abilityButtons);
 
         Stage stage = new Stage(this, 1);
         ArrayList<Ability> playerAbilities = stage.getPlayer().getAbilities();
         playerAbilities.add(new Dash(1));
+        playerAbilities.add(new Teleportation(1));
 
         for (int i = 0; i < abilityButtons.length; i++) {
             if (playerAbilities.size() > i)
