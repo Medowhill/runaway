@@ -19,7 +19,7 @@ public class Teleportation extends Ability {
     float speed = 1.5f;
 
     public Teleportation(int level) {
-        super(level, 120, R.drawable.skill_icon_teleportation);
+        super(level, 120, R.drawable.ability_icon_teleportation);
     }
 
     @Override

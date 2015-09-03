@@ -1,5 +1,8 @@
 package com.medowhill.jaemin.runaway.object;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
 import com.medowhill.jaemin.runaway.R;
 
 import java.util.ArrayList;
@@ -9,10 +12,18 @@ import java.util.ArrayList;
  */
 public class Player extends GameObject {
 
+    Paint paintInvisible, paintImmortal;
+
     public Player(float x, float y) {
         super(context.getResources().getInteger(R.integer.playerSize) * context.getResources().getInteger(R.integer.baseSize),
                 context.getResources().getInteger(R.integer.playerSize) * context.getResources().getInteger(R.integer.baseSize),
-                context.getResources().getColor(R.color.player), x, y, context.getResources().getInteger(R.integer.playerSpeed));
+                context.getResources().getColor(R.color.playerNormal), x, y, context.getResources().getInteger(R.integer.playerSpeed));
+
+        paintInvisible = new Paint();
+        paintInvisible.setColor(context.getResources().getColor(R.color.playerInvisible));
+
+        paintImmortal = new Paint();
+        paintImmortal.setColor(context.getResources().getColor(R.color.playerImmortal));
     }
 
     public float getX() {
@@ -43,5 +54,15 @@ public class Player extends GameObject {
             else
                 x = location - WIDTH / 2;
         }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        if (!mortal)
+            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintImmortal);
+        else if (!visible)
+            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintInvisible);
+        else
+            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintNormal);
     }
 }

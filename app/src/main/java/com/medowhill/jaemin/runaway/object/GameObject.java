@@ -184,9 +184,6 @@ public abstract class GameObject {
         }
     }
 
-    void modifyMove(Wall wall, ArrayList<Wall> walls) {
-    }
-
     boolean willTouchAfterMove(Wall wall) {
         float start = wall.START, end = wall.END, location = wall.LOCATION;
 
@@ -216,7 +213,7 @@ public abstract class GameObject {
         }
     }
 
-    public void draw(Canvas canvas) {
-        canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintNormal);
-    }
+    abstract void modifyMove(Wall wall, ArrayList<Wall> walls);
+
+    public abstract void draw(Canvas canvas);
 }

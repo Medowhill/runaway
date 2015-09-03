@@ -1,11 +1,14 @@
-package com.medowhill.jaemin.runaway;
+package com.medowhill.jaemin.runaway.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
 import com.medowhill.jaemin.runaway.ability.Dash;
+import com.medowhill.jaemin.runaway.ability.Hiding;
+import com.medowhill.jaemin.runaway.ability.Protection;
 import com.medowhill.jaemin.runaway.ability.Teleportation;
 import com.medowhill.jaemin.runaway.object.GameObject;
 import com.medowhill.jaemin.runaway.object.Stage;
@@ -43,6 +46,8 @@ public class GameActivity extends Activity {
         ArrayList<Ability> playerAbilities = stage.getPlayer().getAbilities();
         playerAbilities.add(new Dash(1));
         playerAbilities.add(new Teleportation(1));
+        playerAbilities.add(new Hiding(1));
+        playerAbilities.add(new Protection(1));
 
         for (int i = 0; i < abilityButtons.length; i++) {
             if (playerAbilities.size() > i)

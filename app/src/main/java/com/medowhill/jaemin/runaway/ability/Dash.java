@@ -17,7 +17,7 @@ public class Dash extends Ability {
     float speed;
 
     public Dash(int level) {
-        super(level, 120, R.drawable.skill_icon_dash);
+        super(level, 120, R.drawable.ability_icon_dash);
         frame = 10;
         speed = 1.5f;
     }
