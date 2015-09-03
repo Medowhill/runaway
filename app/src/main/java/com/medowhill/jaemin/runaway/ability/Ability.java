@@ -7,12 +7,9 @@ import com.medowhill.jaemin.runaway.object.GameObject;
  */
 public abstract class Ability {
 
-    final public int iconResourceID;
-
-    final int WAITING_FRAME;
-
+    public final int iconResourceID;
+    public final int WAITING_FRAME;
     final int LEVEL;
-
     int remainWaitingFrame;
 
     Ability(int level, int waitingFrame, int iconResourceID) {
@@ -22,9 +19,10 @@ public abstract class Ability {
     }
 
     public void use(GameObject gameObject) {
-        if (remainWaitingFrame == 0) {
-            remainWaitingFrame = WAITING_FRAME;
-        }
+        if (remainWaitingFrame != 0)
+            return;
+
+        remainWaitingFrame = WAITING_FRAME;
     }
 
     public float getRemainRatio() {
@@ -37,11 +35,11 @@ public abstract class Ability {
             remainWaitingFrame = 0;
     }
 
-    public int getRemainWaitingFrame() {
-        return remainWaitingFrame;
+    public boolean isWaiting() {
+        return remainWaitingFrame != 0;
     }
 
-    public int getIconResourceID() {
-        return iconResourceID;
+    public int getRemainWaitingFrame() {
+        return remainWaitingFrame;
     }
 }

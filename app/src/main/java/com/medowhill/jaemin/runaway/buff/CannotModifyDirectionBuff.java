@@ -11,4 +11,19 @@ public class CannotModifyDirectionBuff extends Buff {
         super(gameObject, remainingTime);
         directionModifiable = false;
     }
+
+    @Override
+    public void endBuff() {
+        directionModifiable = true;
+        gameObject.setDirectionModifiable();
+    }
+
+    @Override
+    public void startBuff() {
+        gameObject.setDirectionModifiable();
+    }
+
+    @Override
+    public void duringBuff() {
+    }
 }

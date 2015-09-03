@@ -4,11 +4,14 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.medowhill.jaemin.runaway.R;
+import com.medowhill.jaemin.runaway.ability.Ability;
+import com.medowhill.jaemin.runaway.buff.Buff;
 import com.medowhill.jaemin.runaway.object.Player;
 import com.medowhill.jaemin.runaway.object.Stage;
 
@@ -136,15 +139,43 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 Player player = stage.getPlayer();
 
-                                for (int i = 0; i < abilityButtons.length; i++) {
+                                player.setDirection(directionControl.getDirection());
+
+                                for (int i = 0; i < player.getAbilities().size(); i++) {
                                     AbilityButton abilityButton = abilityButtons[i];
+                                    Ability ability = player.getAbilities().get(i);
+
                                     if (abilityButton.isClicked()) {
-                                        abilityButton.getAbility().use(player);
+                                        if (!ability.isWaiting())
+                                            ability.use(player);
                                         abilityButton.clearClick();
+                                    }
+
+                                    if (ability.isWaiting()) {
+                                        Message message = new Message();
+                                        message.arg1 = ability.getRemainWaitingFrame();
+                                        message.arg2 = ability.WAITING_FRAME;
+                                        abilityButton.getDrawHandler().sendMessage(message);
+                                        ability.decreaseRemaining(1);
                                     }
                                 }
 
-                                player.setDirection(directionControl.getDirection());
+                                for (int i = 0; i < player.getBuffs().size(); i++) {
+                                    Buff buff = player.getBuffs().get(i);
+
+                                    if (!buff.isStart()) {
+                                        buff.startBuff();
+                                        buff.setStart(true);
+                                    } else if (buff.isEnd()) {
+                                        buff.endBuff();
+                                        player.getBuffs().remove(i);
+                                        i--;
+                                    } else {
+                                        buff.duringBuff();
+                                    }
+                                    buff.framePass();
+                                }
+
                                 player.move(stage.walls);
 
                                 float dx = WIDTH / 4, dy = HEIGHT / 4;

@@ -22,12 +22,7 @@
         android:orientation="horizontal">
 
         <com.medowhill.jaemin.runaway.view.AbilityButton
-            android:id="@+id/abilityButton1"
-            android:layout_width="@dimen/abilityButtonSize"
-            android:layout_height="@dimen/abilityButtonSize" />
-
-        <com.medowhill.jaemin.runaway.view.AbilityButton
-            android:id="@+id/abilityButton2"
+            android:id="@+id/abilityButton4"
             android:layout_width="@dimen/abilityButtonSize"
             android:layout_height="@dimen/abilityButtonSize" />
 
@@ -37,7 +32,12 @@
             android:layout_height="@dimen/abilityButtonSize" />
 
         <com.medowhill.jaemin.runaway.view.AbilityButton
-            android:id="@+id/abilityButton4"
+            android:id="@+id/abilityButton2"
+            android:layout_width="@dimen/abilityButtonSize"
+            android:layout_height="@dimen/abilityButtonSize" />
+
+        <com.medowhill.jaemin.runaway.view.AbilityButton
+            android:id="@+id/abilityButton1"
             android:layout_width="@dimen/abilityButtonSize"
             android:layout_height="@dimen/abilityButtonSize" />
 

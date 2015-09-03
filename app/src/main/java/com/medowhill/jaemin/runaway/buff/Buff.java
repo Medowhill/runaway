@@ -20,26 +20,45 @@ public abstract class Buff {
         this.remainingTime = remainingTime;
     }
 
-    void startBuff() {
-        start = true;
-    }
+    abstract public void startBuff();
 
-    void endBuff() {
-        end = true;
-    }
+    abstract public void endBuff();
+
+    abstract public void duringBuff();
 
     public boolean isStart() {
         return start;
     }
 
+    public void setStart(boolean start) {
+        this.start = start;
+    }
+
     public boolean isEnd() {
-        return end;
+        return remainingTime == 0;
     }
 
     public void framePass() {
         remainingTime--;
+    }
 
-        if (remainingTime == 0)
-            endBuff();
+    public boolean isAbilityUsable() {
+        return abilityUsable;
+    }
+
+    public boolean isDirectionModifiable() {
+        return directionModifiable;
+    }
+
+    public boolean isMortal() {
+        return mortal;
+    }
+
+    public boolean isMovable() {
+        return movable;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 }

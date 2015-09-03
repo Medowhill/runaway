@@ -1,7 +1,9 @@
 package com.medowhill.jaemin.runaway.ability;
 
+import com.medowhill.jaemin.runaway.Direction;
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.buff.Buff;
+import com.medowhill.jaemin.runaway.buff.CannotModifyDirectionBuff;
 import com.medowhill.jaemin.runaway.buff.SpeedChangeBuff;
 import com.medowhill.jaemin.runaway.object.GameObject;
 
@@ -10,15 +12,27 @@ import com.medowhill.jaemin.runaway.object.GameObject;
  */
 public class Dash extends Ability {
 
+    int frame;
+    float speed;
+
     public Dash(int level) {
-        super(level, 80, R.mipmap.skill_icon_dash);
+        super(level, 120, R.drawable.skill_icon_dash);
+        frame = 10;
+        speed = 1.5f;
     }
 
     @Override
     public void use(final GameObject gameObject) {
         super.use(gameObject);
 
-        Buff buff = new SpeedChangeBuff(gameObject, 20, 1);
+        if (gameObject.getDirection() == Direction.NONE) {
+            remainWaitingFrame = 0;
+            return;
+        }
+
+        Buff buff = new SpeedChangeBuff(gameObject, frame, speed);
+        gameObject.addBuff(buff);
+        buff = new CannotModifyDirectionBuff(gameObject, frame);
         gameObject.addBuff(buff);
     }
 }

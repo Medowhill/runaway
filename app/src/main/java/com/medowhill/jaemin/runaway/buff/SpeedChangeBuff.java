@@ -15,14 +15,17 @@ public class SpeedChangeBuff extends Buff {
     }
 
     @Override
-    void endBuff() {
-        super.endBuff();
+    public void endBuff() {
         gameObject.modifySpeedMultiplier(-dSpeed);
     }
 
     @Override
-    void startBuff() {
-        super.startBuff();
+    public void startBuff() {
         gameObject.modifySpeedMultiplier(dSpeed);
+    }
+
+    @Override
+    public void duringBuff() {
+
     }
 }

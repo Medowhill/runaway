@@ -5,12 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.medowhill.jaemin.runaway.R;
-import com.medowhill.jaemin.runaway.ability.Ability;
 
 /**
  * Created by Jaemin on 2015-09-01.
@@ -19,13 +20,23 @@ public class AbilityButton extends View {
 
     private final float OUTER_SIZE = 0.375f, INNER_SIZE = 0.325f;
 
-    private boolean touched = false, clicked = false, cool = false;
-
-    private Ability ability;
+    private boolean touched = false, clicked = false;
 
     private Bitmap icon;
 
+    private float ratio = 0;
+
+    private int iconResourceID;
+
     private Paint paintBorder, paintTouched, paintCool;
+
+    private Handler drawHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            ratio = 1.f * msg.arg1 / msg.arg2;
+            invalidate();
+        }
+    };
 
     public AbilityButton(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -62,8 +73,7 @@ public class AbilityButton extends View {
             case MotionEvent.ACTION_UP:
                 if (touched) {
                     touched = false;
-                    if (!cool)
-                        clicked = true;
+                    clicked = true;
                     invalidate();
                 }
                 break;
@@ -79,7 +89,7 @@ public class AbilityButton extends View {
                 width * (0.5f + OUTER_SIZE), height * (0.5f + OUTER_SIZE), paintBorder);
 
         if (icon == null) {
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), ability.getIconResourceID());
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), iconResourceID);
             icon = Bitmap.createScaledBitmap(bitmap, (int) (getWidth() * 2 * INNER_SIZE), (int) (getHeight() * 2 * INNER_SIZE), false);
             bitmap.recycle();
             bitmap = null;
@@ -91,10 +101,9 @@ public class AbilityButton extends View {
                     width * (0.5f + INNER_SIZE), height * (0.5f + INNER_SIZE), paintBorder);
         }
 
-        if (cool) {
-            float ratio = ability.getRemainRatio();
-            canvas.drawRect(width * (0.5f - INNER_SIZE) * ratio, height * (0.5f - INNER_SIZE) * ratio,
-                    width * (0.5f + INNER_SIZE) * ratio, height * (0.5f + INNER_SIZE) * ratio, paintCool);
+        if (ratio != 0) {
+            canvas.drawRect(width * (0.5f - INNER_SIZE * ratio), height * (0.5f - INNER_SIZE * ratio),
+                    width * (0.5f + INNER_SIZE * ratio), height * (0.5f + INNER_SIZE * ratio), paintCool);
         }
     }
 
@@ -104,15 +113,13 @@ public class AbilityButton extends View {
 
     public void clearClick() {
         clicked = false;
-        cool = true;
-        invalidate();
     }
 
-    public Ability getAbility() {
-        return ability;
+    public void setIconResourceID(int iconResourceID) {
+        this.iconResourceID = iconResourceID;
     }
 
-    public void setAbility(Ability ability) {
-        this.ability = ability;
+    public Handler getDrawHandler() {
+        return drawHandler;
     }
 }

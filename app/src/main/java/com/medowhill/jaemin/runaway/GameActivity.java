@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.medowhill.jaemin.runaway.ability.Ability;
 import com.medowhill.jaemin.runaway.ability.Dash;
 import com.medowhill.jaemin.runaway.object.Stage;
 import com.medowhill.jaemin.runaway.view.AbilityButton;
 import com.medowhill.jaemin.runaway.view.DirectionControl;
 import com.medowhill.jaemin.runaway.view.GameView;
+
+import java.util.ArrayList;
 
 public class GameActivity extends Activity {
 
@@ -30,15 +33,21 @@ public class GameActivity extends Activity {
         for (int i = 0; i < abilityButtons.length; i++)
             abilityButtons[i] = (AbilityButton) findViewById(ABILITY_BUTTON_ID[i]);
 
-        abilityButtons[0].setAbility(new Dash(1));
-        abilityButtons[1].setVisibility(View.GONE);
-        abilityButtons[2].setVisibility(View.GONE);
-        abilityButtons[3].setVisibility(View.GONE);
-
         gameView.setDirectionControl(directionControl);
         gameView.setAbilityButtons(abilityButtons);
 
-        gameView.setStage(new Stage(this, 1));
+        Stage stage = new Stage(this, 1);
+        ArrayList<Ability> playerAbilities = stage.getPlayer().getAbilities();
+        playerAbilities.add(new Dash(1));
+
+        for (int i = 0; i < abilityButtons.length; i++) {
+            if (playerAbilities.size() > i)
+                abilityButtons[i].setIconResourceID(playerAbilities.get(i).iconResourceID);
+            else
+                abilityButtons[i].setVisibility(View.GONE);
+        }
+
+        gameView.setStage(stage);
         gameView.startGame();
     }
 

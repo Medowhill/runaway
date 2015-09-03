@@ -24,6 +24,8 @@ public abstract class GameObject {
 
     float width, height;
 
+    boolean movable = true, directionModifiable = true, abilityUsable = true, visible = true, mortal = true;
+
     Paint paint;
 
     ArrayList<Ability> abilities;
@@ -45,6 +47,10 @@ public abstract class GameObject {
         this.y = y;
     }
 
+    public int getDirection() {
+        return direction;
+    }
+
     void setSpeed(float speed) {
         this.speed = speed;
     }
@@ -53,19 +59,91 @@ public abstract class GameObject {
         paint.setColor(color);
     }
 
-    public void move(ArrayList<Wall> walls) {
-        for (Wall wall : walls) {
-            if (willTouchAfterMove(wall)) {
-                moveUntilWall(wall);
+    public void setAbilityUsable() {
+        abilityUsable = true;
+        for (Buff buff : buffs) {
+            if (!buff.isAbilityUsable()) {
+                abilityUsable = false;
                 return;
             }
         }
-        x += getXSpeed();
-        y += getYSpeed();
+    }
+
+    public void setMovable() {
+        movable = true;
+        for (Buff buff : buffs) {
+            if (!buff.isMovable()) {
+                movable = false;
+                return;
+            }
+        }
+    }
+
+    public void setDirectionModifiable() {
+        directionModifiable = true;
+        for (Buff buff : buffs) {
+            if (!buff.isDirectionModifiable()) {
+                directionModifiable = false;
+                return;
+            }
+        }
+    }
+
+    public void setVisible() {
+        visible = true;
+        for (Buff buff : buffs) {
+            if (!buff.isVisible()) {
+                visible = false;
+                return;
+            }
+        }
+    }
+
+    public void setMortal() {
+        mortal = true;
+        for (Buff buff : buffs) {
+            if (!buff.isMortal()) {
+                mortal = false;
+                return;
+            }
+        }
+    }
+
+    public boolean isAbilityUsable() {
+        return abilityUsable;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public boolean isMortal() {
+        return mortal;
+    }
+
+    public void move(ArrayList<Wall> walls) {
+        if (movable) {
+            for (Wall wall : walls) {
+                if (willTouchAfterMove(wall)) {
+                    moveUntilWall(wall);
+                    return;
+                }
+            }
+            x += getXSpeed();
+            y += getYSpeed();
+        }
     }
 
     public void draw(Canvas canvas) {
         canvas.drawRect(x - width / 2, y - height / 2, x + width / 2, y + height / 2, paint);
+    }
+
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public ArrayList<Ability> getAbilities() {
+        return abilities;
     }
 
     float getXSpeed() {
@@ -92,6 +170,10 @@ public abstract class GameObject {
 
     public void addBuff(Buff buff) {
         buffs.add(buff);
+    }
+
+    public void addAbility(Ability ability) {
+        abilities.add(ability);
     }
 
     void moveUntilWall(Wall wall) {

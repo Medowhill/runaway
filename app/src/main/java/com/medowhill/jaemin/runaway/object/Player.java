@@ -19,6 +19,7 @@ public class Player extends GameObject {
     }
 
     public void setDirection(int direction) {
-        this.direction = direction;
+        if (directionModifiable)
+            this.direction = direction;
     }
 }
