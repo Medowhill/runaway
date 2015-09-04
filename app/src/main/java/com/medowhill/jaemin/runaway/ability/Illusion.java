@@ -10,7 +10,7 @@ import com.medowhill.jaemin.runaway.object.GameObject;
  */
 public class Illusion extends Ability {
 
-    int frame = 120;
+    int frame = 60;
 
     public Illusion(int level) {
         super(level, 360, R.drawable.ability_icon_illusion);

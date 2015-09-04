@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public abstract class Enemy extends GameObject {
 
-    static final int NON_MOVING_DISTANCE = 1500, RE_DIRECTION_FRAME = 30;
+    static final int NON_MOVING_DISTANCE = 2560, RE_DIRECTION_FRAME = 30;
 
     float sight;
 
@@ -21,6 +21,8 @@ public abstract class Enemy extends GameObject {
     int directingFrame = 0;
 
     boolean detect = false, detectIllusion = false, active = false;
+
+    boolean substitute = false;
 
     Paint paintDetecting;
 
@@ -33,6 +35,10 @@ public abstract class Enemy extends GameObject {
         this.sight = sight;
     }
 
+    public void setSubstitute(boolean substitute) {
+        this.substitute = substitute;
+    }
+
     @Override
     public void draw(Canvas canvas) {
         if (detect)
@@ -42,14 +48,19 @@ public abstract class Enemy extends GameObject {
     }
 
     public void detect(GameObject gameObject, ArrayList<Wall> walls) {
+
+        float x1 = gameObject.x, y1 = gameObject.y;
+
         detectIllusion = false;
         if (gameObject instanceof Player) {
             Player player = (Player) gameObject;
             if (player.isUsingIllusion())
                 detectIllusion(player.getIllusion(), walls);
+            else if (player.isUsingSubstitute()) {
+                x1 = player.getSubstitute().x;
+                y1 = player.getSubstitute().y;
+            }
         }
-
-        float x1 = gameObject.x, y1 = gameObject.y;
 
         detect = false;
 

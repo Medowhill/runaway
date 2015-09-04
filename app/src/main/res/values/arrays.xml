@@ -2,7 +2,7 @@
 <resources>
 
     <string-array name="stageInfo">
-        <item>p,50,50,30/f,50,1950/w,3000,3000,0,2300,2300,700,0,0/e,o,2000,350</item>
+        <item>p,50,50,30/f,50,2950/w,3000,3000,0,2300,2300,700,0,0/e,o,2500,350/e,o,1500,350</item>
     </string-array>
 
 </resources>

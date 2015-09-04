@@ -7,4 +7,5 @@
     <string name="abilityHidingName">Hiding</string>
     <string name="abilityProtectionName">Protection</string>
     <string name="abilityIllusionName">Illusion</string>
+    <string name="abilitySubstituteName">Substitute</string>
 </resources>

@@ -13,9 +13,11 @@ import java.util.ArrayList;
  */
 public class Player extends GameObject {
 
-    boolean usingIllusion = false, isIllusion = false;
+    boolean usingIllusion = false, isIllusion = false, usingSubstitute = false;
 
     Player illusion;
+
+    Enemy substitute;
 
     Paint paintInvisible, paintImmortal, paintIllusion;
 
@@ -47,6 +49,10 @@ public class Player extends GameObject {
         return this.y;
     }
 
+    public boolean isUsingSubstitute() {
+        return usingSubstitute;
+    }
+
     public boolean isUsingIllusion() {
         return usingIllusion;
     }
@@ -57,6 +63,10 @@ public class Player extends GameObject {
 
     public Player getIllusion() {
         return illusion;
+    }
+
+    public Enemy getSubstitute() {
+        return substitute;
     }
 
     public void setIllusionLocation() {

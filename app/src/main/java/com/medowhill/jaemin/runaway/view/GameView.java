@@ -124,7 +124,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private class SurfaceThread extends Thread {
 
         SurfaceHolder surfaceHolder;
-        boolean run = true, gameStart = false, gameOver = false;
+        boolean run = true, gameStart = false, gameOver = false, gameClear = false;
         long lastTime;
         int gameOverFrame;
 
@@ -153,7 +153,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 Player player = stage.getPlayer();
 
-                                if (!gameOver) {
+                                if (!gameOver && !gameClear) {
                                     player.setDirection(directionControl.getDirection());
 
                                     for (int i = 0; i < player.getAbilities().size(); i++) {
@@ -196,15 +196,24 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                         player.getIllusion().move(stage.walls);
                                 }
 
+                                if (!gameClear && player.getX() == stage.getxFinish() && player.getY() == stage.getyFinish()) {
+                                    gameClear = true;
+                                    Message message = new Message();
+                                    message.what = 0;
+                                    gameOverHandler.sendMessage(message);
+                                }
+
                                 ArrayList<Enemy> enemies = stage.enemies;
-                                for (Enemy enemy : enemies) {
-                                    enemy.setDirection(player, stage.walls);
-                                    enemy.move(stage.walls);
-                                    if (player.isMortal() && !gameOver && player.touch(enemy)) {
-                                        gameOver = true;
-                                        Message message = new Message();
-                                        message.what = 0;
-                                        gameOverHandler.sendMessage(message);
+                                if (!gameClear) {
+                                    for (Enemy enemy : enemies) {
+                                        enemy.setDirection(player, stage.walls);
+                                        enemy.move(stage.walls);
+                                        if (player.isMortal() && !gameOver && player.touch(enemy)) {
+                                            gameOver = true;
+                                            Message message = new Message();
+                                            message.what = 0;
+                                            gameOverHandler.sendMessage(message);
+                                        }
                                     }
                                 }
 
@@ -231,7 +240,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 for (Enemy enemy : enemies)
                                     enemy.draw(canvas);
 
-                                if (gameOver) {
+                                if (gameOver || gameClear) {
                                     canvas.translate(-dx, -dy);
 
                                     paintGameOver.setColor(Color.argb(255 * gameOverFrame / GAME_OVER_FRAME, 0, 0, 0));

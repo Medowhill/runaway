@@ -6,4 +6,5 @@
     <string name="abilityIllusionName">환영</string>
     <string name="abilityProtectionName">보호막</string>
     <string name="abilityTeleportationName">공간 이동</string>
+    <string name="abilitySubstituteName">바꿔치기</string>
 </resources>

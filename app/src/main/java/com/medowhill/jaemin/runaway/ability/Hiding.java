@@ -11,7 +11,7 @@ import com.medowhill.jaemin.runaway.object.GameObject;
  */
 public class Hiding extends Ability {
 
-    int waitingFrame = 40;
+    int waitingFrame = 20;
     int frame = 40;
 
     public Hiding(int level) {
