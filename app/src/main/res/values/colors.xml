@@ -16,7 +16,8 @@
     <color name="playerImmortal">#00e0e0</color>
     <color name="playerIllusion">#a0b0b0</color>
 
-    <color name="observerNormal">#a00000</color>
-    <color name="observerDetecting">#d00000</color>
+    <color name="observerNormal">#b00000</color>
+    <color name="observerDetecting">#f00000</color>
+    <color name="observerSubstitute">#700000</color>
 
 </resources>

@@ -6,8 +6,6 @@ import android.graphics.Paint;
 import com.medowhill.jaemin.runaway.Direction;
 import com.medowhill.jaemin.runaway.R;
 
-import java.util.ArrayList;
-
 /**
  * Created by Jaemin on 2015-09-01.
  */
@@ -21,8 +19,8 @@ public class Player extends GameObject {
 
     Paint paintInvisible, paintImmortal, paintIllusion;
 
-    public Player(float x, float y, boolean isIllusion) {
-        super(context.getResources().getInteger(R.integer.playerSize) * context.getResources().getInteger(R.integer.baseSize),
+    public Player(Stage stage, float x, float y, boolean isIllusion) {
+        super(stage, context.getResources().getInteger(R.integer.playerSize) * context.getResources().getInteger(R.integer.baseSize),
                 context.getResources().getInteger(R.integer.playerSize) * context.getResources().getInteger(R.integer.baseSize),
                 context.getResources().getColor(R.color.playerNormal), x, y, context.getResources().getInteger(R.integer.playerSpeed));
 
@@ -38,19 +36,15 @@ public class Player extends GameObject {
         this.isIllusion = isIllusion;
 
         if (!isIllusion)
-            illusion = new Player(0, 0, true);
-    }
-
-    public float getX() {
-        return this.x;
-    }
-
-    public float getY() {
-        return this.y;
+            illusion = new Player(stage, 0, 0, true);
     }
 
     public boolean isUsingSubstitute() {
         return usingSubstitute;
+    }
+
+    public void setUsingSubstitute(boolean usingSubstitute) {
+        this.usingSubstitute = usingSubstitute;
     }
 
     public boolean isUsingIllusion() {
@@ -69,6 +63,10 @@ public class Player extends GameObject {
         return substitute;
     }
 
+    public void setSubstitute(Enemy substitute) {
+        this.substitute = substitute;
+    }
+
     public void setIllusionLocation() {
         illusion.x = x;
         illusion.y = y;
@@ -85,7 +83,7 @@ public class Player extends GameObject {
     }
 
     @Override
-    void modifyMove(Wall wall, ArrayList<Wall> walls) {
+    void modifyMove(Wall wall) {
         float location = wall.LOCATION;
 
         if (wall.HORIZONTAL) {

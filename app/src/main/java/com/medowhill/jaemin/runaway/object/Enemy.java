@@ -5,72 +5,70 @@ import android.graphics.Paint;
 
 import com.medowhill.jaemin.runaway.Direction;
 
-import java.util.ArrayList;
-
 /**
  * Created by Jaemin on 2015-09-01.
  */
 public abstract class Enemy extends GameObject {
 
+    // Static Constant
     static final int NON_MOVING_DISTANCE = 2560, RE_DIRECTION_FRAME = 30;
 
+    // Sight
     float sight;
 
+    // Direction
     int direction2 = Direction.NONE;
-
     int directingFrame = 0;
 
-    boolean detect = false, detectIllusion = false, active = false;
+    // State
+    boolean detect = false, detectIllusion = false, active = false, substitute = false;
 
-    boolean substitute = false;
+    // Paint
+    Paint paintDetecting, paintSubstitute;
 
-    Paint paintDetecting;
-
-    public Enemy(float size, int color, int colorDetecting, float x, float y, float speed, float sight) {
-        super(size, size, color, x, y, speed);
+    // Constructor
+    public Enemy(Stage stage, float size, int color, int colorDetecting, int colorSubstitute, float x, float y, float speed, float sight) {
+        super(stage, size, size, color, x, y, speed);
 
         paintDetecting = new Paint();
         paintDetecting.setColor(colorDetecting);
 
+        paintSubstitute = new Paint();
+        paintSubstitute.setColor(colorSubstitute);
+
         this.sight = sight;
     }
+
+    // Setter
 
     public void setSubstitute(boolean substitute) {
         this.substitute = substitute;
     }
 
-    @Override
-    public void draw(Canvas canvas) {
-        if (detect)
-            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintDetecting);
-        else
-            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintNormal);
-    }
+    // Moving Method
 
-    public void detect(GameObject gameObject, ArrayList<Wall> walls) {
+    public void detect() {
+        Player player = stage.getPlayer();
 
-        float x1 = gameObject.x, y1 = gameObject.y;
+        float x1 = player.x, y1 = player.y;
 
         detectIllusion = false;
-        if (gameObject instanceof Player) {
-            Player player = (Player) gameObject;
-            if (player.isUsingIllusion())
-                detectIllusion(player.getIllusion(), walls);
-            else if (player.isUsingSubstitute()) {
-                x1 = player.getSubstitute().x;
-                y1 = player.getSubstitute().y;
-            }
+        if (player.isUsingIllusion())
+            detectIllusion(player.getIllusion());
+        else if (player.isUsingSubstitute()) {
+            x1 = player.getSubstitute().x;
+            y1 = player.getSubstitute().y;
         }
 
         detect = false;
 
-        if (!gameObject.isVisible())
+        if (!player.isVisible())
             return;
 
         if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > sight * sight)
             return;
 
-        for (Wall wall : walls) {
+        for (Wall wall : stage.walls) {
             if (wall.HORIZONTAL) {
                 if ((y1 - wall.LOCATION) * (y - wall.LOCATION) < 0) {
                     float x_ = (wall.LOCATION - y1) / (y - y1) * (x - x1) + x1;
@@ -91,16 +89,13 @@ public abstract class Enemy extends GameObject {
         active = true;
     }
 
-    void detectIllusion(GameObject gameObject, ArrayList<Wall> walls) {
-        float x1 = gameObject.x, y1 = gameObject.y;
-
-        if (!gameObject.isVisible())
-            return;
+    void detectIllusion(Player illusion) {
+        float x1 = illusion.x, y1 = illusion.y;
 
         if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > sight * sight)
             return;
 
-        for (Wall wall : walls) {
+        for (Wall wall : stage.walls) {
             if (wall.HORIZONTAL) {
                 if ((y1 - wall.LOCATION) * (y - wall.LOCATION) < 0) {
                     float x_ = (wall.LOCATION - y1) / (y - y1) * (x - x1) + x1;
@@ -121,32 +116,38 @@ public abstract class Enemy extends GameObject {
         active = true;
     }
 
-    public void setDirection(GameObject gameObject, ArrayList<Wall> walls) {
-        float x1 = gameObject.x, y1 = gameObject.y;
+    public void setDirection() {
+        if (substitute) {
+            direction = Direction.NONE;
+            return;
+        }
+
+        Player player = stage.getPlayer();
+
+        float x1 = player.x, y1 = player.y;
+
+        if (player.isUsingSubstitute()) {
+            x1 = player.getSubstitute().x;
+            y1 = player.getSubstitute().y;
+        }
 
         if (!active && (x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > NON_MOVING_DISTANCE * NON_MOVING_DISTANCE) {
             direction = Direction.NONE;
             return;
         }
 
-        detect(gameObject, walls);
+        detect();
 
         if (detect || detectIllusion) {
             if (detect && detectIllusion) {
-                if (gameObject instanceof Player) {
-                    Player player = (Player) gameObject;
-                    float x2 = player.getIllusion().x, y2 = player.getIllusion().y;
-                    if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > (x2 - x) * (x2 - x) + (y2 - y) * (y2 - y)) {
-                        x1 = x2;
-                        y1 = y2;
-                    }
+                float x2 = player.getIllusion().x, y2 = player.getIllusion().y;
+                if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > (x2 - x) * (x2 - x) + (y2 - y) * (y2 - y)) {
+                    x1 = x2;
+                    y1 = y2;
                 }
             } else if (!detect && detectIllusion) {
-                if (gameObject instanceof Player) {
-                    Player player = (Player) gameObject;
-                    x1 = player.getIllusion().x;
-                    y1 = player.getIllusion().y;
-                }
+                x1 = player.getIllusion().x;
+                y1 = player.getIllusion().y;
             }
 
             float dx = x - x1, dy = y - y1;
@@ -183,9 +184,22 @@ public abstract class Enemy extends GameObject {
     }
 
     @Override
-    void modifyMove(Wall wall, ArrayList<Wall> walls) {
+    void modifyMove(Wall wall) {
         direction = direction2;
         direction2 = Direction.NONE;
-        move(walls);
+        move();
     }
+
+    // Drawing Method
+
+    @Override
+    public void draw(Canvas canvas) {
+        if (substitute)
+            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintSubstitute);
+        else if (detect)
+            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintDetecting);
+        else
+            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintNormal);
+    }
+
 }

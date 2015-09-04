@@ -62,5 +62,17 @@ public class GameReadyActivity extends Activity {
                     button2.setText(R.string.abilityProtectionName);
             }
         });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ability3++;
+                ability3 %= 2;
+                if (ability3 % 2 == 0)
+                    button3.setText(R.string.abilityIllusionName);
+                else
+                    button3.setText(R.string.abilitySubstituteName);
+            }
+        });
     }
 }

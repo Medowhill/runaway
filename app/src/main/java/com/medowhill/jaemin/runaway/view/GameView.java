@@ -191,9 +191,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                         buff.framePass();
                                     }
 
-                                    player.move(stage.walls);
+                                    player.move();
                                     if (player.isUsingIllusion())
-                                        player.getIllusion().move(stage.walls);
+                                        player.getIllusion().move();
                                 }
 
                                 if (!gameClear && player.getX() == stage.getxFinish() && player.getY() == stage.getyFinish()) {
@@ -206,8 +206,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 ArrayList<Enemy> enemies = stage.enemies;
                                 if (!gameClear) {
                                     for (Enemy enemy : enemies) {
-                                        enemy.setDirection(player, stage.walls);
-                                        enemy.move(stage.walls);
+                                        enemy.setDirection();
+                                        enemy.move();
                                         if (player.isMortal() && !gameOver && player.touch(enemy)) {
                                             gameOver = true;
                                             Message message = new Message();

@@ -42,8 +42,13 @@ public abstract class GameObject {
     // Buff
     ArrayList<Buff> buffs;
 
+    // Stage
+    Stage stage;
+
     // Constructor
-    GameObject(float width, float height, int color, float x, float y, float speed) {
+    GameObject(Stage stage, float width, float height, int color, float x, float y, float speed) {
+        this.stage = stage;
+
         this.WIDTH = width;
         this.HEIGHT = height;
 
@@ -58,22 +63,83 @@ public abstract class GameObject {
         buffs = new ArrayList<>();
     }
 
+    // Static Setter
+
     public static void setContext(Context context) {
         GameObject.context = context;
     }
 
-    public boolean touch(GameObject gameObject) {
-        float x1 = gameObject.x, y1 = gameObject.y, width1 = gameObject.WIDTH, height1 = gameObject.HEIGHT;
-        return Math.abs(x1 - x) < (WIDTH + width1) / 2 && Math.abs(y1 - y) < (HEIGHT + height1) / 2;
+    // Getter
+
+    public float getX() {
+        return this.x;
+    }
+
+    public float getY() {
+        return this.y;
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 
     public int getDirection() {
         return direction;
     }
 
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public void addBuff(Buff buff) {
+        buffs.add(buff);
+    }
+
+    public ArrayList<Ability> getAbilities() {
+        return abilities;
+    }
+
+    // State Getter
+
+    public boolean isAbilityUsable() {
+        return abilityUsable;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public boolean isMortal() {
+        return mortal;
+    }
+
+    // Speed Getter
+
+    float getXSpeed() {
+        if (direction == Direction.LEFT)
+            return -1 * speed * speedMultiplier;
+        else if (direction == Direction.RIGHT)
+            return speed * speedMultiplier;
+        else
+            return 0;
+    }
+
+    float getYSpeed() {
+        if (direction == Direction.UP)
+            return -1 * speed * speedMultiplier;
+        else if (direction == Direction.DOWN)
+            return speed * speedMultiplier;
+        else
+            return 0;
+    }
+
+    // Setter
+
     void setSpeed(float speed) {
         this.speed = speed;
     }
+
+    // State Setter
 
     public void setAbilityUsable() {
         abilityUsable = true;
@@ -125,57 +191,26 @@ public abstract class GameObject {
         }
     }
 
-    public boolean isAbilityUsable() {
-        return abilityUsable;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public boolean isMortal() {
-        return mortal;
-    }
-
-    public ArrayList<Buff> getBuffs() {
-        return buffs;
-    }
-
-    public void addBuff(Buff buff) {
-        buffs.add(buff);
-    }
-
-    public ArrayList<Ability> getAbilities() {
-        return abilities;
-    }
-
-    float getXSpeed() {
-        if (direction == Direction.LEFT)
-            return -1 * speed * speedMultiplier;
-        else if (direction == Direction.RIGHT)
-            return speed * speedMultiplier;
-        else
-            return 0;
-    }
-
-    float getYSpeed() {
-        if (direction == Direction.UP)
-            return -1 * speed * speedMultiplier;
-        else if (direction == Direction.DOWN)
-            return speed * speedMultiplier;
-        else
-            return 0;
-    }
+    // Speed Setter
 
     public void modifySpeedMultiplier(float dSpeed) {
         speedMultiplier += dSpeed;
     }
 
-    public void move(ArrayList<Wall> walls) {
+    // Check Touch
+
+    public boolean touch(GameObject gameObject) {
+        float x1 = gameObject.x, y1 = gameObject.y, width1 = gameObject.WIDTH, height1 = gameObject.HEIGHT;
+        return Math.abs(x1 - x) < (WIDTH + width1) / 2 && Math.abs(y1 - y) < (HEIGHT + height1) / 2;
+    }
+
+    // Moving Method
+
+    public void move() {
         if (movable) {
-            for (Wall wall : walls) {
+            for (Wall wall : stage.walls) {
                 if (willTouchAfterMove(wall)) {
-                    modifyMove(wall, walls);
+                    modifyMove(wall);
                     return;
                 }
             }
@@ -213,7 +248,9 @@ public abstract class GameObject {
         }
     }
 
-    abstract void modifyMove(Wall wall, ArrayList<Wall> walls);
+    abstract void modifyMove(Wall wall);
+
+    // Drawing Method
 
     public abstract void draw(Canvas canvas);
 }

@@ -42,7 +42,7 @@ public class Stage {
                 case 'p':
                     x = Float.parseFloat(datas[1]);
                     y = Float.parseFloat(datas[2]);
-                    player = new Player(x, y, false);
+                    player = new Player(this, x, y, false);
                     break;
                 case 'w':
                     x = 0;
@@ -70,7 +70,7 @@ public class Stage {
                     y = Float.parseFloat(datas[3]);
                     switch (datas[1].charAt(0)) {
                         case 'o':
-                            enemy = new Observer(x, y);
+                            enemy = new Observer(this, x, y);
                             break;
                     }
                     enemies.add(enemy);
