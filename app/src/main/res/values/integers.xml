@@ -11,7 +11,7 @@
     <integer name="playerSize">2</integer>
     <integer name="observerSize">2</integer>
 
-    <integer name="observerSpeed">18</integer>
+    <integer name="observerSpeed">16</integer>
     <integer name="playerSpeed">25</integer>
 
     <integer name="observerSight">1000</integer>

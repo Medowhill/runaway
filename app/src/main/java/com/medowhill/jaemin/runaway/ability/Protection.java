@@ -10,7 +10,6 @@ import com.medowhill.jaemin.runaway.object.GameObject;
  */
 public class Protection extends Ability {
 
-    // int waitingFrame = 40;
     int frame = 40;
 
     public Protection(int level) {
@@ -22,7 +21,6 @@ public class Protection extends Ability {
         super.use(gameObject);
 
         Buff buff = new ImmortalBuff(gameObject, frame);
-        // gameObject.addBuff(new DelayBuff(gameObject, waitingFrame, buff));
         gameObject.addBuff(buff);
     }
 }

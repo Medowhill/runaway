@@ -11,7 +11,7 @@ import com.medowhill.jaemin.runaway.Direction;
 public abstract class Enemy extends GameObject {
 
     // Static Constant
-    static final int NON_MOVING_DISTANCE = 2560, RE_DIRECTION_FRAME = 30;
+    static final int RE_DIRECTION_FRAME = 20;
 
     // Sight
     float sight;
@@ -55,7 +55,7 @@ public abstract class Enemy extends GameObject {
         detectIllusion = false;
         if (player.isUsingIllusion())
             detectIllusion(player.getIllusion());
-        else if (player.isUsingSubstitute()) {
+        else if (!substitute && player.isUsingSubstitute()) {
             x1 = player.getSubstitute().x;
             y1 = player.getSubstitute().y;
         }
@@ -117,26 +117,17 @@ public abstract class Enemy extends GameObject {
     }
 
     public void setDirection() {
-        if (substitute) {
-            direction = Direction.NONE;
-            return;
-        }
+
+        detect();
 
         Player player = stage.getPlayer();
 
         float x1 = player.x, y1 = player.y;
 
-        if (player.isUsingSubstitute()) {
+        if (!substitute && player.isUsingSubstitute()) {
             x1 = player.getSubstitute().x;
             y1 = player.getSubstitute().y;
         }
-
-        if (!active && (x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > NON_MOVING_DISTANCE * NON_MOVING_DISTANCE) {
-            direction = Direction.NONE;
-            return;
-        }
-
-        detect();
 
         if (detect || detectIllusion) {
             if (detect && detectIllusion) {
@@ -174,8 +165,13 @@ public abstract class Enemy extends GameObject {
             }
         } else {
             if (directingFrame == 0) {
-                direction = (int) (Math.random() * 4);
-                direction2 = ((int) (Math.random() * 3) + 1 + direction) % 4;
+                if (!active && directingFrame != Direction.NONE) {
+                    direction = (direction + 2) % 4;
+                    direction2 = (direction2 + 2) % 4;
+                } else {
+                    direction = (int) (Math.random() * 4);
+                    direction2 = ((int) (Math.random() * 3) + 1 + direction) % 4;
+                }
             }
             directingFrame++;
             if (directingFrame == RE_DIRECTION_FRAME)

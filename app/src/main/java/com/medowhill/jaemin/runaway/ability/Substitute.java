@@ -12,9 +12,9 @@ import com.medowhill.jaemin.runaway.object.Player;
  */
 public class Substitute extends Ability {
 
-    private float range = 1000;
+    private float range = 800;
 
-    private int frame = 60;
+    private int frame = 80;
 
     public Substitute(int level) {
         super(level, 360, R.drawable.ability_icon_substitute);
