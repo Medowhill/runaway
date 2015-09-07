@@ -21,7 +21,6 @@ public class Player extends GameObject {
 
     public Player(Stage stage, float x, float y, boolean isIllusion) {
         super(stage, context.getResources().getInteger(R.integer.playerSize) * context.getResources().getInteger(R.integer.baseSize),
-                context.getResources().getInteger(R.integer.playerSize) * context.getResources().getInteger(R.integer.baseSize),
                 context.getResources().getColor(R.color.playerNormal), x, y, context.getResources().getInteger(R.integer.playerSpeed));
 
         paintInvisible = new Paint();
@@ -84,30 +83,46 @@ public class Player extends GameObject {
 
     @Override
     void modifyMove(Wall wall) {
-        float location = wall.LOCATION;
+        float start = wall.START, end = wall.END, location = wall.LOCATION;
 
         if (wall.HORIZONTAL) {
+            float dy = 0;
+            if (start - radius < x && x < start)
+                dy = (float) Math.sqrt(radius * radius - (start - x) * (start - x));
+            else if (x < end)
+                dy = radius;
+            else if (x < end + radius)
+                dy = (float) Math.sqrt(radius * radius - (end - x) * (end - x));
+
             if (location < y)
-                y = location + HEIGHT / 2;
+                y = location + dy;
             else
-                y = location - HEIGHT / 2;
+                y = location - dy;
         } else {
+            float dx = 0;
+            if (start - radius < y && y < start)
+                dx = (float) Math.sqrt(radius * radius - (start - y) * (start - y));
+            else if (y < end)
+                dx = radius;
+            else if (y < end + radius)
+                dx = (float) Math.sqrt(radius * radius - (end - y) * (end - y));
+
             if (location < x)
-                x = location + WIDTH / 2;
+                x = location + dx;
             else
-                x = location - WIDTH / 2;
+                x = location - dx;
         }
     }
 
     @Override
     public void draw(Canvas canvas) {
         if (isIllusion)
-            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintIllusion);
+            canvas.drawCircle(x, y, radius, paintIllusion);
         else if (!mortal)
-            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintImmortal);
+            canvas.drawCircle(x, y, radius, paintImmortal);
         else if (!visible)
-            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintInvisible);
+            canvas.drawCircle(x, y, radius, paintInvisible);
         else
-            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintNormal);
+            canvas.drawCircle(x, y, radius, paintNormal);
     }
 }

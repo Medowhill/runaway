@@ -27,8 +27,8 @@ public abstract class Enemy extends GameObject {
     Paint paintDetecting, paintSubstitute;
 
     // Constructor
-    public Enemy(Stage stage, float size, int color, int colorDetecting, int colorSubstitute, float x, float y, float speed, float sight) {
-        super(stage, size, size, color, x, y, speed);
+    public Enemy(Stage stage, float radius, int color, int colorDetecting, int colorSubstitute, float x, float y, float speed, float sight) {
+        super(stage, radius, color, x, y, speed);
 
         paintDetecting = new Paint();
         paintDetecting.setColor(colorDetecting);
@@ -191,11 +191,11 @@ public abstract class Enemy extends GameObject {
     @Override
     public void draw(Canvas canvas) {
         if (substitute)
-            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintSubstitute);
+            canvas.drawCircle(x, y, radius, paintSubstitute);
         else if (detect)
-            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintDetecting);
+            canvas.drawCircle(x, y, radius, paintDetecting);
         else
-            canvas.drawRect(x - WIDTH / 2, y - HEIGHT / 2, x + WIDTH / 2, y + HEIGHT / 2, paintNormal);
+            canvas.drawCircle(x, y, radius, paintNormal);
     }
 
 }

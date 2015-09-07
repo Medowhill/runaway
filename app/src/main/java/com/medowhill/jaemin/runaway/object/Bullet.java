@@ -7,8 +7,8 @@ import android.graphics.Canvas;
  */
 public class Bullet extends GameObject {
 
-    public Bullet(Stage stage, float width, float height, int color, float x, float y, float speed) {
-        super(stage, width, height, color, x, y, speed);
+    public Bullet(Stage stage, float radius, float height, int color, float x, float y, float speed) {
+        super(stage, radius, color, x, y, speed);
     }
 
     @Override

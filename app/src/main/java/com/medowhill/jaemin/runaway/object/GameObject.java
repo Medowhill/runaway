@@ -18,7 +18,7 @@ public abstract class GameObject {
     static Context context;
 
     // Size
-    final float WIDTH, HEIGHT;
+    final float radius;
 
     // Color
     Paint paintNormal;
@@ -46,11 +46,10 @@ public abstract class GameObject {
     Stage stage;
 
     // Constructor
-    GameObject(Stage stage, float width, float height, int color, float x, float y, float speed) {
+    GameObject(Stage stage, float radius, int color, float x, float y, float speed) {
         this.stage = stage;
 
-        this.WIDTH = width;
-        this.HEIGHT = height;
+        this.radius = radius;
 
         paintNormal = new Paint();
         paintNormal.setColor(color);
@@ -200,8 +199,8 @@ public abstract class GameObject {
     // Check Touch
 
     public boolean touch(GameObject gameObject) {
-        float x1 = gameObject.x, y1 = gameObject.y, width1 = gameObject.WIDTH, height1 = gameObject.HEIGHT;
-        return Math.abs(x1 - x) < (WIDTH + width1) / 2 && Math.abs(y1 - y) < (HEIGHT + height1) / 2;
+        float x1 = gameObject.x, y1 = gameObject.y, radius1 = gameObject.radius;
+        return (x - x1) * (x - x1) + (y - y1) * (y - y1) < (radius + radius1) * (radius + radius1);
     }
 
     // Moving Method
@@ -227,22 +226,34 @@ public abstract class GameObject {
             case Direction.UP:
                 if (!wall.HORIZONTAL)
                     return false;
-                if (start - WIDTH / 2 < x && x < end + WIDTH / 2) {
-                    float y_ = y + getYSpeed();
-                    return Math.min(y, y_) - HEIGHT / 2 < location && location < Math.max(y, y_) + HEIGHT / 2;
+                float y_ = y + getYSpeed();
+                float dy = 0;
+                if (start - radius < x && x < end + radius) {
+                    if (start - radius < x && x < start)
+                        dy = (float) Math.sqrt(radius * radius - (start - x) * (start - x));
+                    else if (x < end)
+                        dy = radius;
+                    else
+                        dy = (float) Math.sqrt(radius * radius - (end - x) * (end - x));
+                    return Math.min(y, y_) - dy < location && location < Math.max(y, y_) + dy;
                 } else
                     return false;
-
             case Direction.RIGHT:
             case Direction.LEFT:
                 if (wall.HORIZONTAL)
                     return false;
-                if (start - HEIGHT / 2 < y && y < end + HEIGHT / 2) {
-                    float x_ = x + getXSpeed();
-                    return Math.min(x, x_) - WIDTH / 2 < location && location < Math.max(x, x_) + WIDTH / 2;
+                float x_ = x + getXSpeed();
+                float dx = 0;
+                if (start - radius < y && y < end + radius) {
+                    if (start - radius < y && y < start)
+                        dx = (float) Math.sqrt(radius * radius - (start - y) * (start - y));
+                    else if (y < end)
+                        dx = radius;
+                    else
+                        dx = (float) Math.sqrt(radius * radius - (end - y) * (end - y));
+                    return Math.min(x, x_) - dx < location && location < Math.max(x, x_) + dx;
                 } else
                     return false;
-
             default:
                 return false;
         }

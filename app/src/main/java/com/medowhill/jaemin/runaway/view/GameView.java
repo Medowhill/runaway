@@ -231,8 +231,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 canvas.drawPath(stage.area, paintArea);
 
-                                canvas.drawRect(stage.getxFinish() - BASE_SIZE, stage.getyFinish() - BASE_SIZE,
-                                        stage.getxFinish() + BASE_SIZE, stage.getyFinish() + BASE_SIZE, paintFinish);
+                                canvas.drawCircle(stage.getxFinish(), stage.getyFinish(),
+                                        BASE_SIZE * getResources().getInteger(R.integer.playerSize), paintFinish);
 
                                 if (player.isUsingIllusion())
                                     player.getIllusion().draw(canvas);
