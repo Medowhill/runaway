@@ -2,6 +2,7 @@ package com.medowhill.jaemin.runaway.object;
 
 import android.content.Context;
 import android.graphics.Path;
+import android.graphics.RectF;
 
 import com.medowhill.jaemin.runaway.R;
 
@@ -11,6 +12,8 @@ import java.util.ArrayList;
  * Created by Jaemin on 2015-09-01.
  */
 public class Stage {
+
+    public final int MAP_RADIUS;
 
     public final ArrayList<Enemy> enemies;
 
@@ -25,6 +28,8 @@ public class Stage {
     private float xFinish, yFinish;
 
     public Stage(Context context, int stage) {
+        MAP_RADIUS = context.getResources().getInteger(R.integer.mapRadius);
+
         String stageData = context.getResources().getStringArray(R.array.stageInfo)[stage - 1];
 
         String[] stageDatas = stageData.split("/");
@@ -47,22 +52,83 @@ public class Stage {
                 case 'w':
                     x = 0;
                     y = 0;
+                    boolean yInc = false, xInc = false;
+
                     for (int j = 1; j < datas.length; j++) {
                         if (j % 2 == 1) {
                             float x_ = Float.parseFloat(datas[j]);
                             walls.add(new Wall(true, x, x_, y));
+                            xInc = x < x_;
+
+                            if (j != 1) {
+                                if (xInc) {
+                                    if (yInc)
+                                        area.arcTo(new RectF(x, y - 2 * MAP_RADIUS, x + 2 * MAP_RADIUS, y), 180, -90);
+                                    else
+                                        area.arcTo(new RectF(x, y, x + 2 * MAP_RADIUS, y + 2 * MAP_RADIUS), 180, 90);
+                                } else {
+                                    if (yInc)
+                                        area.arcTo(new RectF(x - 2 * MAP_RADIUS, y - 2 * MAP_RADIUS, x, y), 0, 90);
+                                    else
+                                        area.arcTo(new RectF(x - 2 * MAP_RADIUS, y, x, y + 2 * MAP_RADIUS), 0, -90);
+                                }
+                            } else {
+                                if (xInc)
+                                    area.moveTo(MAP_RADIUS, 0);
+                                else
+                                    area.moveTo(-MAP_RADIUS, 0);
+                            }
+
+                            if (xInc)
+                                area.lineTo(x_ - MAP_RADIUS, y);
+                            else
+                                area.lineTo(x_ + MAP_RADIUS, y);
+
+
                             x = x_;
                             if (x > xMax)
                                 xMax = x;
                         } else {
                             float y_ = Float.parseFloat(datas[j]);
                             walls.add(new Wall(false, y, y_, x));
+                            yInc = y < y_;
+
+                            if (yInc) {
+                                if (xInc)
+                                    area.arcTo(new RectF(x - 2 * MAP_RADIUS, y, x, y + 2 * MAP_RADIUS), 270, 90);
+                                else
+                                    area.arcTo(new RectF(x, y, x + 2 * MAP_RADIUS, y + 2 * MAP_RADIUS), 270, -90);
+                            } else {
+                                if (xInc)
+                                    area.arcTo(new RectF(x - 2 * MAP_RADIUS, y - 2 * MAP_RADIUS, x, y), 90, -90);
+                                else
+                                    area.arcTo(new RectF(x, y - 2 * MAP_RADIUS, x + 2 * MAP_RADIUS, y), 90, 90);
+                            }
+
+                            if (yInc)
+                                area.lineTo(x, y_ - MAP_RADIUS);
+                            else
+                                area.lineTo(x, y_ + MAP_RADIUS);
+
                             y = y_;
                             if (y > yMax)
                                 yMax = y;
                         }
-                        area.lineTo(x, y);
                     }
+                    float x_ = Float.parseFloat(datas[1]);
+                    xInc = x < x_;
+                    if (xInc) {
+                        if (yInc)
+                            area.arcTo(new RectF(x, y - 2 * MAP_RADIUS, x + 2 * MAP_RADIUS, y), 180, -90);
+                        else
+                            area.arcTo(new RectF(x, y, x + 2 * MAP_RADIUS, y + 2 * MAP_RADIUS), 180, 90);
+                    } else {
+                        if (yInc)
+                            area.arcTo(new RectF(x - 2 * MAP_RADIUS, y - 2 * MAP_RADIUS, x, y), 0, 90);
+                        else
+                            area.arcTo(new RectF(x - 2 * MAP_RADIUS, y, x, y + 2 * MAP_RADIUS), 0, -90);
+                    }
+
                     break;
                 case 'e':
                     Enemy enemy = null;
@@ -102,4 +168,5 @@ public class Stage {
     public float getyMax() {
         return yMax;
     }
+
 }
