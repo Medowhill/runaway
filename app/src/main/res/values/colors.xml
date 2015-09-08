@@ -18,6 +18,5 @@
 
     <color name="observerNormal">#b00000</color>
     <color name="observerDetecting">#f00000</color>
-    <color name="observerSubstitute">#700000</color>
 
 </resources>

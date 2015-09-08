@@ -11,14 +11,16 @@ import com.medowhill.jaemin.runaway.R;
  */
 public class Player extends GameObject {
 
-    boolean usingIllusion = false, isIllusion = false, usingSubstitute = false;
+    // State
+    boolean usingIllusion = false, isIllusion = false;
 
+    // Illusion & Shadow
     Player illusion;
 
-    Enemy substitute;
-
+    // Paint
     Paint paintInvisible, paintImmortal, paintIllusion;
 
+    // Constructor
     public Player(Stage stage, float x, float y, boolean isIllusion) {
         super(stage, context.getResources().getInteger(R.integer.playerSize) * context.getResources().getInteger(R.integer.baseSize),
                 context.getResources().getColor(R.color.playerNormal), x, y, context.getResources().getInteger(R.integer.playerSpeed));
@@ -38,13 +40,7 @@ public class Player extends GameObject {
             illusion = new Player(stage, 0, 0, true);
     }
 
-    public boolean isUsingSubstitute() {
-        return usingSubstitute;
-    }
-
-    public void setUsingSubstitute(boolean usingSubstitute) {
-        this.usingSubstitute = usingSubstitute;
-    }
+    // Getter
 
     public boolean isUsingIllusion() {
         return usingIllusion;
@@ -54,16 +50,10 @@ public class Player extends GameObject {
         this.usingIllusion = usingIllusion;
     }
 
+    // Setter
+
     public Player getIllusion() {
         return illusion;
-    }
-
-    public Enemy getSubstitute() {
-        return substitute;
-    }
-
-    public void setSubstitute(Enemy substitute) {
-        this.substitute = substitute;
     }
 
     public void setIllusionLocation() {
@@ -80,6 +70,8 @@ public class Player extends GameObject {
                 illusion.direction = (direction + 2) % 4;
         }
     }
+
+    // Moving Method
 
     @Override
     void modifyMove(Wall wall) {
@@ -113,6 +105,8 @@ public class Player extends GameObject {
                 x = location - dx;
         }
     }
+
+    // Drawing Method
 
     @Override
     public void draw(Canvas canvas) {

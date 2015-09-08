@@ -10,8 +10,7 @@ public class Observer extends Enemy {
     public Observer(Stage stage, float x, float y) {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.observerSize),
                 context.getResources().getColor(R.color.observerNormal), context.getResources().getColor(R.color.observerDetecting),
-                context.getResources().getColor(R.color.observerSubstitute), x, y,
-                context.getResources().getInteger(R.integer.observerSpeed), context.getResources().getInteger(R.integer.observerSight));
+                x, y, context.getResources().getInteger(R.integer.observerSpeed), context.getResources().getInteger(R.integer.observerSight));
     }
 
 }

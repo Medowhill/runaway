@@ -112,26 +112,6 @@ public abstract class GameObject {
         return mortal;
     }
 
-    // Speed Getter
-
-    float getXSpeed() {
-        if (direction == Direction.LEFT)
-            return -1 * speed * speedMultiplier;
-        else if (direction == Direction.RIGHT)
-            return speed * speedMultiplier;
-        else
-            return 0;
-    }
-
-    float getYSpeed() {
-        if (direction == Direction.UP)
-            return -1 * speed * speedMultiplier;
-        else if (direction == Direction.DOWN)
-            return speed * speedMultiplier;
-        else
-            return 0;
-    }
-
     // Setter
 
     void setSpeed(float speed) {
@@ -207,54 +187,87 @@ public abstract class GameObject {
 
     public void move() {
         if (movable) {
-            for (Wall wall : stage.walls) {
-                if (willTouchAfterMove(wall)) {
-                    modifyMove(wall);
-                    return;
-                }
+            float dx = 0, dy = 0;
+
+            switch (direction) {
+                case Direction.LEFT:
+                    dx = -1 * speed * speedMultiplier;
+                    break;
+                case Direction.RIGHT:
+                    dx = speed * speedMultiplier;
+                    break;
+                case Direction.UP:
+                    dy = -1 * speed * speedMultiplier;
+                    break;
+                case Direction.DOWN:
+                    dy = speed * speedMultiplier;
+                    break;
             }
-            x += getXSpeed();
-            y += getYSpeed();
+
+            move(dx, dy);
         }
     }
 
-    boolean willTouchAfterMove(Wall wall) {
+    void move(float dx, float dy) {
+        if (dx != 0) {
+            boolean modify = false;
+            for (Wall wall : stage.walls) {
+                if (willTouchAfterMove(wall, dx, true)) {
+                    modifyMove(wall);
+                    modify = true;
+                    break;
+                }
+            }
+            if (!modify)
+                x += dx;
+        }
+
+        if (dy != 0) {
+            boolean modify = false;
+            for (Wall wall : stage.walls) {
+                if (willTouchAfterMove(wall, dy, false)) {
+                    modifyMove(wall);
+                    modify = true;
+                    break;
+                }
+            }
+            if (!modify)
+                y += dy;
+        }
+    }
+
+    boolean willTouchAfterMove(Wall wall, float distance, boolean horizontal) {
         float start = wall.START, end = wall.END, location = wall.LOCATION;
 
-        switch (direction) {
-            case Direction.DOWN:
-            case Direction.UP:
-                if (!wall.HORIZONTAL)
-                    return false;
-                float y_ = y + getYSpeed();
-                float dy = 0;
-                if (start - radius < x && x < end + radius) {
-                    if (start - radius < x && x < start)
-                        dy = (float) Math.sqrt(radius * radius - (start - x) * (start - x));
-                    else if (x < end)
-                        dy = radius;
-                    else
-                        dy = (float) Math.sqrt(radius * radius - (end - x) * (end - x));
-                    return Math.min(y, y_) - dy < location && location < Math.max(y, y_) + dy;
-                } else
-                    return false;
-            case Direction.RIGHT:
-            case Direction.LEFT:
-                if (wall.HORIZONTAL)
-                    return false;
-                float x_ = x + getXSpeed();
-                float dx = 0;
-                if (start - radius < y && y < end + radius) {
-                    if (start - radius < y && y < start)
-                        dx = (float) Math.sqrt(radius * radius - (start - y) * (start - y));
-                    else if (y < end)
-                        dx = radius;
-                    else
-                        dx = (float) Math.sqrt(radius * radius - (end - y) * (end - y));
-                    return Math.min(x, x_) - dx < location && location < Math.max(x, x_) + dx;
-                } else
-                    return false;
-            default:
+        if (horizontal) {
+            if (wall.HORIZONTAL)
+                return false;
+
+            if (start - radius < y && y < end + radius) {
+                float x_ = x + distance, dx;
+                if (start - radius < y && y < start)
+                    dx = (float) Math.sqrt(radius * radius - (start - y) * (start - y));
+                else if (y < end)
+                    dx = radius;
+                else
+                    dx = (float) Math.sqrt(radius * radius - (end - y) * (end - y));
+                return Math.min(x, x_) - dx < location && location < Math.max(x, x_) + dx;
+            } else
+                return false;
+        } else {
+            if (!wall.HORIZONTAL)
+                return false;
+
+            if (start - radius < x && x < end + radius) {
+                float y_ = y + distance, dy;
+                if (start - radius < x && x < start)
+                    dy = (float) Math.sqrt(radius * radius - (start - x) * (start - x));
+                else if (x < end)
+                    dy = radius;
+                else
+                    dy = (float) Math.sqrt(radius * radius - (end - x) * (end - x));
+                return Math.min(y, y_) - dy < location && location < Math.max(y, y_) + dy;
+            } else
                 return false;
         }
     }
