@@ -13,7 +13,6 @@ import android.view.SurfaceView;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
-import com.medowhill.jaemin.runaway.buff.Buff;
 import com.medowhill.jaemin.runaway.object.Enemy;
 import com.medowhill.jaemin.runaway.object.Player;
 import com.medowhill.jaemin.runaway.object.Stage;
@@ -175,25 +174,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                         }
                                     }
 
-                                    for (int i = 0; i < player.getBuffs().size(); i++) {
-                                        Buff buff = player.getBuffs().get(i);
-
-                                        if (!buff.isStart()) {
-                                            buff.startBuff();
-                                            buff.setStart(true);
-                                        } else if (buff.isEnd()) {
-                                            buff.endBuff();
-                                            player.getBuffs().remove(i);
-                                            i--;
-                                        } else {
-                                            buff.duringBuff();
-                                        }
-                                        buff.framePass();
-                                    }
+                                    player.controlBuff();
+                                    player.getIllusion().controlBuff();
 
                                     player.move();
-                                    if (player.isUsingIllusion())
-                                        player.getIllusion().move();
+                                    player.getIllusion().move();
                                 }
 
                                 if (!gameClear && player.getX() == stage.getxFinish() && player.getY() == stage.getyFinish()) {

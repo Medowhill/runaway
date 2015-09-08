@@ -19,6 +19,10 @@ public class IllusionBuff extends Buff {
 
     @Override
     public void duringBuff() {
+        if (player != null) {
+            int direction = player.getDirection();
+            Player illusion = player.getIllusion();
+        }
     }
 
     @Override

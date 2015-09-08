@@ -3,7 +3,6 @@ package com.medowhill.jaemin.runaway.object;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.medowhill.jaemin.runaway.Direction;
 import com.medowhill.jaemin.runaway.R;
 
 /**
@@ -62,13 +61,11 @@ public class Player extends GameObject {
     }
 
     public void setDirection(int direction) {
-        if (directionModifiable) {
+        if (directionModifiable)
             this.direction = direction;
-            if (direction == Direction.NONE)
-                illusion.direction = Direction.NONE;
-            else
-                illusion.direction = (direction + 2) % 4;
-        }
+
+        if (illusion != null)
+            illusion.setDirection(direction);
     }
 
     // Moving Method

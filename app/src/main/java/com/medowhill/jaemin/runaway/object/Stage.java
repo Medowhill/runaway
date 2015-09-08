@@ -5,6 +5,7 @@ import android.graphics.Path;
 import android.graphics.RectF;
 
 import com.medowhill.jaemin.runaway.R;
+import com.medowhill.jaemin.runaway.buff.Buff;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,8 @@ public class Stage {
     public final ArrayList<Enemy> enemies;
 
     public final ArrayList<Wall> walls;
+
+    public final ArrayList<Buff> buffs;
 
     public final Path area;
 
@@ -36,6 +39,7 @@ public class Stage {
 
         enemies = new ArrayList<>();
         walls = new ArrayList<>();
+        buffs = new ArrayList<>();
         area = new Path();
         area.moveTo(0, 0);
 

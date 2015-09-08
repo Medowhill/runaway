@@ -68,7 +68,7 @@ public abstract class GameObject {
         GameObject.context = context;
     }
 
-    // Getter
+    // Setter & Getter
 
     public float getX() {
         return this.x;
@@ -86,6 +86,10 @@ public abstract class GameObject {
         return direction;
     }
 
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
     public ArrayList<Buff> getBuffs() {
         return buffs;
     }
@@ -98,8 +102,6 @@ public abstract class GameObject {
         return abilities;
     }
 
-    // State Getter
-
     public boolean isAbilityUsable() {
         return abilityUsable;
     }
@@ -111,8 +113,6 @@ public abstract class GameObject {
     public boolean isMortal() {
         return mortal;
     }
-
-    // Setter
 
     void setSpeed(float speed) {
         this.speed = speed;
@@ -273,6 +273,26 @@ public abstract class GameObject {
     }
 
     abstract void modifyMove(Wall wall);
+
+    // Buff Method
+
+    public void controlBuff() {
+        for (int i = 0; i < buffs.size(); i++) {
+            Buff buff = buffs.get(i);
+
+            if (!buff.isStart()) {
+                buff.startBuff();
+                buff.setStart(true);
+            } else if (buff.isEnd()) {
+                buff.endBuff();
+                buffs.remove(i);
+                i--;
+            } else {
+                buff.duringBuff();
+            }
+            buff.framePass();
+        }
+    }
 
     // Drawing Method
 
