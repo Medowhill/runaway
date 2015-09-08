@@ -25,6 +25,11 @@ import com.medowhill.jaemin.runaway.view.GameView;
 
 import java.util.ArrayList;
 
+/**
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
+ */
+
 public class GameActivity extends Activity {
 
     final int[] ABILITY_BUTTON_ID = new int[]{R.id.abilityButton1, R.id.abilityButton2, R.id.abilityButton3, R.id.abilityButton4};

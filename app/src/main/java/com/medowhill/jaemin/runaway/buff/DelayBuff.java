@@ -3,8 +3,10 @@ package com.medowhill.jaemin.runaway.buff;
 import com.medowhill.jaemin.runaway.object.GameObject;
 
 /**
- * Created by Jaemin on 2015-09-03.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public class DelayBuff extends Buff {
 
     private Buff buff;

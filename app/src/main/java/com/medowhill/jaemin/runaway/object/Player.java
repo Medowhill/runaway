@@ -6,8 +6,10 @@ import android.graphics.Paint;
 import com.medowhill.jaemin.runaway.R;
 
 /**
- * Created by Jaemin on 2015-09-01.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public class Player extends GameObject {
 
     // State

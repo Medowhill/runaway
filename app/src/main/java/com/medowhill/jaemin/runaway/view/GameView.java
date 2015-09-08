@@ -20,8 +20,10 @@ import com.medowhill.jaemin.runaway.object.Stage;
 import java.util.ArrayList;
 
 /**
- * Created by Jaemin on 2015-09-01.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private final int WIDTH, HEIGHT, BASE_SIZE;

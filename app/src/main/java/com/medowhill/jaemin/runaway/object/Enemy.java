@@ -6,8 +6,10 @@ import android.graphics.Paint;
 import com.medowhill.jaemin.runaway.Direction;
 
 /**
- * Created by Jaemin on 2015-09-01.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public abstract class Enemy extends GameObject {
 
     // Static Constant

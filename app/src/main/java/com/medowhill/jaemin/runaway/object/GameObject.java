@@ -11,8 +11,10 @@ import com.medowhill.jaemin.runaway.buff.Buff;
 import java.util.ArrayList;
 
 /**
- * Created by Jaemin on 2015-09-01.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public abstract class GameObject {
 
     static Context context;

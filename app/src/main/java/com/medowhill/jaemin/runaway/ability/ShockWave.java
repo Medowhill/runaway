@@ -4,8 +4,10 @@ import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.object.GameObject;
 
 /**
- * Created by Jaemin on 2015-09-08.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public class ShockWave extends Ability {
 
     public ShockWave(int level) {

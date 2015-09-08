@@ -10,8 +10,10 @@ import com.medowhill.jaemin.runaway.buff.SpeedChangeBuff;
 import com.medowhill.jaemin.runaway.object.GameObject;
 
 /**
- * Created by Jaemin on 2015-09-03.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public class Teleportation extends Ability {
 
     int frame = 10;

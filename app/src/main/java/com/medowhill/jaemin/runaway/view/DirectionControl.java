@@ -11,8 +11,10 @@ import com.medowhill.jaemin.runaway.Direction;
 import com.medowhill.jaemin.runaway.R;
 
 /**
- * Created by Jaemin on 2015-09-01.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public class DirectionControl extends View {
 
     private final float OUTER_SIZE = 0.375f, INNER_SIZE = 0.325f, MOVING = 0.1f, NONE_LIMIT = 0.2f;

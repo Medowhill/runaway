@@ -16,11 +16,13 @@ import android.view.View;
 import com.medowhill.jaemin.runaway.R;
 
 /**
- * Created by Jaemin on 2015-09-01.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public class AbilityButton extends View {
 
-    private final float OUTER_SIZE = 0.375f, INNER_SIZE = 0.325f, ROUND_RECT = 0.05f;
+    private final float OUTER_SIZE = 0.4f, INNER_SIZE = 0.35f, ROUND_RECT = 0.05f;
 
     private boolean touched = false, clicked = false;
 

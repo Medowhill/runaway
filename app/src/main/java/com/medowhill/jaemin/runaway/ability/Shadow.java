@@ -8,8 +8,10 @@ import com.medowhill.jaemin.runaway.object.GameObject;
 import com.medowhill.jaemin.runaway.object.Player;
 
 /**
- * Created by Jaemin on 2015-09-03.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public class Shadow extends Ability {
 
     int frame = 60;
