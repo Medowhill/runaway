@@ -3,6 +3,7 @@ package com.medowhill.jaemin.runaway.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,17 +18,36 @@ import com.medowhill.jaemin.runaway.R;
 
 public class DirectionControl extends View {
 
-    private final float OUTER_SIZE = 0.375f, INNER_SIZE = 0.325f, MOVING = 0.1f, NONE_LIMIT = 0.2f;
+    private final float PAD_SIZE = 0.4f, PAD_DEPTH = 0.05f, BALL_RADIUS = 0.075f, MOVING = 0.4f, NONE_LIMIT = 0.2f;
 
-    private Paint paint;
+    private Paint paintPad, paintBall;
+
+    private Path padPath;
 
     private int direction = Direction.NONE;
 
     public DirectionControl(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        paint = new Paint();
-        paint.setColor(context.getResources().getColor(R.color.directionControl));
+        paintPad = new Paint();
+        paintPad.setColor(context.getResources().getColor(R.color.directionControlPad));
+
+        paintBall = new Paint();
+        paintBall.setColor(context.getResources().getColor(R.color.directionControlBall));
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        padPath = new Path();
+        padPath.addRect(w * (0.5f - PAD_DEPTH), h * (0.5f - PAD_DEPTH), w * (0.5f + PAD_DEPTH), h * (0.5f + PAD_DEPTH), Path.Direction.CW);
+        padPath.addRect(w * (0.5f - PAD_SIZE), h * (0.5f - PAD_DEPTH), w * (0.5f - PAD_DEPTH), h * (0.5f + PAD_DEPTH), Path.Direction.CW);
+        padPath.addRect(w * (0.5f + PAD_DEPTH), h * (0.5f - PAD_DEPTH), w * (0.5f + PAD_SIZE), h * (0.5f + PAD_DEPTH), Path.Direction.CW);
+        padPath.addRect(w * (0.5f - PAD_DEPTH), h * (0.5f - PAD_SIZE), w * (0.5f + PAD_DEPTH), h * (0.5f - PAD_DEPTH), Path.Direction.CW);
+        padPath.addRect(w * (0.5f - PAD_DEPTH), h * (0.5f + PAD_DEPTH), w * (0.5f + PAD_DEPTH), h * (0.5f + PAD_SIZE), Path.Direction.CW);
+        padPath.addCircle(w * (0.5f - PAD_SIZE), h * 0.5f, w * PAD_DEPTH, Path.Direction.CW);
+        padPath.addCircle(w * (0.5f + PAD_SIZE), h * 0.5f, w * PAD_DEPTH, Path.Direction.CW);
+        padPath.addCircle(w * 0.5f, h * (0.5f - PAD_SIZE), w * PAD_DEPTH, Path.Direction.CW);
+        padPath.addCircle(w * 0.5f, h * (0.5f + PAD_SIZE), w * PAD_DEPTH, Path.Direction.CW);
     }
 
     @Override
@@ -49,9 +69,8 @@ public class DirectionControl extends View {
         }
 
         int width = getWidth(), height = getHeight();
-        canvas.drawRect(width * (0.5f - OUTER_SIZE), height * (0.5f - OUTER_SIZE), width * (0.5f + OUTER_SIZE), height * (0.5f + OUTER_SIZE), paint);
-        canvas.drawRect(width * (0.5f - INNER_SIZE + dx), height * (0.5f - INNER_SIZE + dy),
-                width * (0.5f + INNER_SIZE + dx), height * (0.5f + INNER_SIZE + dy), paint);
+        canvas.drawPath(padPath, paintPad);
+        canvas.drawCircle(width * (0.5f + dx), height * (0.5f + dy), width * BALL_RADIUS, paintBall);
     }
 
     @Override

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="directionControl">#40ffffff</color>
+    <color name="directionControlPad">#f0f0f0</color>
+    <color name="directionControlBall">#c0c0c0</color>
 
-    <color name="abilityButtonBorder">#40ffffff</color>
-    <color name="abilityButtonTouched">#60ffffff</color>
-    <color name="abilityButtonCool">#60000000</color>
+    <color name="abilityButtonBorder">#b0b0b0</color>
+    <color name="abilityButtonTouched">#50ffffff</color>
+    <color name="abilityButtonCool">#50000000</color>
 
     <color name="gameViewNonArea">#606060</color>
     <color name="gameViewArea">#ffe0ff</color>
     <color name="gameViewFinish">#900090</color>
 
     <color name="playerNormal">#00b0b0</color>
-    <color name="playerInvisible">#8000b0b0</color>
-    <color name="playerImmortal">#00e0e0</color>
+    <color name="playerInvisible">#90e0e0</color>
+    <color name="playerImmortal">#00f0f0</color>
     <color name="playerIllusion">#a0b0b0</color>
 
     <color name="observerNormal">#b00000</color>

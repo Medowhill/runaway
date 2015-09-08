@@ -60,6 +60,29 @@ public class AbilityButton extends View {
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        innerRect = new RectF(w * (0.5f - INNER_SIZE), h * (0.5f - INNER_SIZE), w * (0.5f + INNER_SIZE), h * (0.5f + INNER_SIZE));
+        outerRect = new RectF(w * (0.5f - OUTER_SIZE), h * (0.5f - OUTER_SIZE), w * (0.5f + OUTER_SIZE), h * (0.5f + OUTER_SIZE));
+
+        coolPaths = new Path[4];
+        int[][] x = new int[][]{{-1, -1, 0}, {0, 1, 1}, {1, 1, 0}, {0, -1, -1}};
+        int[][] y = new int[][]{{0, -1, -1}, {-1, -1, 0}, {0, 1, 1}, {1, 1, 0}};
+        for (int i = 0; i < coolPaths.length; i++) {
+            Path path;
+            path = new Path();
+            path.moveTo(w * (0.5f + INNER_SIZE * x[i][0]), h * (0.5f + INNER_SIZE * y[i][0]));
+            path.lineTo(w * (0.5f + INNER_SIZE * x[i][1]), h * (0.5f + INNER_SIZE * y[i][1]));
+            path.lineTo(w * (0.5f + INNER_SIZE * x[i][2]), h * (0.5f + INNER_SIZE * y[i][2]));
+            path.arcTo(innerRect, -90 + i * 90, -90);
+            coolPaths[i] = path;
+        }
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), iconResourceID);
+        icon = Bitmap.createScaledBitmap(bitmap, (int) (getWidth() * 2 * INNER_SIZE), (int) (getHeight() * 2 * INNER_SIZE), false);
+        bitmap.recycle();
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (clicked)
             return true;
@@ -94,43 +117,15 @@ public class AbilityButton extends View {
     protected void onDraw(Canvas canvas) {
         int width = getWidth(), height = getHeight();
 
-        if (innerRect == null)
-            innerRect = new RectF(width * (0.5f - INNER_SIZE), height * (0.5f - INNER_SIZE), width * (0.5f + INNER_SIZE),
-                    height * (0.5f + INNER_SIZE));
-        if (outerRect == null)
-            outerRect = new RectF(width * (0.5f - OUTER_SIZE), height * (0.5f - OUTER_SIZE),
-                    width * (0.5f + OUTER_SIZE), height * (0.5f + OUTER_SIZE));
-
-        if (coolPaths == null) {
-            coolPaths = new Path[4];
-            int[][] x = new int[][]{{-1, -1, 0}, {0, 1, 1}, {1, 1, 0}, {0, -1, -1}};
-            int[][] y = new int[][]{{0, -1, -1}, {-1, -1, 0}, {0, 1, 1}, {1, 1, 0}};
-            for (int i = 0; i < coolPaths.length; i++) {
-                Path path;
-                path = new Path();
-                path.moveTo(width * (0.5f + INNER_SIZE * x[i][0]), height * (0.5f + INNER_SIZE * y[i][0]));
-                path.lineTo(width * (0.5f + INNER_SIZE * x[i][1]), height * (0.5f + INNER_SIZE * y[i][1]));
-                path.lineTo(width * (0.5f + INNER_SIZE * x[i][2]), height * (0.5f + INNER_SIZE * y[i][2]));
-                path.arcTo(innerRect, -90 + i * 90, -90);
-                coolPaths[i] = path;
-            }
-        }
-
-        if (icon == null) {
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), iconResourceID);
-            icon = Bitmap.createScaledBitmap(bitmap, (int) (getWidth() * 2 * INNER_SIZE), (int) (getHeight() * 2 * INNER_SIZE), false);
-            bitmap.recycle();
-        }
-
         canvas.drawRoundRect(outerRect, width * ROUND_RECT, height * ROUND_RECT, paintBorder);
         canvas.drawBitmap(icon, width * (0.5f - INNER_SIZE), height * (0.5f - INNER_SIZE), null);
 
         if (touched)
-            canvas.drawRect(innerRect, paintBorder);
+            canvas.drawRect(innerRect, paintTouched);
 
         if (ratio != 0) {
-            for (int i = 0; i < coolPaths.length; i++)
-                canvas.drawPath(coolPaths[i], paintCool);
+            for (Path path : coolPaths)
+                canvas.drawPath(path, paintCool);
             canvas.drawArc(innerRect, -90 - 360 * ratio, 360 * ratio, true, paintCool);
         }
     }
