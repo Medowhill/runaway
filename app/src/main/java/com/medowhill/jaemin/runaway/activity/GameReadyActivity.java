@@ -17,7 +17,7 @@ public class GameReadyActivity extends Activity {
 
     Button button1, button2, button3, button4;
 
-    int ability1 = 0, ability2 = 0, ability3 = 0, ability4 = -1;
+    int ability1 = 0, ability2 = 0, ability3 = 0, ability4 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +72,18 @@ public class GameReadyActivity extends Activity {
                     button3.setText(R.string.abilityShadowName);
                 else
                     button3.setText(R.string.abilityIllusionName);
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ability4++;
+                ability4 %= 2;
+                if (ability4 % 2 == 0)
+                    button4.setText(R.string.abilityShockWaveName);
+                else
+                    button4.setText(R.string.abilityDistortionFieldName);
             }
         });
     }

@@ -10,10 +10,12 @@ import android.view.View;
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
 import com.medowhill.jaemin.runaway.ability.Dash;
+import com.medowhill.jaemin.runaway.ability.DistortionField;
 import com.medowhill.jaemin.runaway.ability.Hiding;
 import com.medowhill.jaemin.runaway.ability.Illusion;
 import com.medowhill.jaemin.runaway.ability.Protection;
 import com.medowhill.jaemin.runaway.ability.Shadow;
+import com.medowhill.jaemin.runaway.ability.ShockWave;
 import com.medowhill.jaemin.runaway.ability.Teleportation;
 import com.medowhill.jaemin.runaway.object.GameObject;
 import com.medowhill.jaemin.runaway.object.Stage;
@@ -28,7 +30,7 @@ public class GameActivity extends Activity {
     final int[] ABILITY_BUTTON_ID = new int[]{R.id.abilityButton1, R.id.abilityButton2, R.id.abilityButton3, R.id.abilityButton4};
 
     Ability[][] abilityArray = new Ability[][]{{new Dash(1), new Teleportation(1)},
-            {new Hiding(1), new Protection(1)}, {new Shadow(1), new Illusion(1)}, {}};
+            {new Hiding(1), new Protection(1)}, {new Shadow(1), new Illusion(1)}, {new ShockWave(1), new DistortionField(1)}};
 
     GameView gameView;
     DirectionControl directionControl;

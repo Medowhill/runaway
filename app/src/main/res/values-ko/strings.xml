@@ -7,4 +7,6 @@
     <string name="abilityProtectionName">보호막</string>
     <string name="abilityTeleportationName">공간 이동</string>
     <string name="abilityIllusionName">환영</string>
+    <string name="abilityShockWaveName">충격파</string>
+    <string name="abilityDistortionFieldName">왜곡장</string>
 </resources>

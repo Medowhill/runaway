@@ -8,4 +8,6 @@
     <string name="abilityProtectionName">Protection</string>
     <string name="abilityShadowName">Shadow</string>
     <string name="abilityIllusionName">Illusion</string>
+    <string name="abilityShockWaveName">Shock Wave</string>
+    <string name="abilityDistortionFieldName">Distortion Field</string>
 </resources>
