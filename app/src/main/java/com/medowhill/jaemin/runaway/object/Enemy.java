@@ -21,28 +21,19 @@ public abstract class Enemy extends GameObject {
     int directingFrame = 0;
 
     // State
-    boolean detect = false, detectIllusion = false, active = false, substitute = false;
+    boolean detect = false, detectIllusion = false, active = false;
 
     // Paint
-    Paint paintDetecting, paintSubstitute;
+    Paint paintDetecting;
 
     // Constructor
-    public Enemy(Stage stage, float radius, int color, int colorDetecting, int colorSubstitute, float x, float y, float speed, float sight) {
+    public Enemy(Stage stage, float radius, int color, int colorDetecting, float x, float y, float speed, float sight) {
         super(stage, radius, color, x, y, speed);
 
         paintDetecting = new Paint();
         paintDetecting.setColor(colorDetecting);
 
-        paintSubstitute = new Paint();
-        paintSubstitute.setColor(colorSubstitute);
-
         this.sight = sight;
-    }
-
-    // Setter
-
-    public void setSubstitute(boolean substitute) {
-        this.substitute = substitute;
     }
 
     // Moving Method
@@ -55,10 +46,6 @@ public abstract class Enemy extends GameObject {
         detectIllusion = false;
         if (player.isUsingIllusion())
             detectIllusion(player.getIllusion());
-        else if (!substitute && player.isUsingSubstitute()) {
-            x1 = player.getSubstitute().x;
-            y1 = player.getSubstitute().y;
-        }
 
         detect = false;
 
@@ -124,11 +111,6 @@ public abstract class Enemy extends GameObject {
 
         float x1 = player.x, y1 = player.y;
 
-        if (!substitute && player.isUsingSubstitute()) {
-            x1 = player.getSubstitute().x;
-            y1 = player.getSubstitute().y;
-        }
-
         if (detect || detectIllusion) {
             if (detect && detectIllusion) {
                 float x2 = player.getIllusion().x, y2 = player.getIllusion().y;
@@ -190,9 +172,7 @@ public abstract class Enemy extends GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        if (substitute)
-            canvas.drawCircle(x, y, radius, paintSubstitute);
-        else if (detect)
+        if (detect)
             canvas.drawCircle(x, y, radius, paintDetecting);
         else
             canvas.drawCircle(x, y, radius, paintNormal);

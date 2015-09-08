@@ -1,12 +1,10 @@
 package com.medowhill.jaemin.runaway.ability;
 
 import com.medowhill.jaemin.runaway.R;
-import com.medowhill.jaemin.runaway.buff.Buff;
-import com.medowhill.jaemin.runaway.buff.IllusionBuff;
 import com.medowhill.jaemin.runaway.object.GameObject;
 
 /**
- * Created by Jaemin on 2015-09-03.
+ * Created by Jaemin on 2015-09-08.
  */
 public class Illusion extends Ability {
 
@@ -19,8 +17,5 @@ public class Illusion extends Ability {
     @Override
     public void use(GameObject gameObject) {
         super.use(gameObject);
-
-        Buff buff = new IllusionBuff(gameObject, frame);
-        gameObject.addBuff(buff);
     }
 }

@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/abilityIllusionName" />
+            android:text="@string/abilityShadowName" />
 
         <Button
             android:id="@+id/gameReady_button_ability4"

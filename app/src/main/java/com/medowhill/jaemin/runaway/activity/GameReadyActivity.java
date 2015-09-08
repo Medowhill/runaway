@@ -69,9 +69,9 @@ public class GameReadyActivity extends Activity {
                 ability3++;
                 ability3 %= 2;
                 if (ability3 % 2 == 0)
-                    button3.setText(R.string.abilityIllusionName);
+                    button3.setText(R.string.abilityShadowName);
                 else
-                    button3.setText(R.string.abilitySubstituteName);
+                    button3.setText(R.string.abilityIllusionName);
             }
         });
     }
