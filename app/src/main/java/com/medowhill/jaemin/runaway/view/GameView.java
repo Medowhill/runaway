@@ -166,11 +166,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                         }
 
                                         if (ability.isWaiting()) {
+                                            ability.decreaseRemaining(1);
                                             Message message = new Message();
                                             message.arg1 = ability.getRemainWaitingFrame();
                                             message.arg2 = ability.WAITING_FRAME;
                                             abilityButton.getDrawHandler().sendMessage(message);
-                                            ability.decreaseRemaining(1);
                                         }
                                     }
 
@@ -241,7 +241,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 // Log
                                 long time = System.currentTimeMillis() - lastTime;
-                                if (time > FRAME_LENGTH)
+                                if (time > FRAME_LENGTH / 2)
                                     Log.w("RunAway", time + "ms");
                             }
                         } finally {
