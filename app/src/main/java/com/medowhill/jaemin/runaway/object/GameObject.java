@@ -210,7 +210,7 @@ public abstract class GameObject {
         }
     }
 
-    void move(float dx, float dy) {
+    public void move(float dx, float dy) {
         if (dx != 0) {
             boolean modify = false;
             for (Wall wall : stage.walls) {
@@ -285,13 +285,15 @@ public abstract class GameObject {
             if (!buff.isStart()) {
                 buff.startBuff();
                 buff.setStart(true);
-            } else if (buff.isEnd()) {
+            }
+            if (buff.isEnd()) {
                 buff.endBuff();
                 buffs.remove(i);
                 i--;
             } else {
                 buff.duringBuff();
             }
+
             buff.framePass();
         }
     }
