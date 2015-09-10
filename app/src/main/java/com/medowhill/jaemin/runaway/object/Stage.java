@@ -153,6 +153,9 @@ public class Stage {
                         case 'g':
                             enemy = new Ghost(this, x, y);
                             break;
+                        case 'p':
+                            enemy = new Phantom(this, x, y);
+                            break;
                     }
                     enemies.add(enemy);
                     break;

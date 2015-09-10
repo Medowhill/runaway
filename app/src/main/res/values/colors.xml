@@ -29,4 +29,7 @@
     <color name="ghostNormal">#909020</color>
     <color name="ghostDetecting">#c0c020</color>
 
+    <color name="phantomNormal">#902090</color>
+    <color name="phantomDetecting">#e020e0</color>
+
 </resources>

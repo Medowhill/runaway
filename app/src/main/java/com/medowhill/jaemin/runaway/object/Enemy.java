@@ -185,10 +185,12 @@ public abstract class Enemy extends GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        if (detect || detectIllusion)
-            canvas.drawCircle(x, y, radius, paintDetecting);
-        else
-            canvas.drawCircle(x, y, radius, paintNormal);
+        if (visible) {
+            if (detect || detectIllusion)
+                canvas.drawCircle(x, y, radius, paintDetecting);
+            else
+                canvas.drawCircle(x, y, radius, paintNormal);
+        }
     }
 
 }

@@ -14,16 +14,19 @@
     <integer name="chaserSize">2</integer>
     <integer name="teleporterSize">2</integer>
     <integer name="ghostSize">1</integer>
+    <integer name="phantomSize">1</integer>
 
     <integer name="playerSpeed">25</integer>
     <integer name="observerSpeed">16</integer>
     <integer name="chaserSpeed">10</integer>
     <integer name="teleporterSpeed">10</integer>
     <integer name="ghostSpeed">14</integer>
+    <integer name="phantomSpeed">14</integer>
 
     <integer name="observerSight">1000</integer>
     <integer name="chaserSight">1000</integer>
     <integer name="teleporterSight">1000</integer>
     <integer name="ghostSight">800</integer>
+    <integer name="phantomSight">800</integer>
 
 </resources>
