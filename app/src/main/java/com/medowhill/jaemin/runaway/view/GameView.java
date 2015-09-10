@@ -194,6 +194,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 if (!gameClear) {
                                     for (Enemy enemy : enemies) {
                                         enemy.setDirection();
+                                        enemy.useAbility();
+                                        enemy.decreaseAbilityWaiting();
                                         enemy.controlBuff();
                                         enemy.move();
                                         if (player.isMortal() && !gameOver && player.touch(enemy)) {

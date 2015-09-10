@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import com.medowhill.jaemin.runaway.Direction;
+import com.medowhill.jaemin.runaway.ability.Ability;
 
 /**
  * Copyright 2015. Hong Jaemin
@@ -168,6 +169,16 @@ public abstract class Enemy extends GameObject {
         direction = direction2;
         direction2 = Direction.NONE;
         move();
+    }
+
+    // Ability Method
+
+    public abstract void useAbility();
+
+    public void decreaseAbilityWaiting() {
+        for (Ability ability : abilities)
+            if (ability.isWaiting())
+                ability.decreaseRemaining(1);
     }
 
     // Drawing Method

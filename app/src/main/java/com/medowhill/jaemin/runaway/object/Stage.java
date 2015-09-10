@@ -144,6 +144,15 @@ public class Stage {
                         case 'o':
                             enemy = new Observer(this, x, y);
                             break;
+                        case 'c':
+                            enemy = new Chaser(this, x, y);
+                            break;
+                        case 't':
+                            enemy = new Teleporter(this, x, y);
+                            break;
+                        case 'g':
+                            enemy = new Ghost(this, x, y);
+                            break;
                     }
                     enemies.add(enemy);
                     break;

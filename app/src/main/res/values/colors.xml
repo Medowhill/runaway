@@ -20,4 +20,13 @@
     <color name="observerNormal">#b00000</color>
     <color name="observerDetecting">#f00000</color>
 
+    <color name="chaserNormal">#3030a0</color>
+    <color name="chaserDetecting">#3030f0</color>
+
+    <color name="teleporterNormal">#20a020</color>
+    <color name="teleporterDetecting">#20e020</color>
+
+    <color name="ghostNormal">#909020</color>
+    <color name="ghostDetecting">#c0c020</color>
+
 </resources>

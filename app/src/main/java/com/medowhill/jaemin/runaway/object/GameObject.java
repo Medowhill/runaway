@@ -215,6 +215,7 @@ public abstract class GameObject {
             boolean modify = false;
             for (Wall wall : stage.walls) {
                 if (willTouchAfterMove(wall, dx, true)) {
+                    moveToWall(wall);
                     modifyMove(wall);
                     modify = true;
                     break;
@@ -228,6 +229,7 @@ public abstract class GameObject {
             boolean modify = false;
             for (Wall wall : stage.walls) {
                 if (willTouchAfterMove(wall, dy, false)) {
+                    moveToWall(wall);
                     modifyMove(wall);
                     modify = true;
                     break;
@@ -271,6 +273,38 @@ public abstract class GameObject {
                 return Math.min(y, y_) - dy < location && location < Math.max(y, y_) + dy;
             } else
                 return false;
+        }
+    }
+
+    void moveToWall(Wall wall) {
+        float start = wall.START, end = wall.END, location = wall.LOCATION;
+
+        if (wall.HORIZONTAL) {
+            float dy = 0;
+            if (start - radius < x && x < start)
+                dy = (float) Math.sqrt(radius * radius - (start - x) * (start - x));
+            else if (x < end)
+                dy = radius;
+            else if (x < end + radius)
+                dy = (float) Math.sqrt(radius * radius - (end - x) * (end - x));
+
+            if (location < y)
+                y = location + dy;
+            else
+                y = location - dy;
+        } else {
+            float dx = 0;
+            if (start - radius < y && y < start)
+                dx = (float) Math.sqrt(radius * radius - (start - y) * (start - y));
+            else if (y < end)
+                dx = radius;
+            else if (y < end + radius)
+                dx = (float) Math.sqrt(radius * radius - (end - y) * (end - y));
+
+            if (location < x)
+                x = location + dx;
+            else
+                x = location - dx;
         }
     }
 

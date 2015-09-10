@@ -70,6 +70,7 @@ public class GameActivity extends Activity {
             abilityButtons[i] = (AbilityButton) findViewById(ABILITY_BUTTON_ID[i]);
 
         GameObject.setContext(this);
+        Ability.setContext(this);
         gameView.setGameOverHandler(gameOverHandler);
         gameView.setDirectionControl(directionControl);
         gameView.setAbilityButtons(abilityButtons);

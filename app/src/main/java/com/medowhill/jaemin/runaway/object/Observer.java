@@ -15,4 +15,8 @@ public class Observer extends Enemy {
                 x, y, context.getResources().getInteger(R.integer.observerSpeed), context.getResources().getInteger(R.integer.observerSight));
     }
 
+    @Override
+    public void useAbility() {
+
+    }
 }

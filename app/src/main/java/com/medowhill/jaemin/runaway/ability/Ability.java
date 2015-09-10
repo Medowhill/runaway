@@ -1,5 +1,7 @@
 package com.medowhill.jaemin.runaway.ability;
 
+import android.content.Context;
+
 import com.medowhill.jaemin.runaway.object.GameObject;
 
 /**
@@ -8,6 +10,8 @@ import com.medowhill.jaemin.runaway.object.GameObject;
  */
 
 public abstract class Ability {
+
+    static Context context;
 
     public final int iconResourceID;
     public final int WAITING_FRAME;
@@ -18,6 +22,10 @@ public abstract class Ability {
         this.LEVEL = level;
         this.WAITING_FRAME = waitingFrame;
         this.iconResourceID = iconResourceID;
+    }
+
+    public static void setContext(Context context) {
+        Ability.context = context;
     }
 
     public void use(GameObject gameObject) {
