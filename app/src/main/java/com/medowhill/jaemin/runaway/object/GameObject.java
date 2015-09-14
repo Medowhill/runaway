@@ -80,6 +80,14 @@ public abstract class GameObject {
         return this.y;
     }
 
+    public float getSpeed() {
+        return speed;
+    }
+
+    void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
     public Stage getStage() {
         return stage;
     }
@@ -114,10 +122,6 @@ public abstract class GameObject {
 
     public boolean isMortal() {
         return mortal;
-    }
-
-    void setSpeed(float speed) {
-        this.speed = speed;
     }
 
     // State Setter

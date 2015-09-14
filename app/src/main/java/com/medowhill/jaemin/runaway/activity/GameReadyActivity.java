@@ -32,11 +32,15 @@ public class GameReadyActivity extends Activity {
         button3 = (Button) findViewById(R.id.gameReady_button_ability3);
         button4 = (Button) findViewById(R.id.gameReady_button_ability4);
 
+        Intent intent = getIntent();
+        final int stage = intent.getIntExtra("stage", 1);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                 intent.putExtra("Ability", new int[]{ability1, ability2, ability3, ability4});
+                intent.putExtra("stage", stage);
                 startActivity(intent);
             }
         });

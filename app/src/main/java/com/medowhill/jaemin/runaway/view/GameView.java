@@ -183,7 +183,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                     player.getIllusion().move();
                                 }
 
-                                if (!gameClear && player.getX() == stage.getxFinish() && player.getY() == stage.getyFinish()) {
+                                if (!gameClear && Math.abs(player.getX() - stage.getxFinish()) < player.getSpeed() * 2
+                                        && Math.abs(player.getY() - stage.getyFinish()) < player.getSpeed() * 2) {
                                     gameClear = true;
                                     Message message = new Message();
                                     message.what = 0;

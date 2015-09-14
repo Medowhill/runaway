@@ -75,9 +75,9 @@ public class GameActivity extends Activity {
         gameView.setDirectionControl(directionControl);
         gameView.setAbilityButtons(abilityButtons);
 
-        Stage stage = new Stage(this, 1);
-        ArrayList<Ability> playerAbilities = stage.getPlayer().getAbilities();
         Intent intent = getIntent();
+        Stage stage = new Stage(this, intent.getIntExtra("stage", 1));
+        ArrayList<Ability> playerAbilities = stage.getPlayer().getAbilities();
         int[] abilities = intent.getIntArrayExtra("Ability");
         for (int i = 0; i < abilities.length; i++) {
             if (abilities[i] != -1)
