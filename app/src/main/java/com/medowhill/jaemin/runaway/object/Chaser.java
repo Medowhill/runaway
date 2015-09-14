@@ -23,8 +23,10 @@ public class Chaser extends Enemy {
     public void useAbility() {
         Ability ability = abilities.get(0);
 
-        if (!ability.isWaiting() && detect) {
+        if (!ability.isWaiting() && (detect || detectIllusion)) {
             Player player = stage.getPlayer();
+            if (detectIllusion)
+                player = player.getIllusion();
             float x1 = player.getX(), y1 = player.getY();
             float dx = Math.abs(x1 - x), dy = Math.abs(y1 - y);
             float min = Math.min(dx, dy), max = Math.max(dx, dy);
