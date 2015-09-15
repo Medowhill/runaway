@@ -14,13 +14,10 @@ public abstract class Ability {
     static Context context;
 
     public final int iconResourceID;
-    public final int WAITING_FRAME;
-    final int LEVEL;
+    public int WAITING_FRAME;
     int remainWaitingFrame;
 
-    Ability(int level, int waitingFrame, int iconResourceID) {
-        this.LEVEL = level;
-        this.WAITING_FRAME = waitingFrame;
+    Ability(int iconResourceID) {
         this.iconResourceID = iconResourceID;
     }
 

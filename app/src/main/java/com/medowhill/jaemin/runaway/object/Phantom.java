@@ -14,7 +14,7 @@ public class Phantom extends Enemy {
                 context.getResources().getColor(R.color.phantomNormal), context.getResources().getColor(R.color.phantomDetecting),
                 x, y, context.getResources().getInteger(R.integer.phantomSpeed), context.getResources().getInteger(R.integer.phantomSight));
 
-        abilities.add(new Hiding(1));
+        abilities.add(new Hiding(1, false));
     }
 
     @Override

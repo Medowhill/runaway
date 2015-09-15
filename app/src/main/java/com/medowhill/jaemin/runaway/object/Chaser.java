@@ -9,14 +9,16 @@ import com.medowhill.jaemin.runaway.ability.Dash;
  */
 public class Chaser extends Enemy {
 
-    private float distance = 625;
+    private final float distance;
 
     public Chaser(Stage stage, float x, float y) {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.chaserSize),
                 context.getResources().getColor(R.color.chaserNormal), context.getResources().getColor(R.color.chaserDetecting),
                 x, y, context.getResources().getInteger(R.integer.chaserSpeed), context.getResources().getInteger(R.integer.chaserSight));
 
-        abilities.add(new Dash(1));
+        Dash dash = new Dash(1, false);
+        abilities.add(dash);
+        distance = dash.getDistance();
     }
 
     @Override
@@ -30,7 +32,7 @@ public class Chaser extends Enemy {
             float x1 = player.getX(), y1 = player.getY();
             float dx = Math.abs(x1 - x), dy = Math.abs(y1 - y);
             float min = Math.min(dx, dy), max = Math.max(dx, dy);
-            if (min < radius * 2 && max < distance)
+            if (min < radius * 3 && distance * 0.5f < max && max < distance * 1.5f)
                 ability.use(this);
         }
     }

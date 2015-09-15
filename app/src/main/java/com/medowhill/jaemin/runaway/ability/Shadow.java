@@ -14,10 +14,13 @@ import com.medowhill.jaemin.runaway.object.Player;
 
 public class Shadow extends Ability {
 
-    int frame = 60;
+    private final int frame;
 
     public Shadow(int level) {
-        super(level, 360, R.drawable.ability_icon_shadow);
+        super(R.drawable.ability_icon_shadow);
+
+        WAITING_FRAME = context.getResources().getInteger(R.integer.shadowPlayerCool);
+        frame = context.getResources().getIntArray(R.array.shadowFrame)[level - 1];
     }
 
     @Override

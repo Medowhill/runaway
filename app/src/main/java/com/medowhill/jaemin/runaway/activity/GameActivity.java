@@ -34,8 +34,8 @@ public class GameActivity extends Activity {
 
     final int[] ABILITY_BUTTON_ID = new int[]{R.id.abilityButton1, R.id.abilityButton2, R.id.abilityButton3, R.id.abilityButton4};
 
-    Ability[][] abilityArray = new Ability[][]{{new Dash(1), new Teleportation(1)},
-            {new Hiding(1), new Protection(1)}, {new Shadow(1), new Illusion(1)}, {new ShockWave(1), new DistortionField(1)}};
+    Ability[][] abilityArray = new Ability[][]{{new Dash(1, true), new Teleportation(1, true)},
+            {new Hiding(1, true), new Protection(1)}, {new Shadow(1), new Illusion(1)}, {new ShockWave(1, 1), new DistortionField(1, 1)}};
 
     GameView gameView;
     DirectionControl directionControl;
@@ -70,7 +70,6 @@ public class GameActivity extends Activity {
             abilityButtons[i] = (AbilityButton) findViewById(ABILITY_BUTTON_ID[i]);
 
         GameObject.setContext(this);
-        Ability.setContext(this);
         gameView.setGameOverHandler(gameOverHandler);
         gameView.setDirectionControl(directionControl);
         gameView.setAbilityButtons(abilityButtons);

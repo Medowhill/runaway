@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Game View Size-->
     <integer name="gameWidth">2560</integer>
     <integer name="gameHeight">1440</integer>
     <integer name="mapRadius">10</integer>
 
+    <!--Game Frame-->
     <integer name="frame">40</integer>
     <integer name="gameOverFrame">40</integer>
 
+    <!--Game Objects Sizes-->
     <integer name="baseSize">30</integer>
     <integer name="playerSize">2</integer>
     <integer name="observerSize">2</integer>
@@ -16,6 +19,7 @@
     <integer name="ghostSize">1</integer>
     <integer name="phantomSize">1</integer>
 
+    <!--Game Objects Speeds-->
     <integer name="playerSpeed">25</integer>
     <integer name="observerSpeed">16</integer>
     <integer name="chaserSpeed">10</integer>
@@ -23,10 +27,32 @@
     <integer name="ghostSpeed">14</integer>
     <integer name="phantomSpeed">14</integer>
 
+    <!--Game Objects Sights-->
     <integer name="observerSight">1000</integer>
     <integer name="chaserSight">1000</integer>
     <integer name="teleporterSight">1000</integer>
     <integer name="ghostSight">800</integer>
     <integer name="phantomSight">800</integer>
+
+    <!--Abilities Waiting Frames-->
+    <integer name="dashPlayerCool">80</integer>
+    <integer name="dashEnemyCool">60</integer>
+    <integer name="teleportationPlayerCool">80</integer>
+    <integer name="teleportationEnemyCool">60</integer>
+    <integer name="hidingPlayerCool">160</integer>
+    <integer name="hidingEnemyCool">120</integer>
+    <integer name="protectionPlayerCool">160</integer>
+    <integer name="shadowPlayerCool">240</integer>
+    <integer name="illusionPlayerCool">240</integer>
+    <integer name="shockWavePlayerCool">320</integer>
+    <integer name="distortionFieldPlayerCool">320</integer>
+
+    <!--Abilities Values-->
+    <integer name="dashPlayerDistance">650</integer>
+    <integer name="dashEnemyDistance">450</integer>
+    <integer name="teleportationPlayerDistance">650</integer>
+    <integer name="teleportationEnemyDistance">450</integer>
+    <integer name="shockWavePlayerFrame">10</integer>
+    <integer name="distortionFieldPlayerFrame">10</integer>
 
 </resources>

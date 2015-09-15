@@ -18,11 +18,18 @@ public class Teleportation extends Ability {
     private final int frame;
     private final float distance;
 
-    public Teleportation(int level) {
-        super(level, 120, R.drawable.ability_icon_teleportation);
+    public Teleportation(int level, boolean player) {
+        super(R.drawable.ability_icon_teleportation);
 
-        frame = 10;
-        distance = 625;
+        if (player) {
+            WAITING_FRAME = context.getResources().getInteger(R.integer.teleportationPlayerCool);
+            frame = context.getResources().getIntArray(R.array.teleportationPlayerFrame)[level - 1];
+            distance = context.getResources().getInteger(R.integer.teleportationPlayerDistance);
+        } else {
+            WAITING_FRAME = context.getResources().getInteger(R.integer.teleportationEnemyCool);
+            frame = context.getResources().getIntArray(R.array.teleportationEnemyFrame)[level - 1];
+            distance = context.getResources().getInteger(R.integer.teleportationEnemyDistance);
+        }
     }
 
     @Override
@@ -54,5 +61,9 @@ public class Teleportation extends Ability {
         gameObject.addBuff(new DelayBuff(gameObject, frame, buff));
         buff = new CannotMoveBuff(gameObject, frame + 1);
         gameObject.addBuff(buff);
+    }
+
+    public float getDistance() {
+        return distance;
     }
 }

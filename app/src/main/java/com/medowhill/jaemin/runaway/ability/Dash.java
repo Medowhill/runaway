@@ -17,10 +17,18 @@ public class Dash extends Ability {
     private final int frame;
     private final float distance;
 
-    public Dash(int level) {
-        super(level, 120, R.drawable.ability_icon_dash);
-        frame = 10;
-        distance = 625;
+    public Dash(int level, boolean player) {
+        super(R.drawable.ability_icon_dash);
+
+        if (player) {
+            WAITING_FRAME = context.getResources().getInteger(R.integer.dashPlayerCool);
+            frame = context.getResources().getIntArray(R.array.dashPlayerFrame)[level - 1];
+            distance = context.getResources().getInteger(R.integer.dashPlayerDistance);
+        } else {
+            WAITING_FRAME = context.getResources().getInteger(R.integer.dashEnemyCool);
+            frame = context.getResources().getIntArray(R.array.dashEnemyFrame)[level - 1];
+            distance = context.getResources().getInteger(R.integer.dashEnemyDistance);
+        }
     }
 
     @Override
@@ -52,5 +60,9 @@ public class Dash extends Ability {
         gameObject.addBuff(buff);
         buff = new CannotMoveBuff(gameObject, frame);
         gameObject.addBuff(buff);
+    }
+
+    public float getDistance() {
+        return distance;
     }
 }

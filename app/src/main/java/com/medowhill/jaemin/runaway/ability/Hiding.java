@@ -12,10 +12,18 @@ import com.medowhill.jaemin.runaway.object.GameObject;
 
 public class Hiding extends Ability {
 
-    int frame = 80;
+    private final int frame;
 
-    public Hiding(int level) {
-        super(level, 240, R.drawable.ability_icon_hiding);
+    public Hiding(int level, boolean player) {
+        super(R.drawable.ability_icon_hiding);
+
+        if (player) {
+            WAITING_FRAME = context.getResources().getInteger(R.integer.hidingPlayerCool);
+            frame = context.getResources().getIntArray(R.array.hidingPlayerFrame)[level - 1];
+        } else {
+            WAITING_FRAME = context.getResources().getInteger(R.integer.hidingEnemyCool);
+            frame = context.getResources().getIntArray(R.array.hidingEnemyFrame)[level - 1];
+        }
     }
 
     @Override

@@ -12,10 +12,13 @@ import com.medowhill.jaemin.runaway.object.GameObject;
 
 public class Protection extends Ability {
 
-    int frame = 40;
+    private final int frame;
 
     public Protection(int level) {
-        super(level, 240, R.drawable.ability_icon_protection);
+        super(R.drawable.ability_icon_protection);
+
+        WAITING_FRAME = context.getResources().getInteger(R.integer.protectionPlayerCool);
+        frame = context.getResources().getIntArray(R.array.protectionFrame)[level - 1];
     }
 
     @Override

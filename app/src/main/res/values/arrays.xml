@@ -9,4 +9,115 @@
         <item>p,100,400/f,2300,2000/w,4000,4000,0,1600,2400,2400,800,3200,3200,800,0,0/e,p,1800,400/e,t,3500,400/e,o,3600,2000/e,t,3600,3500/e,p,2000,3600/e,o,300,3500/e,t,300,1900</item>
     </string-array>
 
+
+    <!--Abilities Values-->
+    <!--Dash-->
+    <integer-array name="dashPlayerFrame">
+        <item>14</item>
+        <item>12</item>
+        <item>10</item>
+        <item>9</item>
+        <item>8</item>
+    </integer-array>
+    <integer-array name="dashPlayerDistance">
+        <item>650</item>
+        <item>650</item>
+        <item>650</item>
+        <item>650</item>
+        <item>650</item>
+    </integer-array>
+    <integer-array name="dashEnemyFrame">
+        <item>10</item>
+        <item>9</item>
+        <item>8</item>
+        <item>7</item>
+        <item>6</item>
+    </integer-array>
+    <integer-array name="dashEnemyDistance">
+        <item>400</item>
+        <item>400</item>
+        <item>400</item>
+        <item>400</item>
+        <item>400</item>
+    </integer-array>
+    <!--Teleportation-->
+    <integer-array name="teleportationPlayerFrame">
+        <item>14</item>
+        <item>12</item>
+        <item>10</item>
+        <item>9</item>
+        <item>8</item>
+    </integer-array>
+    <integer-array name="teleportationEnemyFrame">
+        <item>10</item>
+        <item>9</item>
+        <item>8</item>
+        <item>7</item>
+        <item>6</item>
+    </integer-array>
+    <!--Hiding-->
+    <integer-array name="hidingPlayerFrame">
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+    </integer-array>
+    <integer-array name="hidingEnemyFrame">
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+    </integer-array>
+    <integer-array name="protectionFrame">
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+    </integer-array>
+    <integer-array name="shadowFrame">
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+    </integer-array>
+    <integer-array name="illusionFrame">
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+    </integer-array>
+    <integer-array name="shockWavePlayerRange">
+        <item>600</item>
+        <item>650</item>
+        <item>700</item>
+        <item>750</item>
+        <item>800</item>
+    </integer-array>
+    <integer-array name="shockWavePlayerDistance">
+        <item>600</item>
+        <item>650</item>
+        <item>700</item>
+        <item>750</item>
+        <item>800</item>
+    </integer-array>
+    <integer-array name="distortionFieldPlayerRange">
+        <item>600</item>
+        <item>650</item>
+        <item>700</item>
+        <item>750</item>
+        <item>800</item>
+    </integer-array>
+    <integer-array name="distortionFieldPlayerDSpeed">
+        <item>-30</item>
+        <item>-40</item>
+        <item>-50</item>
+        <item>-60</item>
+        <item>-70</item>
+    </integer-array>
+
 </resources>

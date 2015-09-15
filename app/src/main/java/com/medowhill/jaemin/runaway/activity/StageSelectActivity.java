@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.medowhill.jaemin.runaway.R;
+import com.medowhill.jaemin.runaway.ability.Ability;
 
 /**
  * Created by Jaemin on 2015-09-10.
@@ -21,6 +22,8 @@ public class StageSelectActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stageselect);
+
+        Ability.setContext(this);
 
         for (int i = 0; i < buttonId.length; i++) {
             buttons[i] = (Button) findViewById(buttonId[i]);
