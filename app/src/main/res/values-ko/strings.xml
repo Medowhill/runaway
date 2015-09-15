@@ -9,4 +9,8 @@
     <string name="abilityIllusionName">환영</string>
     <string name="abilityShockWaveName">충격파</string>
     <string name="abilityDistortionFieldName">왜곡장</string>
+    <string name="gameMenuGoToMainMenu">메인 메뉴</string>
+    <string name="gameMenuOptions">설정</string>
+    <string name="gameMenuReselectAbilities">능력 재선택</string>
+    <string name="gameMenuRestart">재시작</string>
 </resources>

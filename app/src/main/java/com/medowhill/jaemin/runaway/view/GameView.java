@@ -122,10 +122,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         surfaceThread.lastTime = System.currentTimeMillis();
     }
 
+    public boolean getPause() {
+        return surfaceThread.pause;
+    }
+
+    public void setPause(boolean pause) {
+        if (!surfaceThread.gameClear && !surfaceThread.gameOver) {
+            surfaceThread.pause = pause;
+        }
+    }
+
     private class SurfaceThread extends Thread {
 
         SurfaceHolder surfaceHolder;
-        boolean run = true, gameStart = false, gameOver = false, gameClear = false;
+        boolean run = true, gameStart = false, pause = false, gameOver = false, gameClear = false;
         long lastTime;
         int gameOverFrame;
 
@@ -154,7 +164,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 Player player = stage.getPlayer();
 
-                                if (!gameOver && !gameClear) {
+                                if (!pause && !gameOver && !gameClear) {
                                     player.setDirection(directionControl.getDirection());
 
                                     for (int i = 0; i < player.getAbilities().size(); i++) {
@@ -183,7 +193,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                     player.getIllusion().move();
                                 }
 
-                                if (!gameClear && Math.abs(player.getX() - stage.getxFinish()) < player.getSpeed() * 2
+                                if (!pause && !gameClear && Math.abs(player.getX() - stage.getxFinish()) < player.getSpeed() * 2
                                         && Math.abs(player.getY() - stage.getyFinish()) < player.getSpeed() * 2) {
                                     gameClear = true;
                                     Message message = new Message();
@@ -192,7 +202,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 }
 
                                 ArrayList<Enemy> enemies = stage.enemies;
-                                if (!gameClear) {
+                                if (!pause && !gameClear) {
                                     for (Enemy enemy : enemies) {
                                         enemy.setDirection();
                                         enemy.useAbility();
@@ -243,6 +253,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                         message.what = 1;
                                         gameOverHandler.sendMessage(message);
                                     }
+                                } else if (pause) {
+                                    canvas.translate(-dx, -dy);
+                                    paintGameOver.setColor(Color.argb(127, 0, 0, 0));
+                                    canvas.drawRect(0, 0, WIDTH, HEIGHT, paintGameOver);
                                 }
 
                                 // Log

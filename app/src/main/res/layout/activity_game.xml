@@ -21,24 +21,77 @@
         android:orientation="horizontal">
 
         <com.medowhill.jaemin.runaway.view.AbilityButton
-            android:id="@+id/abilityButton4"
+            android:id="@+id/game_abilityButton4"
             android:layout_width="@dimen/abilityButtonSize"
             android:layout_height="@dimen/abilityButtonSize" />
 
         <com.medowhill.jaemin.runaway.view.AbilityButton
-            android:id="@+id/abilityButton3"
+            android:id="@+id/game_abilityButton3"
             android:layout_width="@dimen/abilityButtonSize"
             android:layout_height="@dimen/abilityButtonSize" />
 
         <com.medowhill.jaemin.runaway.view.AbilityButton
-            android:id="@+id/abilityButton2"
+            android:id="@+id/game_abilityButton2"
             android:layout_width="@dimen/abilityButtonSize"
             android:layout_height="@dimen/abilityButtonSize" />
 
         <com.medowhill.jaemin.runaway.view.AbilityButton
-            android:id="@+id/abilityButton1"
+            android:id="@+id/game_abilityButton1"
             android:layout_width="@dimen/abilityButtonSize"
             android:layout_height="@dimen/abilityButtonSize" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/game_button_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:background="@drawable/game_pause" />
+
+    <ImageButton
+        android:id="@+id/game_button_resume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:background="@drawable/game_resume"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/game_linearLayout_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/game_button_restart"
+            android:layout_width="@dimen/pauseMenuWidth"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/pauseMenuMargin"
+            android:text="@string/gameMenuRestart" />
+
+        <Button
+            android:id="@+id/game_button_reselectAbilities"
+            android:layout_width="@dimen/pauseMenuWidth"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/pauseMenuMargin"
+            android:text="@string/gameMenuReselectAbilities" />
+
+        <Button
+            android:id="@+id/game_button_goToMainMenu"
+            android:layout_width="@dimen/pauseMenuWidth"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/pauseMenuMargin"
+            android:text="@string/gameMenuGoToMainMenu" />
+
+        <Button
+            android:id="@+id/game_button_options"
+            android:layout_width="@dimen/pauseMenuWidth"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/pauseMenuMargin"
+            android:text="@string/gameMenuOptions" />
 
     </LinearLayout>
 
