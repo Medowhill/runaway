@@ -20,7 +20,6 @@ import com.medowhill.jaemin.runaway.ability.Protection;
 import com.medowhill.jaemin.runaway.ability.Shadow;
 import com.medowhill.jaemin.runaway.ability.ShockWave;
 import com.medowhill.jaemin.runaway.ability.Teleportation;
-import com.medowhill.jaemin.runaway.object.GameObject;
 import com.medowhill.jaemin.runaway.object.Stage;
 import com.medowhill.jaemin.runaway.view.AbilityButton;
 import com.medowhill.jaemin.runaway.view.DirectionControl;
@@ -35,6 +34,8 @@ import java.util.ArrayList;
 
 public class GameActivity extends Activity {
 
+    public static final int GAME_OVER = 0, ACTIVITY_FIN = 1, GAME_RESTART = 2;
+
     final int[] ABILITY_BUTTON_ID = new int[]{R.id.game_abilityButton1, R.id.game_abilityButton2, R.id.game_abilityButton3, R.id.game_abilityButton4};
 
     Ability[][] abilityArray = new Ability[][]{{new Dash(1, true), new Teleportation(1, true)},
@@ -45,20 +46,28 @@ public class GameActivity extends Activity {
     AbilityButton[] abilityButtons;
     ImageButton buttonPause, buttonResume;
     Button buttonRestart, buttonReselect, buttonMain, buttonOption;
-    LinearLayout linearLayout;
+    LinearLayout linearLayoutMenu, linearLayoutAbilityButton;
+
+    int stageNum;
+    int[] abilities = new int[]{};
 
     Handler gameOverHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 0:
+                case GAME_OVER:
                     directionControl.setVisibility(View.GONE);
                     buttonPause.setVisibility(View.GONE);
-                    for (int i = 0; i < abilityButtons.length; i++)
-                        abilityButtons[i].setVisibility(View.GONE);
+                    linearLayoutAbilityButton.setVisibility(View.GONE);
                     break;
-                case 1:
+                case ACTIVITY_FIN:
+                    Intent intent = new Intent();
+                    intent.putExtra("result", GameReadyActivity.RESULT_NEXT);
+                    setResult(RESULT_OK, intent);
                     finish();
+                    break;
+                case GAME_RESTART:
+                    readyGame();
                     break;
             }
         }
@@ -77,7 +86,8 @@ public class GameActivity extends Activity {
         buttonReselect = (Button) findViewById(R.id.game_button_reselectAbilities);
         buttonMain = (Button) findViewById(R.id.game_button_goToMainMenu);
         buttonOption = (Button) findViewById(R.id.game_button_options);
-        linearLayout = (LinearLayout) findViewById(R.id.game_linearLayout_menu);
+        linearLayoutMenu = (LinearLayout) findViewById(R.id.game_linearLayout_menu);
+        linearLayoutAbilityButton = (LinearLayout) findViewById(R.id.game_linearLayout_abilityButton);
 
         abilityButtons = new AbilityButton[4];
         for (int i = 0; i < abilityButtons.length; i++)
@@ -100,37 +110,60 @@ public class GameActivity extends Activity {
         buttonRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                readyGame();
+                pause();
             }
         });
 
         buttonReselect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent();
+                intent.putExtra("result", GameReadyActivity.RESULT_RESELECT);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
 
         buttonMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("result", GameReadyActivity.RESULT_MAIN);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
+        buttonOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
 
-        GameObject.setContext(this);
         gameView.setGameOverHandler(gameOverHandler);
         gameView.setDirectionControl(directionControl);
         gameView.setAbilityButtons(abilityButtons);
 
         Intent intent = getIntent();
-        Stage stage = new Stage(this, intent.getIntExtra("stage", 1));
+        stageNum = intent.getIntExtra("stage", 1);
+        abilities = intent.getIntArrayExtra("Ability");
+
+        readyGame();
+    }
+
+    @Override
+    public void onBackPressed() {
+        pause();
+    }
+
+    private void readyGame() {
+        Stage stage = new Stage(this, stageNum);
         ArrayList<Ability> playerAbilities = stage.getPlayer().getAbilities();
-        int[] abilities = intent.getIntArrayExtra("Ability");
-        for (int i = 0; i < abilities.length; i++) {
+        for (int i = 0; i < abilities.length; i++)
             if (abilities[i] != -1)
                 playerAbilities.add(abilityArray[i][abilities[i]]);
-        }
 
         for (int i = 0; i < abilityButtons.length; i++) {
             if (playerAbilities.size() > i)
@@ -139,32 +172,32 @@ public class GameActivity extends Activity {
                 abilityButtons[i].setVisibility(View.GONE);
         }
 
+        directionControl.setVisibility(View.VISIBLE);
+        buttonPause.setVisibility(View.VISIBLE);
+        linearLayoutAbilityButton.setVisibility(View.VISIBLE);
+
         gameView.setStage(stage);
         gameView.startGame();
     }
 
-    @Override
-    public void onBackPressed() {
-        pause();
-    }
-
     private void pause() {
-        if (gameView.getPause()) {
-            gameView.setPause(false);
-            directionControl.setVisibility(View.VISIBLE);
-            buttonResume.setVisibility(View.GONE);
-            buttonPause.setVisibility(View.VISIBLE);
-            linearLayout.setVisibility(View.GONE);
-            for (int i = 0; i < abilityButtons.length; i++)
-                abilityButtons[i].setVisibility(View.VISIBLE);
-        } else {
-            gameView.setPause(true);
-            directionControl.setVisibility(View.GONE);
-            buttonResume.setVisibility(View.VISIBLE);
-            buttonPause.setVisibility(View.GONE);
-            linearLayout.setVisibility(View.VISIBLE);
-            for (int i = 0; i < abilityButtons.length; i++)
-                abilityButtons[i].setVisibility(View.GONE);
-        }
+        if (gameView.isPlaying())
+            if (gameView.getPause()) {
+                gameView.setPause(false);
+                directionControl.setVisibility(View.VISIBLE);
+                buttonResume.setVisibility(View.GONE);
+                buttonPause.setVisibility(View.VISIBLE);
+                linearLayoutMenu.setVisibility(View.GONE);
+                for (int i = 0; i < abilityButtons.length; i++)
+                    abilityButtons[i].setVisibility(View.VISIBLE);
+            } else {
+                gameView.setPause(true);
+                directionControl.setVisibility(View.GONE);
+                buttonResume.setVisibility(View.VISIBLE);
+                buttonPause.setVisibility(View.GONE);
+                linearLayoutMenu.setVisibility(View.VISIBLE);
+                for (int i = 0; i < abilityButtons.length; i++)
+                    abilityButtons[i].setVisibility(View.GONE);
+            }
     }
 }

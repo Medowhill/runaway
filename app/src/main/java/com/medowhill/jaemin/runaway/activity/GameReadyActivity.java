@@ -15,6 +15,10 @@ import com.medowhill.jaemin.runaway.R;
 
 public class GameReadyActivity extends Activity {
 
+    public static final int RESULT_RESELECT = 0, RESULT_NEXT = 1, RESULT_MAIN = 2;
+
+    final int REQUEST_CODE = 0;
+
     Button button;
 
     Button button1, button2, button3, button4;
@@ -41,7 +45,7 @@ public class GameReadyActivity extends Activity {
                 Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                 intent.putExtra("Ability", new int[]{ability1, ability2, ability3, ability4});
                 intent.putExtra("stage", stage);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
@@ -92,5 +96,18 @@ public class GameReadyActivity extends Activity {
                     button4.setText(R.string.abilityDistortionFieldName);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            switch (data.getIntExtra("result", RESULT_RESELECT)) {
+                case RESULT_NEXT:
+                    break;
+                case RESULT_MAIN:
+                    finish();
+                    break;
+            }
+        }
     }
 }

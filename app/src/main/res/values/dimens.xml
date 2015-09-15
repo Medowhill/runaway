@@ -3,7 +3,7 @@
 
     <dimen name="directionControlSize">140dp</dimen>
     <dimen name="abilityButtonSize">65dp</dimen>
-    <dimen name="pauseMenuWidth">200dp</dimen>
+    <dimen name="pauseMenuWidth">300dp</dimen>
     <dimen name="pauseMenuMargin">10dp</dimen>
 
 </resources>

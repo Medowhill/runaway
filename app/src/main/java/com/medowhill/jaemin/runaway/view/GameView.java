@@ -13,6 +13,7 @@ import android.view.SurfaceView;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
+import com.medowhill.jaemin.runaway.activity.GameActivity;
 import com.medowhill.jaemin.runaway.object.Enemy;
 import com.medowhill.jaemin.runaway.object.Player;
 import com.medowhill.jaemin.runaway.object.Stage;
@@ -42,6 +43,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private SurfaceThread surfaceThread;
 
+    // Constructor
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -68,6 +70,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         surfaceThread = new SurfaceThread();
     }
+
+    // Override Method
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -101,6 +105,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    // Getter & Setter
+
     public void setGameOverHandler(Handler gameOverHandler) {
         this.gameOverHandler = gameOverHandler;
     }
@@ -117,21 +123,27 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         this.stage = stage;
     }
 
-    public void startGame() {
-        surfaceThread.gameStart = true;
-        surfaceThread.lastTime = System.currentTimeMillis();
-    }
-
     public boolean getPause() {
         return surfaceThread.pause;
     }
 
     public void setPause(boolean pause) {
-        if (!surfaceThread.gameClear && !surfaceThread.gameOver) {
+        if (isPlaying())
             surfaceThread.pause = pause;
-        }
     }
 
+    public boolean isPlaying() {
+        return !surfaceThread.gameClear && !surfaceThread.gameOver;
+    }
+
+    // Game Play method
+
+    public void startGame() {
+        surfaceThread.gameStart = true;
+        surfaceThread.lastTime = System.currentTimeMillis();
+    }
+
+    // Surface Thread
     private class SurfaceThread extends Thread {
 
         SurfaceHolder surfaceHolder;
@@ -197,7 +209,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                         && Math.abs(player.getY() - stage.getyFinish()) < player.getSpeed() * 2) {
                                     gameClear = true;
                                     Message message = new Message();
-                                    message.what = 0;
+                                    message.what = GameActivity.GAME_OVER;
                                     gameOverHandler.sendMessage(message);
                                 }
 
@@ -248,9 +260,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                     canvas.drawRect(0, 0, WIDTH, HEIGHT, paintGameOver);
                                     gameOverFrame++;
                                     if (gameOverFrame == GAME_OVER_FRAME) {
-                                        run = false;
                                         Message message = new Message();
-                                        message.what = 1;
+                                        if (gameClear) {
+                                            message.what = GameActivity.ACTIVITY_FIN;
+                                            run = false;
+                                        } else if (gameOver) {
+                                            message.what = GameActivity.GAME_RESTART;
+                                            gameOver = false;
+                                            gameOverFrame = 0;
+                                            gameStart = false;
+                                        }
                                         gameOverHandler.sendMessage(message);
                                     }
                                 } else if (pause) {
