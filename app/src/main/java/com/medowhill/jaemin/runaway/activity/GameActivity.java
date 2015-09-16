@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -38,6 +40,9 @@ public class GameActivity extends Activity {
     public static final int GAME_OVER = 0, ACTIVITY_FIN = 1, GAME_RESTART = 2;
 
     final int[] ABILITY_BUTTON_ID = new int[]{R.id.game_abilityButton1, R.id.game_abilityButton2, R.id.game_abilityButton3, R.id.game_abilityButton4};
+    final int[] BUTTON_ID = new int[]{R.id.game_button_restart, R.id.game_button_reselectAbilities, R.id.game_button_selectStage, R.id.game_button_goToMainMenu, R.id.game_button_options};
+
+    final int BUTTON_DELAY = 50;
 
     Ability[][] abilityArray = new Ability[][]{{new Dash(1, true), new Teleportation(1, true)},
             {new Hiding(1, true), new Protection(1)}, {new Shadow(1), new Illusion(1)}, {new ShockWave(1, 1), new DistortionField(1, 1)}};
@@ -46,8 +51,11 @@ public class GameActivity extends Activity {
     DirectionControl directionControl;
     AbilityButton[] abilityButtons;
     ImageButton buttonPause, buttonResume;
-    Button buttonRestart, buttonReselect, buttonMain, buttonOption;
-    LinearLayout linearLayoutMenu, linearLayoutAbilityButton;
+    Button[] buttons;
+    LinearLayout linearLayoutAbilityButton;
+
+    Animation[] animationShowMenu, animationHideMenu;
+    boolean animatingMenu = false;
 
     int stageNum;
     int[] abilities = new int[]{};
@@ -74,6 +82,24 @@ public class GameActivity extends Activity {
         }
     };
 
+    Handler showButtonHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            int i = msg.what;
+            if (i < buttons.length)
+                buttons[i].startAnimation(animationShowMenu[i]);
+        }
+    };
+
+    Handler hideButtonHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            int i = msg.what;
+            if (i < buttons.length)
+                buttons[i].startAnimation(animationHideMenu[i]);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,16 +109,60 @@ public class GameActivity extends Activity {
         directionControl = (DirectionControl) findViewById(R.id.game_directionControl);
         buttonPause = (ImageButton) findViewById(R.id.game_button_pause);
         buttonResume = (ImageButton) findViewById(R.id.game_button_resume);
-        buttonRestart = (Button) findViewById(R.id.game_button_restart);
-        buttonReselect = (Button) findViewById(R.id.game_button_reselectAbilities);
-        buttonMain = (Button) findViewById(R.id.game_button_goToMainMenu);
-        buttonOption = (Button) findViewById(R.id.game_button_options);
-        linearLayoutMenu = (LinearLayout) findViewById(R.id.game_linearLayout_menu);
         linearLayoutAbilityButton = (LinearLayout) findViewById(R.id.game_linearLayout_abilityButton);
+        buttons = new Button[BUTTON_ID.length];
 
-        abilityButtons = new AbilityButton[4];
+        for (int i = 0; i < buttons.length; i++)
+            buttons[i] = (Button) findViewById(BUTTON_ID[i]);
+        abilityButtons = new AbilityButton[ABILITY_BUTTON_ID.length];
         for (int i = 0; i < abilityButtons.length; i++)
             abilityButtons[i] = (AbilityButton) findViewById(ABILITY_BUTTON_ID[i]);
+
+        animationShowMenu = new Animation[buttons.length];
+        animationHideMenu = new Animation[buttons.length];
+        for (int i = 0; i < animationShowMenu.length; i++) {
+            final int k = i;
+            animationShowMenu[k] = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.game_showmenubutton);
+            animationShowMenu[k].setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    buttons[k].setVisibility(View.VISIBLE);
+                    showButtonHandler.sendEmptyMessageDelayed(k + 1, BUTTON_DELAY);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if (k == buttons.length - 1)
+                        animatingMenu = false;
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            animationHideMenu[k] = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.game_hidemenubutton);
+            animationHideMenu[k].setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    hideButtonHandler.sendEmptyMessageDelayed(k + 1, BUTTON_DELAY);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    buttons[k].setVisibility(View.INVISIBLE);
+                    if (k == buttons.length - 1) {
+                        gameView.setPause(false);
+                        directionControl.setVisibility(View.VISIBLE);
+                        linearLayoutAbilityButton.setVisibility(View.VISIBLE);
+                        animatingMenu = false;
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+        }
 
         buttonPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,15 +178,17 @@ public class GameActivity extends Activity {
             }
         });
 
-        buttonRestart.setOnClickListener(new View.OnClickListener() {
+        buttons[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                readyGame();
-                pause();
+                if (!animatingMenu) {
+                    readyGame();
+                    pause();
+                }
             }
         });
 
-        buttonReselect.setOnClickListener(new View.OnClickListener() {
+        buttons[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -126,7 +198,7 @@ public class GameActivity extends Activity {
             }
         });
 
-        buttonMain.setOnClickListener(new View.OnClickListener() {
+        buttons[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -136,10 +208,19 @@ public class GameActivity extends Activity {
             }
         });
 
-        buttonOption.setOnClickListener(new View.OnClickListener() {
+        buttons[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("result", GameReadyActivity.RESULT_MAIN);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
 
+        buttons[4].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
             }
         });
 
@@ -176,7 +257,7 @@ public class GameActivity extends Activity {
             if (playerAbilities.size() > i)
                 abilityButtons[i].setIconResourceID(playerAbilities.get(i).iconResourceID);
             else
-                abilityButtons[i].setVisibility(View.GONE);
+                abilityButtons[i].setVisibility(View.INVISIBLE);
         }
 
         directionControl.setVisibility(View.VISIBLE);
@@ -188,23 +269,20 @@ public class GameActivity extends Activity {
     }
 
     private void pause() {
-        if (gameView.isPlaying())
+        if (!animatingMenu && gameView.isPlaying()) {
+            animatingMenu = true;
             if (gameView.getPause()) {
-                gameView.setPause(false);
-                directionControl.setVisibility(View.VISIBLE);
-                buttonResume.setVisibility(View.GONE);
+                buttonResume.setVisibility(View.INVISIBLE);
                 buttonPause.setVisibility(View.VISIBLE);
-                linearLayoutMenu.setVisibility(View.GONE);
-                for (int i = 0; i < abilityButtons.length; i++)
-                    abilityButtons[i].setVisibility(View.VISIBLE);
+                buttons[0].startAnimation(animationHideMenu[0]);
             } else {
                 gameView.setPause(true);
-                directionControl.setVisibility(View.GONE);
+                directionControl.setVisibility(View.INVISIBLE);
+                linearLayoutAbilityButton.setVisibility(View.INVISIBLE);
                 buttonResume.setVisibility(View.VISIBLE);
-                buttonPause.setVisibility(View.GONE);
-                linearLayoutMenu.setVisibility(View.VISIBLE);
-                for (int i = 0; i < abilityButtons.length; i++)
-                    abilityButtons[i].setVisibility(View.GONE);
+                buttonPause.setVisibility(View.INVISIBLE);
+                buttons[0].startAnimation(animationShowMenu[0]);
             }
+        }
     }
 }

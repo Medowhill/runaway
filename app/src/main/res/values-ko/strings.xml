@@ -13,4 +13,5 @@
     <string name="gameMenuOptions">설정</string>
     <string name="gameMenuReselectAbilities">능력 재선택</string>
     <string name="gameMenuRestart">재시작</string>
+    <string name="gameMenuSelectStage">스테이지 선택</string>
 </resources>

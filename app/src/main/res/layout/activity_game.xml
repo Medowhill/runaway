@@ -56,43 +56,53 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
         android:background="@drawable/game_resume"
-        android:visibility="gone" />
+        android:visibility="invisible" />
 
     <LinearLayout
-        android:id="@+id/game_linearLayout_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/game_button_restart"
             android:layout_width="@dimen/pauseMenuWidth"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/pauseMenuMargin"
-            android:text="@string/gameMenuRestart" />
+            android:text="@string/gameMenuRestart"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/game_button_reselectAbilities"
             android:layout_width="@dimen/pauseMenuWidth"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/pauseMenuMargin"
-            android:text="@string/gameMenuReselectAbilities" />
+            android:text="@string/gameMenuReselectAbilities"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/game_button_selectStage"
+            android:layout_width="@dimen/pauseMenuWidth"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/pauseMenuMargin"
+            android:text="@string/gameMenuSelectStage"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/game_button_goToMainMenu"
             android:layout_width="@dimen/pauseMenuWidth"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/pauseMenuMargin"
-            android:text="@string/gameMenuGoToMainMenu" />
+            android:text="@string/gameMenuGoToMainMenu"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/game_button_options"
             android:layout_width="@dimen/pauseMenuWidth"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/pauseMenuMargin"
-            android:text="@string/gameMenuOptions" />
+            android:text="@string/gameMenuOptions"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
