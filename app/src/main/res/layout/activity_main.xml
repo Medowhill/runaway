@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/main_button_selectWorld"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select World" />
+
+    <Button
+        android:id="@+id/main_button_toLastStage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go to the Last Stage" />
+
+    <Button
+        android:id="@+id/main_button_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Player" />
+
+    <Button
+        android:id="@+id/main_button_enemies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enemies" />
+
+</LinearLayout>
