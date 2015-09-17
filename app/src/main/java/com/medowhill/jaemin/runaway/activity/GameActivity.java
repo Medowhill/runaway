@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.medowhill.jaemin.runaway.R;
@@ -50,12 +50,13 @@ public class GameActivity extends Activity {
     GameView gameView;
     DirectionControl directionControl;
     AbilityButton[] abilityButtons;
-    ImageButton buttonPause, buttonResume;
+    ImageView buttonPause, buttonResume;
     Button[] buttons;
     LinearLayout linearLayoutAbilityButton;
 
     Animation[] animationShowMenu, animationHideMenu;
-    boolean animatingMenu = false;
+    Animation animationButtonDisappear, animationButtonAppear;
+    boolean animatingMenu = false, showing = true;
 
     int stageNum;
     int[] abilities = new int[]{};
@@ -65,9 +66,9 @@ public class GameActivity extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case GAME_OVER:
-                    directionControl.setVisibility(View.GONE);
-                    buttonPause.setVisibility(View.GONE);
-                    linearLayoutAbilityButton.setVisibility(View.GONE);
+                    directionControl.setVisibility(View.INVISIBLE);
+                    buttonPause.setVisibility(View.INVISIBLE);
+                    linearLayoutAbilityButton.setVisibility(View.INVISIBLE);
                     break;
                 case ACTIVITY_FIN:
                     Intent intent = new Intent();
@@ -107,8 +108,8 @@ public class GameActivity extends Activity {
 
         gameView = (GameView) findViewById(R.id.game_gameView);
         directionControl = (DirectionControl) findViewById(R.id.game_directionControl);
-        buttonPause = (ImageButton) findViewById(R.id.game_button_pause);
-        buttonResume = (ImageButton) findViewById(R.id.game_button_resume);
+        buttonPause = (ImageView) findViewById(R.id.game_button_pause);
+        buttonResume = (ImageView) findViewById(R.id.game_button_resume);
         linearLayoutAbilityButton = (LinearLayout) findViewById(R.id.game_linearLayout_abilityButton);
         buttons = new Button[BUTTON_ID.length];
 
@@ -163,6 +164,31 @@ public class GameActivity extends Activity {
                 }
             });
         }
+
+        animationButtonDisappear = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.game_buttondisappear);
+        animationButtonAppear = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.game_buttonappear);
+        animationButtonDisappear.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (showing) {
+                    buttonPause.setVisibility(View.INVISIBLE);
+                    buttonResume.setVisibility(View.VISIBLE);
+                    buttonResume.startAnimation(animationButtonAppear);
+                } else {
+                    buttonPause.setVisibility(View.VISIBLE);
+                    buttonResume.setVisibility(View.INVISIBLE);
+                    buttonPause.startAnimation(animationButtonAppear);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
 
         buttonPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,16 +298,16 @@ public class GameActivity extends Activity {
         if (!animatingMenu && gameView.isPlaying()) {
             animatingMenu = true;
             if (gameView.getPause()) {
-                buttonResume.setVisibility(View.INVISIBLE);
-                buttonPause.setVisibility(View.VISIBLE);
+                showing = false;
                 buttons[0].startAnimation(animationHideMenu[0]);
+                buttonResume.startAnimation(animationButtonDisappear);
             } else {
+                showing = true;
                 gameView.setPause(true);
                 directionControl.setVisibility(View.INVISIBLE);
                 linearLayoutAbilityButton.setVisibility(View.INVISIBLE);
-                buttonResume.setVisibility(View.VISIBLE);
-                buttonPause.setVisibility(View.INVISIBLE);
                 buttons[0].startAnimation(animationShowMenu[0]);
+                buttonPause.startAnimation(animationButtonDisappear);
             }
         }
     }
