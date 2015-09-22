@@ -2,6 +2,8 @@ package com.medowhill.jaemin.runaway.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +17,7 @@ import com.medowhill.jaemin.runaway.R;
 
 public class GameReadyActivity extends Activity {
 
-    public static final int RESULT_RESELECT = 0, RESULT_NEXT = 1, RESULT_MAIN = 2;
+    public static final int RESULT_RESELECT = 0, RESULT_NEXT = 1, RESULT_STAGE = 3, RESULT_MAIN = 2;
 
     final int REQUEST_CODE = 0;
 
@@ -29,6 +31,8 @@ public class GameReadyActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameready);
+
+        this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         button = (Button) findViewById(R.id.gameReady_button);
         button1 = (Button) findViewById(R.id.gameReady_button_ability1);
@@ -99,12 +103,31 @@ public class GameReadyActivity extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("result", StageSelectActivity.RESULT_FIN);
+        setResult(RESULT_OK, intent);
+
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            Intent intent = new Intent();
             switch (data.getIntExtra("result", RESULT_RESELECT)) {
                 case RESULT_NEXT:
                     break;
+                case RESULT_STAGE:
+                    intent.putExtra("result", StageSelectActivity.RESULT_FIN);
+                    setResult(RESULT_OK, intent);
+
+                    finish();
+                    break;
                 case RESULT_MAIN:
+                    intent.putExtra("result", StageSelectActivity.RESULT_MAIN);
+                    setResult(RESULT_OK, intent);
+
                     finish();
                     break;
             }

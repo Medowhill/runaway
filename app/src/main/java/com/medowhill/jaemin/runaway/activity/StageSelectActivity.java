@@ -16,9 +16,12 @@ import com.medowhill.jaemin.runaway.view.StageSelectView;
  */
 public class StageSelectActivity extends Activity {
 
-    StageSelectView stageSelectView;
+    public static final int RESULT_FIN = 0, RESULT_NEXT = 1, RESULT_MAIN = 2;
+    private static final int REQUEST_GAME_READY = 0;
 
-    Handler stageSelectHandler;
+    private StageSelectView stageSelectView;
+
+    private Handler stageSelectHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,10 +38,27 @@ public class StageSelectActivity extends Activity {
         stageSelectView.setLastStage(3);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_GAME_READY) {
+            switch (data.getIntExtra("result", RESULT_FIN)) {
+                case RESULT_FIN:
+                    stageSelectView.defaultScale(false);
+                    break;
+                case RESULT_NEXT:
+                    stageSelectView.defaultScale(true);
+                    break;
+                case RESULT_MAIN:
+                    finish();
+                    break;
+            }
+        }
+    }
+
     void startStage(int stage) {
         Intent intent = new Intent(getApplicationContext(), GameReadyActivity.class);
         intent.putExtra("stage", stage);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_GAME_READY);
     }
 }
 

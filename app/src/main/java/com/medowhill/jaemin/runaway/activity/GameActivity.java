@@ -223,7 +223,7 @@ public class GameActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("result", GameReadyActivity.RESULT_MAIN);
+                intent.putExtra("result", GameReadyActivity.RESULT_STAGE);
                 setResult(RESULT_OK, intent);
                 finish();
             }

@@ -2,6 +2,14 @@
 <resources>
     <string name="app_name">Run Away</string>
 
+    <string name="gameReadyStart">Game\nStart</string>
+
+    <string name="gameMenuRestart">Restart</string>
+    <string name="gameMenuReselectAbilities">Reselect Abilities</string>
+    <string name="gameMenuSelectStage">Select Stage</string>
+    <string name="gameMenuGoToMainMenu">Main Menu</string>
+    <string name="gameMenuOptions">Options</string>
+
     <string name="abilityDashName">Dash</string>
     <string name="abilityTeleportationName">Teleportation</string>
     <string name="abilityHidingName">Hiding</string>
@@ -10,10 +18,4 @@
     <string name="abilityIllusionName">Illusion</string>
     <string name="abilityShockWaveName">Shock Wave</string>
     <string name="abilityDistortionFieldName">Distortion Field</string>
-
-    <string name="gameMenuRestart">Restart</string>
-    <string name="gameMenuReselectAbilities">Reselect Abilities</string>
-    <string name="gameMenuSelectStage">Select Stage</string>
-    <string name="gameMenuGoToMainMenu">Main Menu</string>
-    <string name="gameMenuOptions">Options</string>
 </resources>

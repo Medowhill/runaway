@@ -18,7 +18,8 @@
         </activity>
         <activity
             android:name=".activity.GameReadyActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"></activity>
         <activity
             android:name=".activity.GameActivity"
             android:screenOrientation="landscape"></activity>

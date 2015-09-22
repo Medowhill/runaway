@@ -22,6 +22,8 @@ import com.medowhill.jaemin.runaway.object.Wall;
 
 public class StageSelectView extends View {
 
+    static final int INERTIA = 0, SCALE = 1, MOVE = 2;
+
     private final int WIDTH;
     private final int FRAME, FRAME_LENGTH;
     private final int DECREASING_RATIO;
@@ -29,9 +31,10 @@ public class StageSelectView extends View {
     private final int BOUNDARY_STROKE, BOUNDARY_RADIUS, BOUNDARY_MARGIN;
     private final int SHADOW_SIZE;
     private final int MAX_POINTER_MOVE;
-    private final float MAX_SCALE = 1.5f, MIN_SCALE = 0.2f;
+    private final float MAX_SCALE = 1.5f, MIN_SCALE = .2f, SELECT_SCALE = 1.f, GAME_SCALE = 2.5f;
     private final float MIN_SPEED = .25f;
     private final float ACCELERATION = -0.005f;
+    private final float SCALE_SPEED = .15f, MOVE_SPEED = 2.5f;
 
     private float ratio = 0;
     private float xShift = 0, yShift = 0, xPivot, yPivot, scale = 1;
@@ -54,8 +57,11 @@ public class StageSelectView extends View {
     private RectF[] boundaries;
 
     private int lastStage = 0;
+    private int startStage;
+    private boolean gameStart;
+    private float moveToX, moveToY;
 
-    private Handler accelerationHandler, stageSelectHandler;
+    private Handler viewHandler, stageSelectHandler;
 
     public StageSelectView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -110,7 +116,7 @@ public class StageSelectView extends View {
             fy += stage.getyFinish();
         }
 
-        accelerationHandler = new AccelerationHandler(this);
+        viewHandler = new ViewHandler(this);
     }
 
     @Override
@@ -122,6 +128,9 @@ public class StageSelectView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (gameStart)
+            return true;
+
         int count = event.getPointerCount();
         if (count == 1) {
             float x = event.getX(), y = event.getY();
@@ -169,17 +178,29 @@ public class StageSelectView extends View {
                             if (aveSpeed > MIN_SPEED) {
                                 inertialVx = dx / time;
                                 inertialVy = dy / time;
-                                accelerationHandler.sendEmptyMessageDelayed(handlerID, FRAME_LENGTH);
+                                Message message = new Message();
+                                message.what = INERTIA;
+                                message.arg1 = handlerID;
+                                viewHandler.sendMessageDelayed(message, FRAME_LENGTH);
                             }
                             checkingSpeed = false;
                         } else if (pointerMoveCount < MAX_POINTER_MOVE) {
-                            float x_ = (x - xPivot) / (scale * ratio) + xPivot - xShift;
-                            float y_ = (y - yPivot) / (scale * ratio) + yPivot - yShift;
-                            for (int i = lastStage - 1; i >= 0; i--) {
-                                RectF rectF = boundaries[i];
-                                if (rectF.left < x_ && x_ < rectF.right && rectF.top < y_ && y_ < rectF.bottom) {
-                                    stageSelectHandler.sendEmptyMessage(i + 1);
-                                    break;
+                            if (scale >= SELECT_SCALE) {
+                                float x_ = (x - xPivot) / (scale * ratio) + xPivot - xShift;
+                                float y_ = (y - yPivot) / (scale * ratio) + yPivot - yShift;
+                                for (int i = lastStage - 1; i >= 0; i--) {
+                                    RectF rectF = boundaries[i];
+                                    if (rectF.left < x_ && x_ < rectF.right && rectF.top < y_ && y_ < rectF.bottom) {
+                                        Message message = new Message();
+                                        message.what = MOVE;
+                                        viewHandler.sendMessageDelayed(message, FRAME_LENGTH);
+
+                                        gameStart = true;
+                                        startStage = i + 1;
+                                        moveToX = -(rectF.left + rectF.right) / 2 + xPivot;
+                                        moveToY = -(rectF.top + rectF.bottom) / 2 + yPivot;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -243,7 +264,7 @@ public class StageSelectView extends View {
                 canvas.drawPath(maps[i], paintUnableMap);
         }
 
-        if (scale >= 1) {
+        if (scale >= SELECT_SCALE) {
             paintBoundary.setStrokeWidth(1.f * BOUNDARY_STROKE / (scale * ratio));
             for (int i = 0; i < boundaries.length; i++)
                 if (i < lastStage)
@@ -251,7 +272,7 @@ public class StageSelectView extends View {
         }
     }
 
-    void inertialMove(int handlerID) {
+    void inertia(int handlerID) {
         if (this.handlerID == handlerID) {
             float v = (float) Math.sqrt(inertialVx * inertialVx + inertialVy * inertialVy);
             float prevVx = inertialVx, prevVy = inertialVy;
@@ -261,9 +282,71 @@ public class StageSelectView extends View {
                 xShift += inertialVx * FRAME_LENGTH / (scale * ratio);
                 yShift += inertialVy * FRAME_LENGTH / (scale * ratio);
                 invalidate();
-                accelerationHandler.sendEmptyMessageDelayed(handlerID, FRAME_LENGTH);
+
+                Message message = new Message();
+                message.what = INERTIA;
+                message.arg1 = handlerID;
+                viewHandler.sendMessageDelayed(message, FRAME_LENGTH);
             }
         }
+    }
+
+    void scale(int factor, boolean nextStage) {
+        scale += factor * SCALE_SPEED;
+        if (SELECT_SCALE < scale && scale < GAME_SCALE) {
+            Message message = new Message();
+            message.what = SCALE;
+            message.arg1 = factor;
+            viewHandler.sendMessageDelayed(message, FRAME_LENGTH);
+        } else {
+            if (factor > 0) {
+                scale = GAME_SCALE;
+                stageSelectHandler.sendEmptyMessage(startStage);
+            } else {
+                scale = SELECT_SCALE;
+                if (nextStage) {
+                    startStage++;
+
+                    RectF rectF = boundaries[startStage - 1];
+                    Message message = new Message();
+                    message.what = MOVE;
+                    viewHandler.sendMessageDelayed(message, FRAME_LENGTH);
+
+                    moveToX = -(rectF.left + rectF.right) / 2 + xPivot;
+                    moveToY = -(rectF.top + rectF.bottom) / 2 + yPivot;
+                } else
+                    gameStart = false;
+            }
+        }
+        invalidate();
+    }
+
+    void move() {
+        float dx = moveToX - xShift, dy = moveToY - yShift;
+        float distance = (float) Math.sqrt(dx * dx + dy * dy);
+        float speed = MOVE_SPEED * FRAME_LENGTH;
+        if (distance > speed) {
+            xShift += speed * dx / distance;
+            yShift += speed * dy / distance;
+            invalidate();
+
+            Message message = new Message();
+            message.what = MOVE;
+            viewHandler.sendMessageDelayed(message, FRAME_LENGTH);
+        } else {
+            Message message = new Message();
+            message.what = SCALE;
+            message.arg1 = 1;
+            viewHandler.sendMessageDelayed(message, FRAME_LENGTH);
+        }
+    }
+
+    public void defaultScale(boolean nextStage) {
+        Message message = new Message();
+        message.what = SCALE;
+        message.arg1 = -1;
+        message.arg2 = nextStage ? 1 : 0;
+        viewHandler.sendMessage(message);
     }
 
     public void setLastStage(int lastStage) {
@@ -276,16 +359,26 @@ public class StageSelectView extends View {
     }
 }
 
-class AccelerationHandler extends Handler {
+class ViewHandler extends Handler {
 
     StageSelectView stageSelectView;
 
-    public AccelerationHandler(StageSelectView stageSelectView) {
+    public ViewHandler(StageSelectView stageSelectView) {
         this.stageSelectView = stageSelectView;
     }
 
     @Override
     public void handleMessage(Message msg) {
-        stageSelectView.inertialMove(msg.what);
+        switch (msg.what) {
+            case StageSelectView.INERTIA:
+                stageSelectView.inertia(msg.arg1);
+                break;
+            case StageSelectView.SCALE:
+                stageSelectView.scale(msg.arg1, msg.arg2 == 1);
+                break;
+            case StageSelectView.MOVE:
+                stageSelectView.move();
+                break;
+        }
     }
-};
+}
