@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Stage Select View Size-->
+    <integer name="decreasingRatio">5</integer>
+    <integer name="boundaryStroke">5</integer>
+    <integer name="boundaryRadius">5</integer>
+    <integer name="shadowSize">7</integer>
+
     <!--Game View Size-->
     <integer name="gameWidth">2560</integer>
     <integer name="gameHeight">1440</integer>

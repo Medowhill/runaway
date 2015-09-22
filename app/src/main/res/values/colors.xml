@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="stageSelectBackground">#e0e0e0</color>
+    <color name="stageSelectShadow">#c0c0c0</color>
+    <color name="stageSelectPath">#ffffe0</color>
+    <color name="stageSelectRect">#e0ffff</color>
+
     <color name="directionControlPad">#f0f0f0</color>
     <color name="directionControlBall">#c0c0c0</color>
 

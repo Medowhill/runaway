@@ -75,8 +75,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-
         float widthRatio = 1.f * w / WIDTH;
         float heightRatio = 1.f * h / HEIGHT;
         ratio = Math.min(widthRatio, heightRatio);
