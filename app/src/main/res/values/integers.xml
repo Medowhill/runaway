@@ -5,7 +5,9 @@
     <integer name="decreasingRatio">5</integer>
     <integer name="boundaryStroke">5</integer>
     <integer name="boundaryRadius">5</integer>
+    <integer name="boundaryMargin">200</integer>
     <integer name="shadowSize">7</integer>
+    <integer name="maxPointerMove">3</integer>
 
     <!--Game View Size-->
     <integer name="gameWidth">2560</integer>

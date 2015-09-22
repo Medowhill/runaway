@@ -16,18 +16,21 @@ import com.medowhill.jaemin.runaway.object.Stage;
 import com.medowhill.jaemin.runaway.object.Wall;
 
 /**
- * Created by Jaemin on 2015-09-17.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public class StageSelectView extends View {
 
     private final int WIDTH;
     private final int FRAME, FRAME_LENGTH;
     private final int DECREASING_RATIO;
     private final int BACKGROUND_COLOR;
-    private final int BOUNDARY_STROKE, BOUNDARY_RADIUS;
+    private final int BOUNDARY_STROKE, BOUNDARY_RADIUS, BOUNDARY_MARGIN;
     private final int SHADOW_SIZE;
-    private final float MAX_SCALE = 2.0f, MIN_SCALE = 0.2f;
-    private final float MIN_SPEED = .5f;
+    private final int MAX_POINTER_MOVE;
+    private final float MAX_SCALE = 1.5f, MIN_SCALE = 0.2f;
+    private final float MIN_SPEED = .25f;
     private final float ACCELERATION = -0.005f;
 
     private float ratio = 0;
@@ -38,54 +41,45 @@ public class StageSelectView extends View {
     private long prevTime, draggingTime;
     private float draggingX, draggingY;
     private float inertialVx, inertialVy;
+    private int pointerMoveCount = 0;
     private int handlerID = 0;
 
-    private Paint paintMap;
     private Paint paintShadow;
+    private Paint paintMap;
+    private Paint paintUnableMap;
     private Paint paintBoundary;
 
     private int stageCount;
     private Path[] maps;
     private RectF[] boundaries;
 
-    private Handler accelerationHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (handlerID == msg.what) {
-                float v = (float) Math.sqrt(inertialVx * inertialVx + inertialVy * inertialVy);
-                float prevVx = inertialVx, prevVy = inertialVy;
-                inertialVx += ACCELERATION * FRAME_LENGTH * inertialVx / v;
-                inertialVy += ACCELERATION * FRAME_LENGTH * inertialVy / v;
-                if (prevVx * inertialVx > 0 && prevVy * inertialVy > 0) {
-                    xShift += inertialVx * FRAME_LENGTH / (scale * ratio);
-                    yShift += inertialVy * FRAME_LENGTH / (scale * ratio);
-                    invalidate();
-                    accelerationHandler.sendEmptyMessageDelayed(handlerID, FRAME_LENGTH);
-                }
-            }
-        }
-    };
+    private int lastStage = 0;
+
+    private Handler accelerationHandler, stageSelectHandler;
 
     public StageSelectView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         DECREASING_RATIO = getResources().getInteger(R.integer.decreasingRatio);
-
         WIDTH = getResources().getInteger(R.integer.gameWidth);
         BOUNDARY_STROKE = getResources().getInteger(R.integer.boundaryStroke);
         BOUNDARY_RADIUS = getResources().getInteger(R.integer.boundaryRadius);
+        BOUNDARY_MARGIN = getResources().getInteger(R.integer.boundaryMargin);
         SHADOW_SIZE = getResources().getInteger(R.integer.shadowSize);
+        MAX_POINTER_MOVE = getResources().getInteger(R.integer.maxPointerMove);
 
         FRAME = getResources().getInteger(R.integer.frame);
         FRAME_LENGTH = 1000 / FRAME;
 
         BACKGROUND_COLOR = getResources().getColor(R.color.stageSelectBackground);
-        paintMap = new Paint();
-        paintMap.setColor(getResources().getColor(R.color.stageSelectPath));
         paintShadow = new Paint();
         paintShadow.setColor(getResources().getColor(R.color.stageSelectShadow));
+        paintMap = new Paint();
+        paintMap.setColor(getResources().getColor(R.color.stageSelectMap));
+        paintUnableMap = new Paint();
+        paintUnableMap.setColor(getResources().getColor(R.color.stageSelectUnableMap));
         paintBoundary = new Paint();
-        paintBoundary.setColor(getResources().getColor(R.color.stageSelectRect));
+        paintBoundary.setColor(getResources().getColor(R.color.stageSelectBoundary));
         paintBoundary.setStyle(Paint.Style.STROKE);
 
         stageCount = getResources().getStringArray(R.array.stageInfo).length;
@@ -108,13 +102,15 @@ public class StageSelectView extends View {
             }
             maps[i] = path;
 
-            RectF rect = new RectF((int) (fx - WIDTH / 4) / DECREASING_RATIO, (int) (fy - WIDTH / 4) / DECREASING_RATIO,
-                    (int) (fx + stage.getxMax() + WIDTH / 4) / DECREASING_RATIO, (int) (fy + stage.getyMax() + WIDTH / 4) / DECREASING_RATIO);
+            RectF rect = new RectF((int) (fx - BOUNDARY_MARGIN) / DECREASING_RATIO, (int) (fy - BOUNDARY_MARGIN) / DECREASING_RATIO,
+                    (int) (fx + stage.getxMax() + BOUNDARY_MARGIN) / DECREASING_RATIO, (int) (fy + stage.getyMax() + BOUNDARY_MARGIN) / DECREASING_RATIO);
             boundaries[i] = rect;
 
             fx += stage.getxFinish();
             fy += stage.getyFinish();
         }
+
+        accelerationHandler = new AccelerationHandler(this);
     }
 
     @Override
@@ -141,6 +137,7 @@ public class StageSelectView extends View {
                         prevX = x;
                         prevY = y;
                         handlerID++;
+                        pointerMoveCount = 0;
                         break;
                     case MotionEvent.ACTION_MOVE:
                         dx = x - prevX;
@@ -160,6 +157,7 @@ public class StageSelectView extends View {
                         yShift += dy / (scale * ratio);
                         prevX = x;
                         prevY = y;
+                        pointerMoveCount++;
                         break;
                     case MotionEvent.ACTION_UP:
                         if (checkingSpeed) {
@@ -174,6 +172,16 @@ public class StageSelectView extends View {
                                 accelerationHandler.sendEmptyMessageDelayed(handlerID, FRAME_LENGTH);
                             }
                             checkingSpeed = false;
+                        } else if (pointerMoveCount < MAX_POINTER_MOVE) {
+                            float x_ = (x - xPivot) / (scale * ratio) + xPivot - xShift;
+                            float y_ = (y - yPivot) / (scale * ratio) + yPivot - yShift;
+                            for (int i = lastStage - 1; i >= 0; i--) {
+                                RectF rectF = boundaries[i];
+                                if (rectF.left < x_ && x_ < rectF.right && rectF.top < y_ && y_ < rectF.bottom) {
+                                    stageSelectHandler.sendEmptyMessage(i + 1);
+                                    break;
+                                }
+                            }
                         }
                         break;
                 }
@@ -202,6 +210,7 @@ public class StageSelectView extends View {
                     }
                     break;
             }
+            pointerMoveCount = MAX_POINTER_MOVE;
         }
 
         invalidate();
@@ -217,17 +226,66 @@ public class StageSelectView extends View {
         canvas.translate(xShift, yShift);
 
         canvas.translate(SHADOW_SIZE, SHADOW_SIZE);
-        for (Path map : maps)
-            canvas.drawPath(map, paintShadow);
+        for (int i = 0; i < maps.length; i++)
+            if (i < lastStage - 1)
+                canvas.drawPath(maps[i], paintShadow);
 
         canvas.translate(-SHADOW_SIZE, -SHADOW_SIZE);
-        for (Path map : maps)
-            canvas.drawPath(map, paintMap);
+        for (int i = maps.length - 1; i >= 0; i--) {
+            if (i < lastStage) {
+                if (i == lastStage - 1) {
+                    canvas.translate(SHADOW_SIZE, SHADOW_SIZE);
+                    canvas.drawPath(maps[i], paintShadow);
+                    canvas.translate(-SHADOW_SIZE, -SHADOW_SIZE);
+                }
+                canvas.drawPath(maps[i], paintMap);
+            } else
+                canvas.drawPath(maps[i], paintUnableMap);
+        }
 
         if (scale >= 1) {
             paintBoundary.setStrokeWidth(1.f * BOUNDARY_STROKE / (scale * ratio));
-            for (RectF rect : boundaries)
-                canvas.drawRoundRect(rect, BOUNDARY_RADIUS, BOUNDARY_RADIUS, paintBoundary);
+            for (int i = 0; i < boundaries.length; i++)
+                if (i < lastStage)
+                    canvas.drawRoundRect(boundaries[i], BOUNDARY_RADIUS, BOUNDARY_RADIUS, paintBoundary);
         }
     }
+
+    void inertialMove(int handlerID) {
+        if (this.handlerID == handlerID) {
+            float v = (float) Math.sqrt(inertialVx * inertialVx + inertialVy * inertialVy);
+            float prevVx = inertialVx, prevVy = inertialVy;
+            inertialVx += ACCELERATION * FRAME_LENGTH * inertialVx / v;
+            inertialVy += ACCELERATION * FRAME_LENGTH * inertialVy / v;
+            if (prevVx * inertialVx > 0 && prevVy * inertialVy > 0) {
+                xShift += inertialVx * FRAME_LENGTH / (scale * ratio);
+                yShift += inertialVy * FRAME_LENGTH / (scale * ratio);
+                invalidate();
+                accelerationHandler.sendEmptyMessageDelayed(handlerID, FRAME_LENGTH);
+            }
+        }
+    }
+
+    public void setLastStage(int lastStage) {
+        this.lastStage = lastStage;
+        invalidate();
+    }
+
+    public void setStageSelectHandler(Handler stageSelectHandler) {
+        this.stageSelectHandler = stageSelectHandler;
+    }
 }
+
+class AccelerationHandler extends Handler {
+
+    StageSelectView stageSelectView;
+
+    public AccelerationHandler(StageSelectView stageSelectView) {
+        this.stageSelectView = stageSelectView;
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        stageSelectView.inertialMove(msg.what);
+    }
+};

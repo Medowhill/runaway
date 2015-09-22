@@ -44,23 +44,36 @@ public class GameActivity extends Activity {
 
     final int BUTTON_DELAY = 50;
 
-    Ability[][] abilityArray = new Ability[][]{{new Dash(1, true), new Teleportation(1, true)},
+    private Ability[][] abilityArray = new Ability[][]{{new Dash(1, true), new Teleportation(1, true)},
             {new Hiding(1, true), new Protection(1)}, {new Shadow(1), new Illusion(1)}, {new ShockWave(1, 1), new DistortionField(1, 1)}};
 
-    GameView gameView;
-    DirectionControl directionControl;
-    AbilityButton[] abilityButtons;
-    ImageView buttonPause, buttonResume;
-    Button[] buttons;
-    LinearLayout linearLayoutAbilityButton;
-
-    Animation[] animationShowMenu, animationHideMenu;
-    Animation animationButtonDisappear, animationButtonAppear;
-    boolean animatingMenu = false, showing = true;
-
-    int stageNum;
-    int[] abilities = new int[]{};
-
+    private GameView gameView;
+    private DirectionControl directionControl;
+    private AbilityButton[] abilityButtons;
+    private ImageView buttonPause, buttonResume;
+    private Button[] buttons;
+    Handler hideButtonHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            int i = msg.what;
+            if (i < buttons.length)
+                buttons[i].startAnimation(animationHideMenu[i]);
+        }
+    };
+    private LinearLayout linearLayoutAbilityButton;
+    private Animation[] animationShowMenu, animationHideMenu;
+    Handler showButtonHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            int i = msg.what;
+            if (i < buttons.length)
+                buttons[i].startAnimation(animationShowMenu[i]);
+        }
+    };
+    private Animation animationButtonDisappear, animationButtonAppear;
+    private boolean animatingMenu = false, showing = true;
+    private int stageNum;
+    private int[] abilities = new int[]{};
     Handler gameOverHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -80,24 +93,6 @@ public class GameActivity extends Activity {
                     readyGame();
                     break;
             }
-        }
-    };
-
-    Handler showButtonHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            int i = msg.what;
-            if (i < buttons.length)
-                buttons[i].startAnimation(animationShowMenu[i]);
-        }
-    };
-
-    Handler hideButtonHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            int i = msg.what;
-            if (i < buttons.length)
-                buttons[i].startAnimation(animationHideMenu[i]);
         }
     };
 
