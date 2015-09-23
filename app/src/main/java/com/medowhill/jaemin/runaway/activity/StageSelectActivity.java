@@ -18,10 +18,11 @@ public class StageSelectActivity extends Activity {
 
     public static final int RESULT_FIN = 0, RESULT_NEXT = 1, RESULT_MAIN = 2;
     private static final int REQUEST_GAME_READY = 0;
+    private final int WAIT = 250;
 
     private StageSelectView stageSelectView;
 
-    private Handler stageSelectHandler;
+    private Handler stageSelectHandler, resumeActivityHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class StageSelectActivity extends Activity {
         GameObject.setContext(this);
 
         stageSelectHandler = new StageSelectHandler(this);
+        resumeActivityHandler = new ResumeActivityHandler(this);
 
         stageSelectView = (StageSelectView) findViewById(R.id.stageSelectView);
         stageSelectView.setStageSelectHandler(stageSelectHandler);
@@ -44,10 +46,10 @@ public class StageSelectActivity extends Activity {
             if (requestCode == REQUEST_GAME_READY) {
                 switch (data.getIntExtra("result", RESULT_FIN)) {
                     case RESULT_FIN:
-                        stageSelectView.defaultScale(false);
+                        resumeActivityHandler.sendEmptyMessageDelayed(0, WAIT);
                         break;
                     case RESULT_NEXT:
-                        stageSelectView.defaultScale(true);
+                        resumeActivityHandler.sendEmptyMessageDelayed(1, WAIT);
                         break;
                     case RESULT_MAIN:
                         finish();
@@ -64,10 +66,16 @@ public class StageSelectActivity extends Activity {
         intent.putExtra("stage", stage);
         startActivityForResult(intent, REQUEST_GAME_READY);
     }
+
+    void resume(int i) {
+        if (i == 0)
+            stageSelectView.defaultScale(false);
+        else
+            stageSelectView.defaultScale(true);
+    }
 }
 
 class StageSelectHandler extends Handler {
-
     StageSelectActivity stageSelectActivity;
 
     public StageSelectHandler(StageSelectActivity stageSelectActivity) {
@@ -77,5 +85,18 @@ class StageSelectHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
         stageSelectActivity.startStage(msg.what);
+    }
+}
+
+class ResumeActivityHandler extends Handler {
+    StageSelectActivity stageSelectActivity;
+
+    public ResumeActivityHandler(StageSelectActivity stageSelectActivity) {
+        this.stageSelectActivity = stageSelectActivity;
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        stageSelectActivity.resume(msg.what);
     }
 }
