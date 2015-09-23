@@ -1,4 +1,4 @@
-package com.medowhill.jaemin.runaway.view;
+    package com.medowhill.jaemin.runaway.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

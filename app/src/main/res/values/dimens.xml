@@ -5,6 +5,12 @@
     <dimen name="abilityButtonSize">65dp</dimen>
     <dimen name="pauseMenuWidth">300dp</dimen>
     <dimen name="pauseMenuMargin">5dp</dimen>
-    <dimen name="gameStartTextSize">50sp</dimen>
+
+    <dimen name="gameReadyDialogWidth">480dp</dimen>
+    <dimen name="gameReadyDialogHeight">270dp</dimen>
+    <dimen name="gameReadyStartTextSize">50sp</dimen>
+    <dimen name="gameReadyEnemiesTextSize">30sp</dimen>
+    <dimen name="gameReadySkillSlotTextSize">20sp</dimen>
+    <dimen name="gameReadySkillSlotSize">100dp</dimen>
 
 </resources>

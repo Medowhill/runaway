@@ -3,6 +3,11 @@
     <string name="app_name">Run Away</string>
 
     <string name="gameReadyStart">Game\nStart</string>
+    <string name="gameReadyEnemies">Enemies</string>
+    <string name="gameReadySkillSlot1">Skill Slot 1</string>
+    <string name="gameReadySkillSlot2">Skill Slot 2</string>
+    <string name="gameReadySkillSlot3">Skill Slot 3</string>
+    <string name="gameReadySkillSlot4">Skill Slot 4</string>
 
     <string name="gameMenuRestart">Restart</string>
     <string name="gameMenuReselectAbilities">Reselect Abilities</string>
