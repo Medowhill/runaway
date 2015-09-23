@@ -360,6 +360,12 @@ public class StageSelectView extends View {
         valueAnimator.start();
     }
 
+    public void openNewStage(int stage) {
+        if (stage + 1 > lastStage)
+            lastStage = stage + 1;
+        invalidate();
+    }
+
     public void setLastStage(int lastStage) {
         this.lastStage = lastStage;
         invalidate();

@@ -12,8 +12,10 @@ import com.medowhill.jaemin.runaway.object.GameObject;
 import com.medowhill.jaemin.runaway.view.StageSelectView;
 
 /**
- * Created by Jaemin on 2015-09-10.
+ * Copyright 2015. Hong Jaemin
+ * All rights reserved.
  */
+
 public class StageSelectActivity extends Activity {
 
     public static final int RESULT_FIN = 0, RESULT_NEXT = 1, RESULT_MAIN = 2;
@@ -35,9 +37,11 @@ public class StageSelectActivity extends Activity {
         stageSelectHandler = new StageSelectHandler(this);
         resumeActivityHandler = new ResumeActivityHandler(this);
 
+        int lastStage = 1;
+
         stageSelectView = (StageSelectView) findViewById(R.id.stageSelectView);
         stageSelectView.setStageSelectHandler(stageSelectHandler);
-        stageSelectView.setLastStage(3);
+        stageSelectView.setLastStage(lastStage);
     }
 
     @Override
@@ -49,6 +53,8 @@ public class StageSelectActivity extends Activity {
                         resumeActivityHandler.sendEmptyMessageDelayed(0, WAIT);
                         break;
                     case RESULT_NEXT:
+                        int stage = data.getIntExtra("stage", 0);
+                        stageSelectView.openNewStage(stage);
                         resumeActivityHandler.sendEmptyMessageDelayed(1, WAIT);
                         break;
                     case RESULT_MAIN:

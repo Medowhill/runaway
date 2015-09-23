@@ -7,6 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.medowhill.jaemin.runaway.R;
 
@@ -22,10 +24,11 @@ public class GameReadyActivity extends Activity {
     final int REQUEST_CODE = 0;
 
     Button button;
-
-    Button button1, button2, button3, button4;
+    ImageButton button1, button2, button3, button4;
+    TextView textView;
 
     int ability1 = 0, ability2 = 0, ability3 = 0, ability4 = 0;
+    int stage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +37,17 @@ public class GameReadyActivity extends Activity {
 
         this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        button = (Button) findViewById(R.id.gameReady_button);
-        button1 = (Button) findViewById(R.id.gameReady_button_ability1);
-        button2 = (Button) findViewById(R.id.gameReady_button_ability2);
-        button3 = (Button) findViewById(R.id.gameReady_button_ability3);
-        button4 = (Button) findViewById(R.id.gameReady_button_ability4);
+        button = (Button) findViewById(R.id.gameReady_button_start);
+        button1 = (ImageButton) findViewById(R.id.gameReady_button_ability1);
+        button2 = (ImageButton) findViewById(R.id.gameReady_button_ability2);
+        button3 = (ImageButton) findViewById(R.id.gameReady_button_ability3);
+        button4 = (ImageButton) findViewById(R.id.gameReady_button_ability4);
+        textView = (TextView) findViewById(R.id.gameReady_textView_stage);
 
         Intent intent = getIntent();
-        final int stage = intent.getIntExtra("stage", 1);
+        stage = intent.getIntExtra("stage", 1);
+
+        textView.setText(textView.getText().toString() + " " + stage);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,9 +65,9 @@ public class GameReadyActivity extends Activity {
                 ability1++;
                 ability1 %= 2;
                 if (ability1 % 2 == 0)
-                    button1.setText(R.string.abilityDashName);
+                    button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_dash));
                 else
-                    button1.setText(R.string.abilityTeleportationName);
+                    button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_teleportation));
             }
         });
 
@@ -71,9 +77,9 @@ public class GameReadyActivity extends Activity {
                 ability2++;
                 ability2 %= 2;
                 if (ability2 % 2 == 0)
-                    button2.setText(R.string.abilityHidingName);
+                    button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_hiding));
                 else
-                    button2.setText(R.string.abilityProtectionName);
+                    button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_protection));
             }
         });
 
@@ -83,9 +89,9 @@ public class GameReadyActivity extends Activity {
                 ability3++;
                 ability3 %= 2;
                 if (ability3 % 2 == 0)
-                    button3.setText(R.string.abilityShadowName);
+                    button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shadow));
                 else
-                    button3.setText(R.string.abilityIllusionName);
+                    button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_illusion));
             }
         });
 
@@ -95,9 +101,9 @@ public class GameReadyActivity extends Activity {
                 ability4++;
                 ability4 %= 2;
                 if (ability4 % 2 == 0)
-                    button4.setText(R.string.abilityShockWaveName);
+                    button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shockwave));
                 else
-                    button4.setText(R.string.abilityDistortionFieldName);
+                    button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_distortionfield));
             }
         });
     }
@@ -109,6 +115,7 @@ public class GameReadyActivity extends Activity {
             switch (data.getIntExtra("result", RESULT_RESELECT)) {
                 case RESULT_NEXT:
                     intent.putExtra("result", StageSelectActivity.RESULT_NEXT);
+                    intent.putExtra("stage", stage);
                     setResult(RESULT_OK, intent);
                     finish();
                     break;
