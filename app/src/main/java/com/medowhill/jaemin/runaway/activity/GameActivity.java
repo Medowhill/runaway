@@ -52,49 +52,16 @@ public class GameActivity extends Activity {
     private AbilityButton[] abilityButtons;
     private ImageView buttonPause, buttonResume;
     private Button[] buttons;
-    Handler hideButtonHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            int i = msg.what;
-            if (i < buttons.length)
-                buttons[i].startAnimation(animationHideMenu[i]);
-        }
-    };
     private LinearLayout linearLayoutAbilityButton;
     private Animation[] animationShowMenu, animationHideMenu;
-    Handler showButtonHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            int i = msg.what;
-            if (i < buttons.length)
-                buttons[i].startAnimation(animationShowMenu[i]);
-        }
-    };
+
     private Animation animationButtonDisappear, animationButtonAppear;
     private boolean animatingMenu = false, showing = true;
+
     private int stageNum;
     private int[] abilities = new int[]{};
-    Handler gameOverHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case GAME_OVER:
-                    directionControl.setVisibility(View.INVISIBLE);
-                    buttonPause.setVisibility(View.INVISIBLE);
-                    linearLayoutAbilityButton.setVisibility(View.INVISIBLE);
-                    break;
-                case ACTIVITY_FIN:
-                    Intent intent = new Intent();
-                    intent.putExtra("result", GameReadyActivity.RESULT_NEXT);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                    break;
-                case GAME_RESTART:
-                    readyGame();
-                    break;
-            }
-        }
-    };
+
+    private Handler gameOverHandler, showButtonHandler, hideButtonHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +80,10 @@ public class GameActivity extends Activity {
         abilityButtons = new AbilityButton[ABILITY_BUTTON_ID.length];
         for (int i = 0; i < abilityButtons.length; i++)
             abilityButtons[i] = (AbilityButton) findViewById(ABILITY_BUTTON_ID[i]);
+
+        gameOverHandler = new GameOverHandler(this);
+        showButtonHandler = new ShowButtonHandler(this);
+        hideButtonHandler = new HideButtonHandler(this);
 
         animationShowMenu = new Animation[buttons.length];
         animationHideMenu = new Animation[buttons.length];
@@ -305,5 +276,73 @@ public class GameActivity extends Activity {
                 buttonPause.startAnimation(animationButtonDisappear);
             }
         }
+    }
+
+    void gameOver(int what) {
+        switch (what) {
+            case GAME_OVER:
+                directionControl.setVisibility(View.INVISIBLE);
+                buttonPause.setVisibility(View.INVISIBLE);
+                linearLayoutAbilityButton.setVisibility(View.INVISIBLE);
+                break;
+            case ACTIVITY_FIN:
+                Intent intent = new Intent();
+                intent.putExtra("result", GameReadyActivity.RESULT_NEXT);
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
+            case GAME_RESTART:
+                readyGame();
+                break;
+        }
+    }
+
+    void showButton(int i) {
+        if (i < buttons.length)
+            buttons[i].startAnimation(animationShowMenu[i]);
+    }
+
+    void hideButton(int i) {
+        if (i < buttons.length)
+            buttons[i].startAnimation(animationHideMenu[i]);
+    }
+}
+
+class GameOverHandler extends Handler {
+    GameActivity gameActivity;
+
+    public GameOverHandler(GameActivity gameActivity) {
+        this.gameActivity = gameActivity;
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        gameActivity.gameOver(msg.what);
+    }
+}
+
+class ShowButtonHandler extends Handler {
+    GameActivity gameActivity;
+
+    public ShowButtonHandler(GameActivity gameActivity) {
+        this.gameActivity = gameActivity;
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        gameActivity.showButton(msg.what);
+    }
+}
+
+class HideButtonHandler extends Handler {
+    GameActivity gameActivity;
+
+    public HideButtonHandler(GameActivity gameActivity) {
+        this.gameActivity = gameActivity;
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        gameActivity.hideButton(msg.what);
     }
 }

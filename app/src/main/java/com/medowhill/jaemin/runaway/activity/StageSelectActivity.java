@@ -40,18 +40,22 @@ public class StageSelectActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == REQUEST_GAME_READY) {
-            switch (data.getIntExtra("result", RESULT_FIN)) {
-                case RESULT_FIN:
-                    stageSelectView.defaultScale(false);
-                    break;
-                case RESULT_NEXT:
-                    stageSelectView.defaultScale(true);
-                    break;
-                case RESULT_MAIN:
-                    finish();
-                    break;
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_GAME_READY) {
+                switch (data.getIntExtra("result", RESULT_FIN)) {
+                    case RESULT_FIN:
+                        stageSelectView.defaultScale(false);
+                        break;
+                    case RESULT_NEXT:
+                        stageSelectView.defaultScale(true);
+                        break;
+                    case RESULT_MAIN:
+                        finish();
+                        break;
+                }
             }
+        } else if (resultCode == RESULT_CANCELED) {
+            stageSelectView.defaultScale(false);
         }
     }
 

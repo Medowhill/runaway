@@ -10,6 +10,8 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.object.Stage;

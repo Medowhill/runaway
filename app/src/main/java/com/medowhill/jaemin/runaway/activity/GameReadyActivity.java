@@ -103,31 +103,23 @@ public class GameReadyActivity extends Activity {
     }
 
     @Override
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.putExtra("result", StageSelectActivity.RESULT_FIN);
-        setResult(RESULT_OK, intent);
-
-        super.onBackPressed();
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             Intent intent = new Intent();
             switch (data.getIntExtra("result", RESULT_RESELECT)) {
                 case RESULT_NEXT:
+                    intent.putExtra("result", StageSelectActivity.RESULT_NEXT);
+                    setResult(RESULT_OK, intent);
+                    finish();
                     break;
                 case RESULT_STAGE:
                     intent.putExtra("result", StageSelectActivity.RESULT_FIN);
                     setResult(RESULT_OK, intent);
-
                     finish();
                     break;
                 case RESULT_MAIN:
                     intent.putExtra("result", StageSelectActivity.RESULT_MAIN);
                     setResult(RESULT_OK, intent);
-
                     finish();
                     break;
             }
