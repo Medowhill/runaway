@@ -15,5 +15,7 @@
     <dimen name="gameReadySkillSlotTextSize">30sp</dimen>
     <dimen name="gameReadySkillSlotSize">60dp</dimen>
     <dimen name="gameReadySkillSlotMargin">5dp</dimen>
+    <dimen name="gameReadyResultButtonSize">75dp</dimen>
+    <dimen name="gameReadyResultButtonMargin">50dp</dimen>
 
 </resources>

@@ -97,19 +97,21 @@
         android:visibility="invisible">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background=""/>
+            android:layout_width="@dimen/gameReadyResultButtonSize"
+            android:layout_height="@dimen/gameReadyResultButtonSize"
+            android:layout_marginRight="@dimen/gameReadyResultButtonMargin"
+            android:background="@drawable/gameready_result_replay" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="stage" />
+        <ImageButton
+            android:layout_width="@dimen/gameReadyResultButtonSize"
+            android:layout_height="@dimen/gameReadyResultButtonSize"
+            android:layout_marginRight="@dimen/gameReadyResultButtonMargin"
+            android:background="@drawable/gameready_result_stage" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="next" />
+        <ImageButton
+            android:layout_width="@dimen/gameReadyResultButtonSize"
+            android:layout_height="@dimen/gameReadyResultButtonSize"
+            android:background="@drawable/gameready_result_next" />
 
     </LinearLayout>
 
