@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.medowhill.jaemin.runaway.R;
+import com.medowhill.jaemin.runaway.object.Stage;
+import com.medowhill.jaemin.runaway.view.EnemyPreView;
 
 /**
  * Copyright 2015. Hong Jaemin
@@ -28,6 +30,7 @@ public class GameReadyActivity extends Activity {
     ImageButton button1, button2, button3, button4;
     TextView textView;
     LinearLayout linearLayoutReady, linearLayoutResult;
+    EnemyPreView enemyPreView;
 
     int ability1 = 0, ability2 = 0, ability3 = 0, ability4 = 0;
     int stage;
@@ -49,11 +52,14 @@ public class GameReadyActivity extends Activity {
         textView = (TextView) findViewById(R.id.gameReady_textView_stage);
         linearLayoutReady = (LinearLayout) findViewById(R.id.gameReady_linearLayout_ready);
         linearLayoutResult = (LinearLayout) findViewById(R.id.gameReady_linearLayout_result);
+        enemyPreView = (EnemyPreView) findViewById(R.id.gameReady_enemyPreview);
 
         Intent intent = getIntent();
         stage = intent.getIntExtra("stage", 1);
 
         textView.setText(textView.getText().toString() + " " + stage);
+
+        enemyPreView.setEnemies(new Stage(this, stage).enemies);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

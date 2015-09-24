@@ -81,12 +81,12 @@ public class Player extends GameObject {
     @Override
     public void draw(Canvas canvas) {
         if (isIllusion)
-            canvas.drawCircle(x, y, radius, paintIllusion);
+            canvas.drawCircle(x, y, RADIUS, paintIllusion);
         else if (!mortal)
-            canvas.drawCircle(x, y, radius, paintImmortal);
+            canvas.drawCircle(x, y, RADIUS, paintImmortal);
         else if (!visible)
-            canvas.drawCircle(x, y, radius, paintInvisible);
+            canvas.drawCircle(x, y, RADIUS, paintInvisible);
         else
-            canvas.drawCircle(x, y, radius, paintNormal);
+            canvas.drawCircle(x, y, RADIUS, paintNormal);
     }
 }

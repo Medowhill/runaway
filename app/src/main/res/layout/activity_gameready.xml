@@ -21,13 +21,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gameReadyStage"
+                android:textColor="@color/gameReadyStageText"
                 android:textSize="@dimen/gameReadyStageTextSize" />
 
             <Button
                 android:id="@+id/gameReady_button_start"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/gameready_ready_start_background"
                 android:text="@string/gameReadyStart"
+                android:textColor="@color/gameReadyStartButtonText"
                 android:textSize="@dimen/gameReadyStartTextSize" />
         </LinearLayout>
 
@@ -39,16 +42,23 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:text="@string/gameReadyEnemies"
+                android:textColor="@color/gameReadyEnemiesText"
                 android:textSize="@dimen/gameReadyEnemiesTextSize" />
+
+            <com.medowhill.jaemin.runaway.view.EnemyPreView
+                android:id="@+id/gameReady_enemyPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gameReadyInternalMargin"
                 android:text="@string/gameReadySkillSlots"
+                android:textColor="@color/gameReadySkillSlotsText"
                 android:textSize="@dimen/gameReadySkillSlotTextSize" />
 
             <LinearLayout
@@ -93,25 +103,33 @@
         android:id="@+id/gameReady_linearLayout_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:visibility="invisible">
 
-        <ImageButton
-            android:layout_width="@dimen/gameReadyResultButtonSize"
-            android:layout_height="@dimen/gameReadyResultButtonSize"
-            android:layout_marginRight="@dimen/gameReadyResultButtonMargin"
-            android:background="@drawable/gameready_result_replay" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:layout_width="@dimen/gameReadyResultButtonSize"
-            android:layout_height="@dimen/gameReadyResultButtonSize"
-            android:layout_marginRight="@dimen/gameReadyResultButtonMargin"
-            android:background="@drawable/gameready_result_stage" />
+            <ImageButton
+                android:layout_width="@dimen/gameReadyResultButtonSize"
+                android:layout_height="@dimen/gameReadyResultButtonSize"
+                android:layout_marginRight="@dimen/gameReadyResultButtonMargin"
+                android:background="@drawable/gameready_result_replay" />
 
-        <ImageButton
-            android:layout_width="@dimen/gameReadyResultButtonSize"
-            android:layout_height="@dimen/gameReadyResultButtonSize"
-            android:background="@drawable/gameready_result_next" />
+            <ImageButton
+                android:layout_width="@dimen/gameReadyResultButtonSize"
+                android:layout_height="@dimen/gameReadyResultButtonSize"
+                android:layout_marginRight="@dimen/gameReadyResultButtonMargin"
+                android:background="@drawable/gameready_result_stage" />
+
+            <ImageButton
+                android:layout_width="@dimen/gameReadyResultButtonSize"
+                android:layout_height="@dimen/gameReadyResultButtonSize"
+                android:background="@drawable/gameready_result_next" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

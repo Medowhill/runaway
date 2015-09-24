@@ -20,9 +20,10 @@ public abstract class GameObject {
     static Context context;
 
     // Size
-    final float radius;
+    public final float RADIUS;
 
     // Color
+    public final int COLOR;
     Paint paintNormal;
 
     // Location
@@ -51,10 +52,11 @@ public abstract class GameObject {
     GameObject(Stage stage, float radius, int color, float x, float y, float speed) {
         this.stage = stage;
 
-        this.radius = radius;
+        this.RADIUS = radius;
 
         paintNormal = new Paint();
         paintNormal.setColor(color);
+        COLOR = color;
 
         this.x = x;
         this.y = y;
@@ -185,8 +187,8 @@ public abstract class GameObject {
     // Check Touch
 
     public boolean touch(GameObject gameObject) {
-        float x1 = gameObject.x, y1 = gameObject.y, radius1 = gameObject.radius;
-        return (x - x1) * (x - x1) + (y - y1) * (y - y1) < (radius + radius1) * (radius + radius1);
+        float x1 = gameObject.x, y1 = gameObject.y, radius1 = gameObject.RADIUS;
+        return (x - x1) * (x - x1) + (y - y1) * (y - y1) < (RADIUS + radius1) * (RADIUS + radius1);
     }
 
     // Moving Method
@@ -251,14 +253,14 @@ public abstract class GameObject {
             if (wall.HORIZONTAL)
                 return false;
 
-            if (start - radius < y && y < end + radius) {
+            if (start - RADIUS < y && y < end + RADIUS) {
                 float x_ = x + distance, dx;
-                if (start - radius < y && y < start)
-                    dx = (float) Math.sqrt(radius * radius - (start - y) * (start - y));
+                if (start - RADIUS < y && y < start)
+                    dx = (float) Math.sqrt(RADIUS * RADIUS - (start - y) * (start - y));
                 else if (y < end)
-                    dx = radius;
+                    dx = RADIUS;
                 else
-                    dx = (float) Math.sqrt(radius * radius - (end - y) * (end - y));
+                    dx = (float) Math.sqrt(RADIUS * RADIUS - (end - y) * (end - y));
                 return Math.min(x, x_) - dx < location && location < Math.max(x, x_) + dx;
             } else
                 return false;
@@ -266,14 +268,14 @@ public abstract class GameObject {
             if (!wall.HORIZONTAL)
                 return false;
 
-            if (start - radius < x && x < end + radius) {
+            if (start - RADIUS < x && x < end + RADIUS) {
                 float y_ = y + distance, dy;
-                if (start - radius < x && x < start)
-                    dy = (float) Math.sqrt(radius * radius - (start - x) * (start - x));
+                if (start - RADIUS < x && x < start)
+                    dy = (float) Math.sqrt(RADIUS * RADIUS - (start - x) * (start - x));
                 else if (x < end)
-                    dy = radius;
+                    dy = RADIUS;
                 else
-                    dy = (float) Math.sqrt(radius * radius - (end - x) * (end - x));
+                    dy = (float) Math.sqrt(RADIUS * RADIUS - (end - x) * (end - x));
                 return Math.min(y, y_) - dy < location && location < Math.max(y, y_) + dy;
             } else
                 return false;
@@ -285,12 +287,12 @@ public abstract class GameObject {
 
         if (wall.HORIZONTAL) {
             float dy = 0;
-            if (start - radius < x && x < start)
-                dy = (float) Math.sqrt(radius * radius - (start - x) * (start - x));
+            if (start - RADIUS < x && x < start)
+                dy = (float) Math.sqrt(RADIUS * RADIUS - (start - x) * (start - x));
             else if (x < end)
-                dy = radius;
-            else if (x < end + radius)
-                dy = (float) Math.sqrt(radius * radius - (end - x) * (end - x));
+                dy = RADIUS;
+            else if (x < end + RADIUS)
+                dy = (float) Math.sqrt(RADIUS * RADIUS - (end - x) * (end - x));
 
             if (location < y)
                 y = location + dy;
@@ -298,12 +300,12 @@ public abstract class GameObject {
                 y = location - dy;
         } else {
             float dx = 0;
-            if (start - radius < y && y < start)
-                dx = (float) Math.sqrt(radius * radius - (start - y) * (start - y));
+            if (start - RADIUS < y && y < start)
+                dx = (float) Math.sqrt(RADIUS * RADIUS - (start - y) * (start - y));
             else if (y < end)
-                dx = radius;
-            else if (y < end + radius)
-                dx = (float) Math.sqrt(radius * radius - (end - y) * (end - y));
+                dx = RADIUS;
+            else if (y < end + RADIUS)
+                dx = (float) Math.sqrt(RADIUS * RADIUS - (end - y) * (end - y));
 
             if (location < x)
                 x = location + dx;
