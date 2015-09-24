@@ -1,86 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/gameReadyDialogWidth"
-    android:layout_height="@dimen/gameReadyDialogHeight"
-    android:orientation="horizontal">
+    android:layout_height="@dimen/gameReadyDialogHeight">
 
     <LinearLayout
+        android:id="@+id/gameReady_linearLayout_ready"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="@dimen/gameReadyInternalMargin"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/gameReady_textView_stage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/gameReadyStage"
-            android:textSize="@dimen/gameReadyStageTextSize"
-            android:textStyle="italic" />
-
-        <Button
-            android:id="@+id/gameReady_button_start"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/gameReadyStart"
-            android:textSize="@dimen/gameReadyStartTextSize" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/gameReadyInternalMargin"
             android:layout_weight="1"
-            android:text="@string/gameReadyEnemies"
-            android:textSize="@dimen/gameReadyEnemiesTextSize" />
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/gameReadyInternalMargin"
-            android:text="@string/gameReadySkillSlots"
-            android:textSize="@dimen/gameReadySkillSlotTextSize" />
+            <TextView
+                android:id="@+id/gameReady_textView_stage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gameReadyStage"
+                android:textSize="@dimen/gameReadyStageTextSize" />
+
+            <Button
+                android:id="@+id/gameReady_button_start"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/gameReadyStart"
+                android:textSize="@dimen/gameReadyStartTextSize" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/gameReady_button_ability1"
-                android:layout_width="@dimen/gameReadySkillSlotSize"
-                android:layout_height="@dimen/gameReadySkillSlotSize"
-                android:layout_marginRight="@dimen/gameReadySkillSlotMargin"
-                android:background="@drawable/ability_icon_dash" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/gameReadyEnemies"
+                android:textSize="@dimen/gameReadyEnemiesTextSize" />
 
-            <ImageButton
-                android:id="@+id/gameReady_button_ability2"
-                android:layout_width="@dimen/gameReadySkillSlotSize"
-                android:layout_height="@dimen/gameReadySkillSlotSize"
-                android:layout_marginRight="@dimen/gameReadySkillSlotMargin"
-                android:background="@drawable/ability_icon_hiding" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/gameReadyInternalMargin"
+                android:text="@string/gameReadySkillSlots"
+                android:textSize="@dimen/gameReadySkillSlotTextSize" />
 
-            <ImageButton
-                android:id="@+id/gameReady_button_ability3"
-                android:layout_width="@dimen/gameReadySkillSlotSize"
-                android:layout_height="@dimen/gameReadySkillSlotSize"
-                android:layout_marginRight="@dimen/gameReadySkillSlotMargin"
-                android:background="@drawable/ability_icon_shadow" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/gameReady_button_ability4"
-                android:layout_width="@dimen/gameReadySkillSlotSize"
-                android:layout_height="@dimen/gameReadySkillSlotSize"
-                android:background="@drawable/ability_icon_shockwave" />
+                <ImageButton
+                    android:id="@+id/gameReady_button_ability1"
+                    android:layout_width="@dimen/gameReadySkillSlotSize"
+                    android:layout_height="@dimen/gameReadySkillSlotSize"
+                    android:layout_marginRight="@dimen/gameReadySkillSlotMargin"
+                    android:background="@drawable/ability_icon_dash" />
+
+                <ImageButton
+                    android:id="@+id/gameReady_button_ability2"
+                    android:layout_width="@dimen/gameReadySkillSlotSize"
+                    android:layout_height="@dimen/gameReadySkillSlotSize"
+                    android:layout_marginRight="@dimen/gameReadySkillSlotMargin"
+                    android:background="@drawable/ability_icon_hiding" />
+
+                <ImageButton
+                    android:id="@+id/gameReady_button_ability3"
+                    android:layout_width="@dimen/gameReadySkillSlotSize"
+                    android:layout_height="@dimen/gameReadySkillSlotSize"
+                    android:layout_marginRight="@dimen/gameReadySkillSlotMargin"
+                    android:background="@drawable/ability_icon_shadow" />
+
+                <ImageButton
+                    android:id="@+id/gameReady_button_ability4"
+                    android:layout_width="@dimen/gameReadySkillSlotSize"
+                    android:layout_height="@dimen/gameReadySkillSlotSize"
+                    android:background="@drawable/ability_icon_shockwave" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/gameReady_linearLayout_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background=""/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="stage" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="next" />
+
+    </LinearLayout>
+
+</FrameLayout>

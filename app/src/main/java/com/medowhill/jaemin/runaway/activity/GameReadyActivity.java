@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.medowhill.jaemin.runaway.R;
@@ -26,6 +27,7 @@ public class GameReadyActivity extends Activity {
     Button button;
     ImageButton button1, button2, button3, button4;
     TextView textView;
+    LinearLayout linearLayoutReady, linearLayoutResult;
 
     int ability1 = 0, ability2 = 0, ability3 = 0, ability4 = 0;
     int stage;
@@ -35,6 +37,8 @@ public class GameReadyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameready);
 
+        overridePendingTransition(R.anim.gameready_activitystart, 0);
+
         this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         button = (Button) findViewById(R.id.gameReady_button_start);
@@ -43,6 +47,8 @@ public class GameReadyActivity extends Activity {
         button3 = (ImageButton) findViewById(R.id.gameReady_button_ability3);
         button4 = (ImageButton) findViewById(R.id.gameReady_button_ability4);
         textView = (TextView) findViewById(R.id.gameReady_textView_stage);
+        linearLayoutReady = (LinearLayout) findViewById(R.id.gameReady_linearLayout_ready);
+        linearLayoutResult = (LinearLayout) findViewById(R.id.gameReady_linearLayout_result);
 
         Intent intent = getIntent();
         stage = intent.getIntExtra("stage", 1);
@@ -114,10 +120,12 @@ public class GameReadyActivity extends Activity {
             Intent intent = new Intent();
             switch (data.getIntExtra("result", RESULT_RESELECT)) {
                 case RESULT_NEXT:
-                    intent.putExtra("result", StageSelectActivity.RESULT_NEXT);
-                    intent.putExtra("stage", stage);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    //intent.putExtra("result", StageSelectActivity.RESULT_NEXT);
+                    //intent.putExtra("stage", stage);
+                    //setResult(RESULT_OK, intent);
+                    //finish();
+                    linearLayoutReady.setVisibility(View.INVISIBLE);
+                    linearLayoutResult.setVisibility(View.VISIBLE);
                     break;
                 case RESULT_STAGE:
                     intent.putExtra("result", StageSelectActivity.RESULT_FIN);
@@ -131,5 +139,12 @@ public class GameReadyActivity extends Activity {
                     break;
             }
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        overridePendingTransition(0, R.anim.gameready_activityfinish);
     }
 }

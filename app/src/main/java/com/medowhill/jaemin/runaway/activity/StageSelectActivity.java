@@ -2,6 +2,7 @@ package com.medowhill.jaemin.runaway.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +25,8 @@ public class StageSelectActivity extends Activity {
 
     private StageSelectView stageSelectView;
 
+    private SharedPreferences sharedPreferences;
+
     private Handler stageSelectHandler, resumeActivityHandler;
 
     @Override
@@ -37,7 +40,8 @@ public class StageSelectActivity extends Activity {
         stageSelectHandler = new StageSelectHandler(this);
         resumeActivityHandler = new ResumeActivityHandler(this);
 
-        int lastStage = 1;
+        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+        int lastStage = sharedPreferences.getInt("stage", 1);
 
         stageSelectView = (StageSelectView) findViewById(R.id.stageSelectView);
         stageSelectView.setStageSelectHandler(stageSelectHandler);
@@ -54,6 +58,9 @@ public class StageSelectActivity extends Activity {
                         break;
                     case RESULT_NEXT:
                         int stage = data.getIntExtra("stage", 0);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("stage", stage + 1);
+                        editor.apply();
                         stageSelectView.openNewStage(stage);
                         resumeActivityHandler.sendEmptyMessageDelayed(1, WAIT);
                         break;

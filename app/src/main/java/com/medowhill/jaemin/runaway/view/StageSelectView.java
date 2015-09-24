@@ -330,12 +330,10 @@ public class StageSelectView extends View {
             public void onAnimationUpdate(ValueAnimator animation) {
                 scale = (Float) animation.getAnimatedValue();
                 invalidate();
-
-                if (scale == GAME_SCALE)
-                    stageSelectHandler.sendEmptyMessage(startStage);
             }
         });
         valueAnimator.start();
+        stageSelectHandler.sendEmptyMessage(startStage);
     }
 
     public void defaultScale(final boolean nextStage) {
