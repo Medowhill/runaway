@@ -9,7 +9,12 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.medowhill.jaemin.runaway.R;
+import com.medowhill.jaemin.runaway.object.Chaser;
 import com.medowhill.jaemin.runaway.object.Enemy;
+import com.medowhill.jaemin.runaway.object.Ghost;
+import com.medowhill.jaemin.runaway.object.Observer;
+import com.medowhill.jaemin.runaway.object.Phantom;
+import com.medowhill.jaemin.runaway.object.Teleporter;
 
 import java.util.ArrayList;
 
@@ -68,15 +73,48 @@ public class EnemyPreView extends View {
         }
     }
 
-    public void setEnemies(ArrayList<Enemy> enemies) {
-        for (Enemy enemy : enemies) {
-            int color = enemy.COLOR;
-            if (!colors.contains(color)) {
-                colors.add(color);
-                int size = (int) (enemy.RADIUS / BASE_SIZE);
-                sizes.add(size);
+    public void setStage(int stage) {
+        colors.clear();
+        sizes.clear();
+
+        String stageData = getResources().getStringArray(R.array.stageInfo)[stage - 1];
+        String[] stageDatas = stageData.split("/");
+
+        for (int i = 0; i < stageDatas.length; i++) {
+            String data = stageDatas[i];
+            String[] datas = data.split(",");
+            float x, y;
+            if (data.charAt(0) == 'e') {
+                Enemy enemy = null;
+                x = Float.parseFloat(datas[2]);
+                y = Float.parseFloat(datas[3]);
+                switch (datas[1].charAt(0)) {
+                    case 'o':
+                        enemy = new Observer(null, x, y);
+                        break;
+                    case 'c':
+                        enemy = new Chaser(null, x, y);
+                        break;
+                    case 't':
+                        enemy = new Teleporter(null, x, y);
+                        break;
+                    case 'g':
+                        enemy = new Ghost(null, x, y);
+                        break;
+                    case 'p':
+                        enemy = new Phantom(null, x, y);
+                        break;
+                }
+
+                int color = enemy.COLOR;
+                if (!colors.contains(color)) {
+                    colors.add(color);
+                    int size = (int) (enemy.RADIUS / BASE_SIZE);
+                    sizes.add(size);
+                }
             }
         }
+
         invalidate();
     }
 }

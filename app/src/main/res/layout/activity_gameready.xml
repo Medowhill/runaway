@@ -113,18 +113,21 @@
             android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/gameReady_button_replay"
                 android:layout_width="@dimen/gameReadyResultButtonSize"
                 android:layout_height="@dimen/gameReadyResultButtonSize"
                 android:layout_marginRight="@dimen/gameReadyResultButtonMargin"
                 android:background="@drawable/gameready_result_replay" />
 
             <ImageButton
+                android:id="@+id/gameReady_button_stage"
                 android:layout_width="@dimen/gameReadyResultButtonSize"
                 android:layout_height="@dimen/gameReadyResultButtonSize"
                 android:layout_marginRight="@dimen/gameReadyResultButtonMargin"
                 android:background="@drawable/gameready_result_stage" />
 
             <ImageButton
+                android:id="@+id/gameReady_button_next"
                 android:layout_width="@dimen/gameReadyResultButtonSize"
                 android:layout_height="@dimen/gameReadyResultButtonSize"
                 android:background="@drawable/gameready_result_next" />

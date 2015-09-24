@@ -62,7 +62,10 @@ public class StageSelectActivity extends Activity {
                         editor.putInt("stage", stage + 1);
                         editor.apply();
                         stageSelectView.openNewStage(stage);
-                        resumeActivityHandler.sendEmptyMessageDelayed(1, WAIT);
+                        if (data.getBooleanExtra("next", false))
+                            resumeActivityHandler.sendEmptyMessageDelayed(1, WAIT);
+                        else
+                            resumeActivityHandler.sendEmptyMessageDelayed(0, WAIT);
                         break;
                     case RESULT_MAIN:
                         finish();

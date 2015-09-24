@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.medowhill.jaemin.runaway.R;
-import com.medowhill.jaemin.runaway.object.Stage;
 import com.medowhill.jaemin.runaway.view.EnemyPreView;
 
 /**
@@ -26,8 +25,9 @@ public class GameReadyActivity extends Activity {
 
     final int REQUEST_CODE = 0;
 
-    Button button;
-    ImageButton button1, button2, button3, button4;
+    Button buttonStart;
+    ImageButton buttonAbility1, buttonAbility2, buttonAbility3, buttonAbility4;
+    ImageButton buttonReplay, buttonStage, buttonNext;
     TextView textView;
     LinearLayout linearLayoutReady, linearLayoutResult;
     EnemyPreView enemyPreView;
@@ -44,11 +44,14 @@ public class GameReadyActivity extends Activity {
 
         this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        button = (Button) findViewById(R.id.gameReady_button_start);
-        button1 = (ImageButton) findViewById(R.id.gameReady_button_ability1);
-        button2 = (ImageButton) findViewById(R.id.gameReady_button_ability2);
-        button3 = (ImageButton) findViewById(R.id.gameReady_button_ability3);
-        button4 = (ImageButton) findViewById(R.id.gameReady_button_ability4);
+        buttonStart = (Button) findViewById(R.id.gameReady_button_start);
+        buttonAbility1 = (ImageButton) findViewById(R.id.gameReady_button_ability1);
+        buttonAbility2 = (ImageButton) findViewById(R.id.gameReady_button_ability2);
+        buttonAbility3 = (ImageButton) findViewById(R.id.gameReady_button_ability3);
+        buttonAbility4 = (ImageButton) findViewById(R.id.gameReady_button_ability4);
+        buttonReplay = (ImageButton) findViewById(R.id.gameReady_button_replay);
+        buttonStage = (ImageButton) findViewById(R.id.gameReady_button_stage);
+        buttonNext = (ImageButton) findViewById(R.id.gameReady_button_next);
         textView = (TextView) findViewById(R.id.gameReady_textView_stage);
         linearLayoutReady = (LinearLayout) findViewById(R.id.gameReady_linearLayout_ready);
         linearLayoutResult = (LinearLayout) findViewById(R.id.gameReady_linearLayout_result);
@@ -59,9 +62,9 @@ public class GameReadyActivity extends Activity {
 
         textView.setText(textView.getText().toString() + " " + stage);
 
-        enemyPreView.setEnemies(new Stage(this, stage).enemies);
+        enemyPreView.setStage(stage);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), GameActivity.class);
@@ -71,51 +74,83 @@ public class GameReadyActivity extends Activity {
             }
         });
 
-        button1.setOnClickListener(new View.OnClickListener() {
+        buttonAbility1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ability1++;
                 ability1 %= 2;
                 if (ability1 % 2 == 0)
-                    button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_dash));
+                    buttonAbility1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_dash));
                 else
-                    button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_teleportation));
+                    buttonAbility1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_teleportation));
             }
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
+        buttonAbility2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ability2++;
                 ability2 %= 2;
                 if (ability2 % 2 == 0)
-                    button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_hiding));
+                    buttonAbility2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_hiding));
                 else
-                    button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_protection));
+                    buttonAbility2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_protection));
             }
         });
 
-        button3.setOnClickListener(new View.OnClickListener() {
+        buttonAbility3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ability3++;
                 ability3 %= 2;
                 if (ability3 % 2 == 0)
-                    button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shadow));
+                    buttonAbility3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shadow));
                 else
-                    button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_illusion));
+                    buttonAbility3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_illusion));
             }
         });
 
-        button4.setOnClickListener(new View.OnClickListener() {
+        buttonAbility4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ability4++;
                 ability4 %= 2;
                 if (ability4 % 2 == 0)
-                    button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shockwave));
+                    buttonAbility4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shockwave));
                 else
-                    button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_distortionfield));
+                    buttonAbility4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_distortionfield));
+            }
+        });
+
+        buttonReplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                linearLayoutReady.setVisibility(View.VISIBLE);
+                linearLayoutResult.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        buttonStage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("result", StageSelectActivity.RESULT_NEXT);
+                intent.putExtra("stage", stage);
+                intent.putExtra("next", false);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("result", StageSelectActivity.RESULT_NEXT);
+                intent.putExtra("stage", stage);
+                intent.putExtra("next", true);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }
@@ -126,10 +161,6 @@ public class GameReadyActivity extends Activity {
             Intent intent = new Intent();
             switch (data.getIntExtra("result", RESULT_RESELECT)) {
                 case RESULT_NEXT:
-                    //intent.putExtra("result", StageSelectActivity.RESULT_NEXT);
-                    //intent.putExtra("stage", stage);
-                    //setResult(RESULT_OK, intent);
-                    //finish();
                     linearLayoutReady.setVisibility(View.INVISIBLE);
                     linearLayoutResult.setVisibility(View.VISIBLE);
                     break;
