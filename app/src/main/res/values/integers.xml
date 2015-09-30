@@ -22,8 +22,12 @@
     <integer name="frame">40</integer>
     <integer name="gameOverFrame">40</integer>
 
+    <!--Game Objects Shapes-->
+    <integer name="starVertices">10</integer>
+
     <!--Game Objects Sizes-->
     <integer name="baseSize">30</integer>
+    <integer name="starSize">2</integer>
     <integer name="playerSize">2</integer>
     <integer name="observerSize">2</integer>
     <integer name="chaserSize">2</integer>

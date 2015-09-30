@@ -24,6 +24,8 @@ public class Stage {
 
     public final ArrayList<Buff> buffs;
 
+    public final ArrayList<Star> stars;
+
     public final Path area;
 
     private float xMax, yMax;
@@ -46,6 +48,7 @@ public class Stage {
         enemies = new ArrayList<>();
         walls = new ArrayList<>();
         buffs = new ArrayList<>();
+        stars = new ArrayList<>();
         area = new Path();
         area.moveTo(0, 0);
 
@@ -176,6 +179,14 @@ public class Stage {
                 case 'f':
                     xFinish = Float.parseFloat(datas[1]);
                     yFinish = Float.parseFloat(datas[2]);
+                    break;
+                case 's':
+                    if (!forPreview) {
+                        x = Float.parseFloat(datas[1]);
+                        y = Float.parseFloat(datas[2]);
+                        Star star = new Star(this, x, y);
+                        stars.add(star);
+                    }
                     break;
             }
         }

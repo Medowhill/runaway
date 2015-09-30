@@ -1,4 +1,4 @@
-    package com.medowhill.jaemin.runaway.view;
+package com.medowhill.jaemin.runaway.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -17,6 +17,7 @@ import com.medowhill.jaemin.runaway.activity.GameActivity;
 import com.medowhill.jaemin.runaway.object.Enemy;
 import com.medowhill.jaemin.runaway.object.Player;
 import com.medowhill.jaemin.runaway.object.Stage;
+import com.medowhill.jaemin.runaway.object.Star;
 
 import java.util.ArrayList;
 
@@ -228,6 +229,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                     }
                                 }
 
+                                ArrayList<Star> stars = stage.stars;
+                                if (stars.size() > 0 && !pause && !gameClear) {
+                                    for (int i = 0; i < stars.size(); i++) {
+                                        if (player.touch(stars.get(i))) {
+                                            stars.remove(i);
+                                            i--;
+                                        }
+                                    }
+                                }
+
                                 float dx = WIDTH / 4, dy = HEIGHT / 4;
                                 if (stage.getxMax() - WIDTH / 4 < player.getX())
                                     dx = 3 * WIDTH / 4 - stage.getxMax();
@@ -250,6 +261,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 player.draw(canvas);
                                 for (Enemy enemy : enemies)
                                     enemy.draw(canvas);
+                                for (Star star : stars)
+                                    star.draw(canvas);
 
                                 if (gameOver || gameClear) {
                                     canvas.translate(-dx, -dy);
