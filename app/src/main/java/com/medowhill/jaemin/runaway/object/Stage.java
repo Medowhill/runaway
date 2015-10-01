@@ -184,6 +184,9 @@ public class Stage {
                             case 'a':
                                 enemy = new Artillery(this, x, y);
                                 break;
+                            case 'm':
+                                enemy = new Magnet(this, x, y);
+                                break;
                         }
                         enemies.add(enemy);
                     }

@@ -36,6 +36,7 @@
     <integer name="phantomSize">1</integer>
     <integer name="sniperSize">3</integer>
     <integer name="artillerySize">3</integer>
+    <integer name="magnetSize">2</integer>
 
     <!--Game Objects Speeds-->
     <integer name="playerSpeed">25</integer>
@@ -46,6 +47,7 @@
     <integer name="phantomSpeed">14</integer>
     <integer name="sniperSpeed">10</integer>
     <integer name="artillerySpeed">10</integer>
+    <integer name="magnetSpeed">8</integer>
 
     <!--Game Objects Sights-->
     <integer name="observerSight">800</integer>
@@ -55,6 +57,7 @@
     <integer name="phantomSight">1200</integer>
     <integer name="sniperSight">1400</integer>
     <integer name="artillerySight">1400</integer>
+    <integer name="magnetSight">600</integer>
 
     <!--Abilities Waiting Frames-->
     <integer name="dashPlayerCool">80</integer>

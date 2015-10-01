@@ -13,6 +13,7 @@ import com.medowhill.jaemin.runaway.object.Artillery;
 import com.medowhill.jaemin.runaway.object.Chaser;
 import com.medowhill.jaemin.runaway.object.Enemy;
 import com.medowhill.jaemin.runaway.object.Ghost;
+import com.medowhill.jaemin.runaway.object.Magnet;
 import com.medowhill.jaemin.runaway.object.Observer;
 import com.medowhill.jaemin.runaway.object.Phantom;
 import com.medowhill.jaemin.runaway.object.Sniper;
@@ -111,6 +112,9 @@ public class EnemyPreView extends View {
                         break;
                     case 'a':
                         enemy = new Artillery(null, x, y);
+                        break;
+                    case 'm':
+                        enemy = new Magnet(null, x, y);
                         break;
                 }
 

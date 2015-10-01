@@ -66,4 +66,7 @@
     <color name="artilleryNormal">#4db6ac</color>
     <color name="artilleryDetecting">#00796b</color>
 
+    <color name="magnetNormal">#4fc3f7</color>
+    <color name="magnetDetecting">#0288d1</color>
+
 </resources>

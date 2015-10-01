@@ -22,9 +22,7 @@ public class Artillery extends Enemy {
     public void useAbility() {
         Ability ability = abilities.get(0);
 
-        if (!ability.isWaiting() && detect) {
-            if (detect)
-                ability.use(this);
-        }
+        if (!ability.isWaiting() && (detect || detectIllusion))
+            ability.use(this);
     }
 }
