@@ -1,6 +1,7 @@
 package com.medowhill.jaemin.runaway.object;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Path;
 
 import com.medowhill.jaemin.runaway.R;
@@ -13,13 +14,20 @@ public class Star extends GameObject {
     private final int N;
     private final float INNER_RATIO = 0.35f;
 
+    private Paint paintNotCollect;
+
+    private boolean collect = true;
+
     private Path path;
 
     public Star(Stage stage, float x, float y) {
         super(stage, context.getResources().getInteger(R.integer.starSize) * context.getResources().getInteger(R.integer.baseSize),
-                context.getResources().getColor(R.color.starColor), x, y, 0);
+                context.getResources().getColor(R.color.starNormal), x, y, 0);
 
         N = context.getResources().getInteger(R.integer.starVertices);
+
+        paintNotCollect = new Paint();
+        paintNotCollect.setColor(context.getResources().getColor(R.color.starNotCollect));
 
         path = new Path();
         path.moveTo(x, y - RADIUS);
@@ -35,10 +43,17 @@ public class Star extends GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawPath(path, paintNormal);
+        if (collect)
+            canvas.drawPath(path, paintNormal);
+        else
+            canvas.drawPath(path, paintNotCollect);
     }
 
     @Override
     void modifyMove(Wall wall) {
+    }
+
+    public void setCollect(boolean collect) {
+        this.collect = collect;
     }
 }

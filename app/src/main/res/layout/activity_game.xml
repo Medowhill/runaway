@@ -10,8 +10,8 @@
 
     <com.medowhill.jaemin.runaway.view.DirectionControl
         android:id="@+id/game_directionControl"
-        android:layout_width="@dimen/directionControlSize"
-        android:layout_height="@dimen/directionControlSize"
+        android:layout_width="@dimen/gameDirectionControlSize"
+        android:layout_height="@dimen/gameDirectionControlSize"
         android:layout_gravity="left|bottom" />
 
     <LinearLayout
@@ -23,23 +23,23 @@
 
         <com.medowhill.jaemin.runaway.view.AbilityButton
             android:id="@+id/game_abilityButton4"
-            android:layout_width="@dimen/abilityButtonSize"
-            android:layout_height="@dimen/abilityButtonSize" />
+            android:layout_width="@dimen/gameAbilityButtonSize"
+            android:layout_height="@dimen/gameAbilityButtonSize" />
 
         <com.medowhill.jaemin.runaway.view.AbilityButton
             android:id="@+id/game_abilityButton3"
-            android:layout_width="@dimen/abilityButtonSize"
-            android:layout_height="@dimen/abilityButtonSize" />
+            android:layout_width="@dimen/gameAbilityButtonSize"
+            android:layout_height="@dimen/gameAbilityButtonSize" />
 
         <com.medowhill.jaemin.runaway.view.AbilityButton
             android:id="@+id/game_abilityButton2"
-            android:layout_width="@dimen/abilityButtonSize"
-            android:layout_height="@dimen/abilityButtonSize" />
+            android:layout_width="@dimen/gameAbilityButtonSize"
+            android:layout_height="@dimen/gameAbilityButtonSize" />
 
         <com.medowhill.jaemin.runaway.view.AbilityButton
             android:id="@+id/game_abilityButton1"
-            android:layout_width="@dimen/abilityButtonSize"
-            android:layout_height="@dimen/abilityButtonSize" />
+            android:layout_width="@dimen/gameAbilityButtonSize"
+            android:layout_height="@dimen/gameAbilityButtonSize" />
 
     </LinearLayout>
 
@@ -66,44 +66,50 @@
 
         <Button
             android:id="@+id/game_button_restart"
-            android:layout_width="@dimen/pauseMenuWidth"
+            android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/pauseMenuMargin"
+            android:layout_margin="@dimen/gameMenuMargin"
             android:text="@string/gameMenuRestart"
             android:visibility="invisible" />
 
         <Button
             android:id="@+id/game_button_reselectAbilities"
-            android:layout_width="@dimen/pauseMenuWidth"
+            android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/pauseMenuMargin"
+            android:layout_margin="@dimen/gameMenuMargin"
             android:text="@string/gameMenuReselectAbilities"
             android:visibility="invisible" />
 
         <Button
             android:id="@+id/game_button_selectStage"
-            android:layout_width="@dimen/pauseMenuWidth"
+            android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/pauseMenuMargin"
+            android:layout_margin="@dimen/gameMenuMargin"
             android:text="@string/gameMenuSelectStage"
             android:visibility="invisible" />
 
         <Button
             android:id="@+id/game_button_goToMainMenu"
-            android:layout_width="@dimen/pauseMenuWidth"
+            android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/pauseMenuMargin"
+            android:layout_margin="@dimen/gameMenuMargin"
             android:text="@string/gameMenuGoToMainMenu"
             android:visibility="invisible" />
 
         <Button
             android:id="@+id/game_button_options"
-            android:layout_width="@dimen/pauseMenuWidth"
+            android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/pauseMenuMargin"
+            android:layout_margin="@dimen/gameMenuMargin"
             android:text="@string/gameMenuOptions"
             android:visibility="invisible" />
 
     </LinearLayout>
+
+    <com.medowhill.jaemin.runaway.view.StarCollectionView
+        android:id="@+id/game_starCollection"
+        android:layout_width="@dimen/gameStarCollectionWidth"
+        android:layout_height="@dimen/gameStarCollectionHeight"
+        android:layout_gravity="top|left" />
 
 </FrameLayout>

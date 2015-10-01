@@ -27,7 +27,8 @@
     <color name="gameViewArea">#ffe0ff</color>
     <color name="gameViewFinish">#900090</color>
 
-    <color name="starColor">#d0d030</color>
+    <color name="starNormal">#d0d030</color>
+    <color name="starNotCollect">#a0a0a0</color>
 
     <color name="playerNormal">#00b0b0</color>
     <color name="playerInvisible">#90e0e0</color>

@@ -27,6 +27,7 @@ import com.medowhill.jaemin.runaway.object.Stage;
 import com.medowhill.jaemin.runaway.view.AbilityButton;
 import com.medowhill.jaemin.runaway.view.DirectionControl;
 import com.medowhill.jaemin.runaway.view.GameView;
+import com.medowhill.jaemin.runaway.view.StarCollectionView;
 
 import java.util.ArrayList;
 
@@ -53,8 +54,9 @@ public class GameActivity extends Activity {
     private ImageView buttonPause, buttonResume;
     private Button[] buttons;
     private LinearLayout linearLayoutAbilityButton;
-    private Animation[] animationShowMenu, animationHideMenu;
+    private StarCollectionView starCollectionView;
 
+    private Animation[] animationShowMenu, animationHideMenu;
     private Animation animationButtonDisappear, animationButtonAppear;
     private boolean animatingMenu = false, showing = true;
 
@@ -73,6 +75,7 @@ public class GameActivity extends Activity {
         buttonPause = (ImageView) findViewById(R.id.game_button_pause);
         buttonResume = (ImageView) findViewById(R.id.game_button_resume);
         linearLayoutAbilityButton = (LinearLayout) findViewById(R.id.game_linearLayout_abilityButton);
+        starCollectionView = (StarCollectionView) findViewById(R.id.game_starCollection);
         buttons = new Button[BUTTON_ID.length];
 
         for (int i = 0; i < buttons.length; i++)
@@ -121,6 +124,7 @@ public class GameActivity extends Activity {
                         gameView.setPause(false);
                         directionControl.setVisibility(View.VISIBLE);
                         linearLayoutAbilityButton.setVisibility(View.VISIBLE);
+                        starCollectionView.setVisibility(View.VISIBLE);
                         animatingMenu = false;
                     }
                 }
@@ -272,6 +276,7 @@ public class GameActivity extends Activity {
                 gameView.setPause(true);
                 directionControl.setVisibility(View.INVISIBLE);
                 linearLayoutAbilityButton.setVisibility(View.INVISIBLE);
+                starCollectionView.setVisibility(View.INVISIBLE);
                 buttons[0].startAnimation(animationShowMenu[0]);
                 buttonPause.startAnimation(animationButtonDisappear);
             }
@@ -284,6 +289,7 @@ public class GameActivity extends Activity {
                 directionControl.setVisibility(View.INVISIBLE);
                 buttonPause.setVisibility(View.INVISIBLE);
                 linearLayoutAbilityButton.setVisibility(View.INVISIBLE);
+                starCollectionView.setVisibility(View.INVISIBLE);
                 break;
             case ACTIVITY_FIN:
                 Intent intent = new Intent();
