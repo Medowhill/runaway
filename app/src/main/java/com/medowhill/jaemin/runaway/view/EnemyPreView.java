@@ -14,6 +14,7 @@ import com.medowhill.jaemin.runaway.object.Enemy;
 import com.medowhill.jaemin.runaway.object.Ghost;
 import com.medowhill.jaemin.runaway.object.Observer;
 import com.medowhill.jaemin.runaway.object.Phantom;
+import com.medowhill.jaemin.runaway.object.Sniper;
 import com.medowhill.jaemin.runaway.object.Teleporter;
 
 import java.util.ArrayList;
@@ -103,6 +104,9 @@ public class EnemyPreView extends View {
                         break;
                     case 'p':
                         enemy = new Phantom(null, x, y);
+                        break;
+                    case 's':
+                        enemy = new Sniper(null, x, y);
                         break;
                 }
 

@@ -29,6 +29,9 @@ public abstract class Field extends GameObject {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawCircle(owner.x, owner.y, radius, paintNormal);
+    }
+
+    public void resize() {
         radius += DR;
         remainingFrame--;
     }

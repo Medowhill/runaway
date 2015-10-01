@@ -14,6 +14,8 @@ import android.view.SurfaceView;
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
 import com.medowhill.jaemin.runaway.activity.GameActivity;
+import com.medowhill.jaemin.runaway.buff.Buff;
+import com.medowhill.jaemin.runaway.object.Bullet;
 import com.medowhill.jaemin.runaway.object.Enemy;
 import com.medowhill.jaemin.runaway.object.Field;
 import com.medowhill.jaemin.runaway.object.Player;
@@ -231,12 +233,39 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 }
 
                                 ArrayList<Star> stars = stage.stars;
-                                if (stars.size() > 0 && !pause && !gameClear) {
+                                if (!pause && !gameClear) {
                                     for (int i = 0; i < stars.size(); i++) {
                                         if (player.touch(stars.get(i))) {
                                             stars.remove(i);
                                             i--;
                                         }
+                                    }
+                                }
+
+                                ArrayList<Bullet> bullets = stage.bullets;
+                                if (!pause && !gameClear) {
+                                    for (int i = 0; i < bullets.size(); i++) {
+                                        Bullet bullet = bullets.get(i);
+                                        bullet.move();
+                                        if (player.touch(bullet)) {
+                                            for (Buff buff : bullets.get(i).getBuff())
+                                                player.addBuff(buff);
+                                            bullets.remove(i);
+                                            i--;
+                                        } else if (bullet.isTouchWall()) {
+                                            bullets.remove(i);
+                                            i--;
+                                        }
+                                    }
+                                }
+
+                                ArrayList<Field> fields = stage.fields;
+                                for (int i = 0; i < fields.size(); i++) {
+                                    Field field = fields.get(i);
+                                    field.resize();
+                                    if (field.isFinish()) {
+                                        fields.remove(i);
+                                        i--;
                                     }
                                 }
 
@@ -264,16 +293,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                     enemy.draw(canvas);
                                 for (Star star : stars)
                                     star.draw(canvas);
-
-                                ArrayList<Field> fields = stage.fields;
-                                for (int i = 0; i < fields.size(); i++) {
-                                    Field field = fields.get(i);
-                                    if (field.isFinish()) {
-                                        fields.remove(i);
-                                        i--;
-                                    } else
-                                        field.draw(canvas);
-                                }
+                                for (Bullet bullet : bullets)
+                                    bullet.draw(canvas);
+                                for (Field field : fields)
+                                    field.draw(canvas);
 
                                 if (gameOver || gameClear) {
                                     canvas.translate(-dx, -dy);

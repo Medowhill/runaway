@@ -34,21 +34,24 @@
     <integer name="teleporterSize">2</integer>
     <integer name="ghostSize">1</integer>
     <integer name="phantomSize">1</integer>
+    <integer name="sniperSize">3</integer>
 
     <!--Game Objects Speeds-->
     <integer name="playerSpeed">25</integer>
     <integer name="observerSpeed">16</integer>
-    <integer name="chaserSpeed">10</integer>
-    <integer name="teleporterSpeed">10</integer>
+    <integer name="chaserSpeed">12</integer>
+    <integer name="teleporterSpeed">12</integer>
     <integer name="ghostSpeed">14</integer>
     <integer name="phantomSpeed">14</integer>
+    <integer name="sniperSpeed">10</integer>
 
     <!--Game Objects Sights-->
     <integer name="observerSight">1000</integer>
     <integer name="chaserSight">1000</integer>
     <integer name="teleporterSight">1000</integer>
-    <integer name="ghostSight">800</integer>
-    <integer name="phantomSight">800</integer>
+    <integer name="ghostSight">1000</integer>
+    <integer name="phantomSight">1000</integer>
+    <integer name="sniperSight">1000</integer>
 
     <!--Abilities Waiting Frames-->
     <integer name="dashPlayerCool">80</integer>
@@ -62,6 +65,7 @@
     <integer name="illusionPlayerCool">240</integer>
     <integer name="shockWavePlayerCool">320</integer>
     <integer name="distortionFieldPlayerCool">320</integer>
+    <integer name="stunBulletFireEnemyCool">80</integer>
 
     <!--Abilities Values-->
     <integer name="dashPlayerDistance">650</integer>

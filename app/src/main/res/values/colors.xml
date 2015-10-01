@@ -34,6 +34,7 @@
 
     <color name="shockWavePlayerStroke">#d06060</color>
     <color name="distortionFieldPlayerBackground">#60d060d0</color>
+    <color name="stunBulletFireBullet">#0d47a1</color>
 
     <color name="starNormal">#d0d030</color>
     <color name="starNotCollect">#a0a0a0</color>
@@ -43,19 +44,22 @@
     <color name="playerImmortal">#00f0f0</color>
     <color name="playerIllusion">#a0b0b0</color>
 
-    <color name="observerNormal">#b00000</color>
-    <color name="observerDetecting">#f00000</color>
+    <color name="observerNormal">#e57373</color>
+    <color name="observerDetecting">#d32f2f</color>
 
-    <color name="chaserNormal">#3030a0</color>
-    <color name="chaserDetecting">#3030f0</color>
+    <color name="chaserNormal">#ba68c8</color>
+    <color name="chaserDetecting">#7b1fa2</color>
 
-    <color name="teleporterNormal">#20a020</color>
-    <color name="teleporterDetecting">#20e020</color>
+    <color name="teleporterNormal">#7986cb</color>
+    <color name="teleporterDetecting">#303f9f</color>
 
-    <color name="ghostNormal">#909020</color>
-    <color name="ghostDetecting">#c0c020</color>
+    <color name="ghostNormal">#f06292</color>
+    <color name="ghostDetecting">#c2185b</color>
 
-    <color name="phantomNormal">#902090</color>
-    <color name="phantomDetecting">#e020e0</color>
+    <color name="phantomNormal">#9575cd</color>
+    <color name="phantomDetecting">#512da8</color>
+
+    <color name="sniperNormal">#64b5f6</color>
+    <color name="sniperDetecting">#1976d2</color>
 
 </resources>

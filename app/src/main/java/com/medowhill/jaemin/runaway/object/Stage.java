@@ -28,6 +28,8 @@ public class Stage {
 
     public final ArrayList<Field> fields;
 
+    public final ArrayList<Bullet> bullets;
+
     public final Path area;
 
     private float xMax, yMax;
@@ -52,6 +54,7 @@ public class Stage {
         buffs = new ArrayList<>();
         stars = new ArrayList<>();
         fields = new ArrayList<>();
+        bullets = new ArrayList<>();
         area = new Path();
         area.moveTo(0, 0);
 
@@ -174,6 +177,9 @@ public class Stage {
                                 break;
                             case 'p':
                                 enemy = new Phantom(this, x, y);
+                                break;
+                            case 's':
+                                enemy = new Sniper(this, x, y);
                                 break;
                         }
                         enemies.add(enemy);
