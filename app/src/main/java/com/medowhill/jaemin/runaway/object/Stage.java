@@ -181,6 +181,9 @@ public class Stage {
                             case 's':
                                 enemy = new Sniper(this, x, y);
                                 break;
+                            case 'a':
+                                enemy = new Artillery(this, x, y);
+                                break;
                         }
                         enemies.add(enemy);
                     }

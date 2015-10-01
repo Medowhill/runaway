@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.medowhill.jaemin.runaway.R;
+import com.medowhill.jaemin.runaway.object.Artillery;
 import com.medowhill.jaemin.runaway.object.Chaser;
 import com.medowhill.jaemin.runaway.object.Enemy;
 import com.medowhill.jaemin.runaway.object.Ghost;
@@ -107,6 +108,9 @@ public class EnemyPreView extends View {
                         break;
                     case 's':
                         enemy = new Sniper(null, x, y);
+                        break;
+                    case 'a':
+                        enemy = new Artillery(null, x, y);
                         break;
                 }
 
