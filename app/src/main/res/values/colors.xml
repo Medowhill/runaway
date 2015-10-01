@@ -37,13 +37,15 @@
     <color name="stunBulletFireBullet">#0d47a1</color>
     <color name="slowBulletFireBullet">#0d4d40</color>
 
+    <color name="finish">#689f38</color>
+
     <color name="starNormal">#d0d030</color>
     <color name="starNotCollect">#a0a0a0</color>
 
-    <color name="playerNormal">#00b0b0</color>
-    <color name="playerInvisible">#90e0e0</color>
-    <color name="playerImmortal">#00f0f0</color>
-    <color name="playerIllusion">#a0b0b0</color>
+    <color name="playerNormal">#388e3c</color>
+    <color name="playerInvisible">#81c784</color>
+    <color name="playerImmortal">#1b5e20</color>
+    <color name="playerIllusion">#c8e6c9</color>
 
     <color name="observerNormal">#e57373</color>
     <color name="observerDetecting">#d32f2f</color>

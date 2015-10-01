@@ -32,6 +32,8 @@ public class Stage {
 
     public final Path area;
 
+    public Finish finish;
+
     private float xMax, yMax;
 
     private Player player;
@@ -194,6 +196,8 @@ public class Stage {
                 case 'f':
                     xFinish = Float.parseFloat(datas[1]);
                     yFinish = Float.parseFloat(datas[2]);
+                    if (!forPreview)
+                        finish = new Finish(this, xFinish, yFinish);
                     break;
                 case 's':
                     if (!forPreview) {

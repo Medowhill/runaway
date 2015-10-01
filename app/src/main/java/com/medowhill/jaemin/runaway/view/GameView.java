@@ -207,8 +207,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                     player.getIllusion().move();
                                 }
 
-                                if (!pause && !gameClear && Math.abs(player.getX() - stage.getxFinish()) < player.getSpeed() * 2
-                                        && Math.abs(player.getY() - stage.getyFinish()) < player.getSpeed() * 2) {
+                                if (!pause && !gameClear && player.touch(stage.finish)) {
                                     gameClear = true;
                                     Message message = new Message();
                                     message.what = GameActivity.GAME_OVER;
@@ -283,9 +282,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 canvas.drawPath(stage.area, paintArea);
 
-                                canvas.drawCircle(stage.getxFinish(), stage.getyFinish(),
-                                        BASE_SIZE * getResources().getInteger(R.integer.playerSize), paintFinish);
-
+                                stage.finish.draw(canvas);
                                 if (player.isUsingIllusion())
                                     player.getIllusion().draw(canvas);
                                 player.draw(canvas);
