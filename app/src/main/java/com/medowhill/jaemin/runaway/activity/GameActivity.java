@@ -45,9 +45,6 @@ public class GameActivity extends Activity {
 
     final int BUTTON_DELAY = 50;
 
-    private Ability[][] abilityArray = new Ability[][]{{new Dash(1, true), new Teleportation(1, true)},
-            {new Hiding(1, true), new Protection(1)}, {new Shadow(1), new Illusion(1)}, {new ShockWave(1, 1), new DistortionField(1, 1)}};
-
     private GameView gameView;
     private DirectionControl directionControl;
     private AbilityButton[] abilityButtons;
@@ -242,18 +239,40 @@ public class GameActivity extends Activity {
         pause();
     }
 
+    private Ability getAbility(int n) {
+        switch (n) {
+            case 0:
+                return new Dash(1, true);
+            case 1:
+                return new Teleportation(1, true);
+            case 2:
+                return new Hiding(1, true);
+            case 3:
+                return new Protection(1);
+            case 4:
+                return new Shadow(1);
+            case 5:
+                return new Illusion(1);
+            case 6:
+                return new ShockWave(1, 1);
+            default:
+                return new DistortionField(1, 1);
+        }
+    }
+
     private void readyGame() {
         Stage stage = new Stage(this, stageNum);
         ArrayList<Ability> playerAbilities = stage.getPlayer().getAbilities();
         for (int i = 0; i < abilities.length; i++)
             if (abilities[i] != -1)
-                playerAbilities.add(abilityArray[i][abilities[i]]);
+                playerAbilities.add(getAbility(i * 2 + abilities[i]));
 
         for (int i = 0; i < abilityButtons.length; i++) {
             if (playerAbilities.size() > i)
                 abilityButtons[i].setIconResourceID(playerAbilities.get(i).iconResourceID);
             else
                 abilityButtons[i].setVisibility(View.INVISIBLE);
+            abilityButtons[i].clearCool();
         }
 
         directionControl.setVisibility(View.VISIBLE);

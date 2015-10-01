@@ -130,6 +130,11 @@ public class AbilityButton extends View {
         }
     }
 
+    public void clearCool() {
+        ratio = 0;
+        invalidate();
+    }
+
     public boolean isClicked() {
         return clicked;
     }
