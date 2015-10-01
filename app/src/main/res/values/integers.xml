@@ -69,6 +69,7 @@
     <integer name="teleportationPlayerDistance">650</integer>
     <integer name="teleportationEnemyDistance">450</integer>
     <integer name="shockWavePlayerFrame">10</integer>
-    <integer name="distortionFieldPlayerFrame">10</integer>
+    <integer name="shockWavePlayerStrokeWidth">8</integer>
+    <integer name="distortionFieldPlayerFrame">40</integer>
 
 </resources>

@@ -2,6 +2,7 @@ package com.medowhill.jaemin.runaway.ability;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.buff.DistortionFieldBuff;
+import com.medowhill.jaemin.runaway.object.DistortionPlayerField;
 import com.medowhill.jaemin.runaway.object.GameObject;
 
 /**
@@ -30,5 +31,7 @@ public class DistortionField extends Ability {
         super.use(gameObject);
 
         gameObject.addBuff(new DistortionFieldBuff(gameObject, frame, range, dspeed, false));
+
+        gameObject.getStage().fields.add(new DistortionPlayerField(gameObject.getStage(), range, range, frame, gameObject));
     }
 }

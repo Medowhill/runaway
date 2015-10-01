@@ -273,6 +273,7 @@ public class GameActivity extends Activity {
             else
                 abilityButtons[i].setVisibility(View.INVISIBLE);
             abilityButtons[i].clearCool();
+            abilityButtons[i].clearClick();
         }
 
         directionControl.setVisibility(View.VISIBLE);

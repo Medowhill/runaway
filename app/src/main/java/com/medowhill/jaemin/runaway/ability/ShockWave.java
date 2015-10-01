@@ -7,7 +7,9 @@ import com.medowhill.jaemin.runaway.buff.CannotUseAbilityBuff;
 import com.medowhill.jaemin.runaway.buff.ForcedMoveBuff;
 import com.medowhill.jaemin.runaway.buff.RemoveChannelingBuff;
 import com.medowhill.jaemin.runaway.object.Enemy;
+import com.medowhill.jaemin.runaway.object.Field;
 import com.medowhill.jaemin.runaway.object.GameObject;
+import com.medowhill.jaemin.runaway.object.ShockWavePlayerField;
 
 /**
  * Copyright 2015. Hong Jaemin
@@ -38,7 +40,8 @@ public class ShockWave extends Ability {
 
         for (Enemy enemy : gameObject.getStage().enemies) {
             float x1 = gameObject.getX(), y1 = gameObject.getY(), x2 = enemy.getX(), y2 = enemy.getY();
-            if ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < range * range) {
+            float d = (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) - enemy.RADIUS;
+            if (d < range) {
                 float dx = 0, dy = 0;
                 if (Math.abs(x1 - x2) > Math.abs(y1 - y2)) {
                     if (x1 > x2)
@@ -60,6 +63,10 @@ public class ShockWave extends Ability {
                 enemy.addBuff(buff);
                 buff = new CannotMoveBuff(enemy, frame, false);
                 enemy.addBuff(buff);
+
+                Field field = new ShockWavePlayerField(gameObject.getStage(), distance, frame, gameObject);
+                gameObject.getStage().fields.add(field);
+
                 used = true;
             }
         }

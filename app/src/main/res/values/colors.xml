@@ -32,6 +32,9 @@
     <color name="gameViewArea">#ffe0ff</color>
     <color name="gameViewFinish">#900090</color>
 
+    <color name="shockWavePlayerStroke">#d06060</color>
+    <color name="distortionFieldPlayerBackground">#60d060d0</color>
+
     <color name="starNormal">#d0d030</color>
     <color name="starNotCollect">#a0a0a0</color>
 

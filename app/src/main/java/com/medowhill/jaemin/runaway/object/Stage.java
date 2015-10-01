@@ -26,6 +26,8 @@ public class Stage {
 
     public final ArrayList<Star> stars;
 
+    public final ArrayList<Field> fields;
+
     public final Path area;
 
     private float xMax, yMax;
@@ -49,6 +51,7 @@ public class Stage {
         walls = new ArrayList<>();
         buffs = new ArrayList<>();
         stars = new ArrayList<>();
+        fields = new ArrayList<>();
         area = new Path();
         area.moveTo(0, 0);
 

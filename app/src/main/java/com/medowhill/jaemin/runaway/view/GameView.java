@@ -15,6 +15,7 @@ import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
 import com.medowhill.jaemin.runaway.activity.GameActivity;
 import com.medowhill.jaemin.runaway.object.Enemy;
+import com.medowhill.jaemin.runaway.object.Field;
 import com.medowhill.jaemin.runaway.object.Player;
 import com.medowhill.jaemin.runaway.object.Stage;
 import com.medowhill.jaemin.runaway.object.Star;
@@ -263,6 +264,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                     enemy.draw(canvas);
                                 for (Star star : stars)
                                     star.draw(canvas);
+
+                                ArrayList<Field> fields = stage.fields;
+                                for (int i = 0; i < fields.size(); i++) {
+                                    Field field = fields.get(i);
+                                    if (field.isFinish()) {
+                                        fields.remove(i);
+                                        i--;
+                                    } else
+                                        field.draw(canvas);
+                                }
 
                                 if (gameOver || gameClear) {
                                     canvas.translate(-dx, -dy);
