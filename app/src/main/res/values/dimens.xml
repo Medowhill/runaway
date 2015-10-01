@@ -4,7 +4,9 @@
     <dimen name="gameDirectionControlSize">140dp</dimen>
     <dimen name="gameAbilityButtonSize">65dp</dimen>
     <dimen name="gameMenuWidth">300dp</dimen>
-    <dimen name="gameMenuMargin">5dp</dimen>
+    <dimen name="gameMenuMargin">7dp</dimen>
+    <dimen name="gameMenuRadius">2dp</dimen>
+    <dimen name="gameMenuTextSize">21sp</dimen>
     <dimen name="gameStarCollectionWidth">120dp</dimen>
     <dimen name="gameStarCollectionHeight">40dp</dimen>
 

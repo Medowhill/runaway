@@ -11,8 +11,8 @@ public class DelayBuff extends Buff {
 
     private Buff buff;
 
-    public DelayBuff(GameObject gameObject, int remainingTime, Buff buff) {
-        super(gameObject, remainingTime);
+    public DelayBuff(GameObject gameObject, int remainingTime, Buff buff, boolean channeling) {
+        super(gameObject, remainingTime, channeling);
         this.buff = buff;
     }
 

@@ -48,7 +48,7 @@ public class EnemyPreView extends View {
 
         paint = new Paint();
         paint_bakcground = new Paint();
-        paint_bakcground.setColor(getResources().getColor(R.color.gameReadyEnemyPreviewBackground));
+        paint_bakcground.setColor(getResources().getColor(R.color.enemyPreViewBackground));
     }
 
     @Override

@@ -11,8 +11,8 @@ public class SpeedChangeBuff extends Buff {
 
     float dSpeed;
 
-    public SpeedChangeBuff(GameObject gameObject, int remainingTime, float dSpeed) {
-        super(gameObject, remainingTime);
+    public SpeedChangeBuff(GameObject gameObject, int remainingTime, float dSpeed, boolean channeling) {
+        super(gameObject, remainingTime, channeling);
         this.dSpeed = dSpeed;
     }
 

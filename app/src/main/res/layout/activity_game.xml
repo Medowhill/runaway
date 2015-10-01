@@ -69,7 +69,10 @@
             android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/gameMenuMargin"
+            android:background="@drawable/game_menu_background"
             android:text="@string/gameMenuRestart"
+            android:textColor="@color/gameMenuText"
+            android:textSize="@dimen/gameMenuTextSize"
             android:visibility="invisible" />
 
         <Button
@@ -77,7 +80,10 @@
             android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/gameMenuMargin"
+            android:background="@drawable/game_menu_background"
             android:text="@string/gameMenuReselectAbilities"
+            android:textColor="@color/gameMenuText"
+            android:textSize="@dimen/gameMenuTextSize"
             android:visibility="invisible" />
 
         <Button
@@ -85,7 +91,10 @@
             android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/gameMenuMargin"
+            android:background="@drawable/game_menu_background"
             android:text="@string/gameMenuSelectStage"
+            android:textColor="@color/gameMenuText"
+            android:textSize="@dimen/gameMenuTextSize"
             android:visibility="invisible" />
 
         <Button
@@ -93,7 +102,10 @@
             android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/gameMenuMargin"
+            android:background="@drawable/game_menu_background"
             android:text="@string/gameMenuGoToMainMenu"
+            android:textColor="@color/gameMenuText"
+            android:textSize="@dimen/gameMenuTextSize"
             android:visibility="invisible" />
 
         <Button
@@ -101,7 +113,10 @@
             android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/gameMenuMargin"
+            android:background="@drawable/game_menu_background"
             android:text="@string/gameMenuOptions"
+            android:textColor="@color/gameMenuText"
+            android:textSize="@dimen/gameMenuTextSize"
             android:visibility="invisible" />
 
     </LinearLayout>

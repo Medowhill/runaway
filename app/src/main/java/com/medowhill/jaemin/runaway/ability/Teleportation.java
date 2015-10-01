@@ -57,9 +57,9 @@ public class Teleportation extends Ability {
                 break;
         }
 
-        Buff buff = new ForcedMoveBuff(gameObject, 1, dx, dy);
-        gameObject.addBuff(new DelayBuff(gameObject, frame, buff));
-        buff = new CannotMoveBuff(gameObject, frame + 1);
+        Buff buff = new ForcedMoveBuff(gameObject, 1, dx, dy, false);
+        gameObject.addBuff(new DelayBuff(gameObject, frame, buff, true));
+        buff = new CannotMoveBuff(gameObject, frame + 1, true);
         gameObject.addBuff(buff);
     }
 

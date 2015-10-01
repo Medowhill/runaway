@@ -9,6 +9,8 @@ import com.medowhill.jaemin.runaway.object.GameObject;
 
 public abstract class Buff {
 
+    public final boolean channeling;
+
     GameObject gameObject;
 
     int remainingTime;
@@ -17,9 +19,10 @@ public abstract class Buff {
 
     boolean movable = true, directionModifiable = true, abilityUsable = true, visible = true, mortal = true;
 
-    Buff(GameObject gameObject, int remainingTime) {
+    Buff(GameObject gameObject, int remainingTime, boolean channeling) {
         this.gameObject = gameObject;
         this.remainingTime = remainingTime;
+        this.channeling = channeling;
     }
 
     abstract public void startBuff();

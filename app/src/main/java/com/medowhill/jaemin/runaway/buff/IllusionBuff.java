@@ -12,8 +12,8 @@ public class IllusionBuff extends Buff {
 
     Player player;
 
-    public IllusionBuff(GameObject gameObject, int remainingTime) {
-        super(gameObject, remainingTime);
+    public IllusionBuff(GameObject gameObject, int remainingTime, boolean channeling) {
+        super(gameObject, remainingTime, channeling);
 
         if (gameObject instanceof Player)
             player = (Player) gameObject;

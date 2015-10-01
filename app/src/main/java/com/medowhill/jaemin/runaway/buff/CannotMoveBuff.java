@@ -9,8 +9,8 @@ import com.medowhill.jaemin.runaway.object.GameObject;
 
 public class CannotMoveBuff extends Buff {
 
-    public CannotMoveBuff(GameObject gameObject, int remainingTime) {
-        super(gameObject, remainingTime);
+    public CannotMoveBuff(GameObject gameObject, int remainingTime, boolean channeling) {
+        super(gameObject, remainingTime, channeling);
         movable = false;
     }
 

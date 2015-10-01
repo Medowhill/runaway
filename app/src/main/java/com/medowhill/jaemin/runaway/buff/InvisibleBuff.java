@@ -9,8 +9,8 @@ import com.medowhill.jaemin.runaway.object.GameObject;
 
 public class InvisibleBuff extends Buff {
 
-    public InvisibleBuff(GameObject gameObject, int remainingTime) {
-        super(gameObject, remainingTime);
+    public InvisibleBuff(GameObject gameObject, int remainingTime, boolean channeling) {
+        super(gameObject, remainingTime, channeling);
         visible = false;
     }
 

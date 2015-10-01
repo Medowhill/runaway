@@ -11,8 +11,8 @@ public class DistortionFieldBuff extends Buff {
     private final float range;
     private final float dspeed;
 
-    public DistortionFieldBuff(GameObject gameObject, int remainingTime, float range, float dspeed) {
-        super(gameObject, remainingTime);
+    public DistortionFieldBuff(GameObject gameObject, int remainingTime, float range, float dspeed, boolean channeling) {
+        super(gameObject, remainingTime, channeling);
 
         this.range = range;
         this.dspeed = dspeed;
@@ -23,7 +23,7 @@ public class DistortionFieldBuff extends Buff {
         for (Enemy enemy : gameObject.getStage().enemies) {
             float x1 = gameObject.getX(), y1 = gameObject.getY(), x2 = enemy.getX(), y2 = enemy.getY();
             if ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < range * range)
-                enemy.addBuff(new SpeedChangeBuff(enemy, 1, dspeed));
+                enemy.addBuff(new SpeedChangeBuff(enemy, 1, dspeed, channeling));
         }
     }
 

@@ -9,8 +9,8 @@ public class ForcedMoveBuff extends Buff {
 
     private float dx, dy;
 
-    public ForcedMoveBuff(GameObject gameObject, int remainingTime, float dx, float dy) {
-        super(gameObject, remainingTime);
+    public ForcedMoveBuff(GameObject gameObject, int remainingTime, float dx, float dy, boolean channeling) {
+        super(gameObject, remainingTime, channeling);
 
         this.dx = dx;
         this.dy = dy;

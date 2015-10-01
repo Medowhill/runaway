@@ -338,6 +338,16 @@ public abstract class GameObject {
         }
     }
 
+    public void removeChannelingBuff() {
+        for (int i = 0; i < buffs.size(); i++) {
+            Buff buff = buffs.get(i);
+            if (buff.channeling) {
+                buffs.remove(i);
+                i--;
+            }
+        }
+    }
+
     // Drawing Method
 
     public abstract void draw(Canvas canvas);

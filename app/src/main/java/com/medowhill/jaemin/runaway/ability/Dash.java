@@ -56,9 +56,9 @@ public class Dash extends Ability {
                 break;
         }
 
-        Buff buff = new ForcedMoveBuff(gameObject, frame, dx, dy);
+        Buff buff = new ForcedMoveBuff(gameObject, frame, dx, dy, true);
         gameObject.addBuff(buff);
-        buff = new CannotMoveBuff(gameObject, frame);
+        buff = new CannotMoveBuff(gameObject, frame, true);
         gameObject.addBuff(buff);
     }
 

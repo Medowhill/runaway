@@ -3,7 +3,9 @@ package com.medowhill.jaemin.runaway.ability;
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.buff.Buff;
 import com.medowhill.jaemin.runaway.buff.CannotMoveBuff;
+import com.medowhill.jaemin.runaway.buff.CannotUseAbilityBuff;
 import com.medowhill.jaemin.runaway.buff.ForcedMoveBuff;
+import com.medowhill.jaemin.runaway.buff.RemoveChannelingBuff;
 import com.medowhill.jaemin.runaway.object.Enemy;
 import com.medowhill.jaemin.runaway.object.GameObject;
 
@@ -50,9 +52,13 @@ public class ShockWave extends Ability {
                         dy = distance / frame;
                 }
 
-                Buff buff = new ForcedMoveBuff(enemy, frame, dx, dy);
+                Buff buff = new RemoveChannelingBuff(enemy, 1, false);
                 enemy.addBuff(buff);
-                buff = new CannotMoveBuff(enemy, frame);
+                buff = new ForcedMoveBuff(enemy, frame, dx, dy, false);
+                enemy.addBuff(buff);
+                buff = new CannotUseAbilityBuff(enemy, frame, false);
+                enemy.addBuff(buff);
+                buff = new CannotMoveBuff(enemy, frame, false);
                 enemy.addBuff(buff);
                 used = true;
             }

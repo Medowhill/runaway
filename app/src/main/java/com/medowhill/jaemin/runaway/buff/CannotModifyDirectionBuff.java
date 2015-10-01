@@ -9,8 +9,8 @@ import com.medowhill.jaemin.runaway.object.GameObject;
 
 public class CannotModifyDirectionBuff extends Buff {
 
-    public CannotModifyDirectionBuff(GameObject gameObject, int remainingTime) {
-        super(gameObject, remainingTime);
+    public CannotModifyDirectionBuff(GameObject gameObject, int remainingTime, boolean channeling) {
+        super(gameObject, remainingTime, channeling);
         directionModifiable = false;
     }
 

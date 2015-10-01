@@ -9,12 +9,17 @@
 
     <color name="gameReadyStartButtonBackgroundNormal">#33999999</color>
     <color name="gameReadyStartButtonBackgroundPressed">#66999999</color>
-    <color name="gameReadyEnemyPreviewBackground">#33999999</color>
     <color name="gameReadySkillSlotUnable">#33999999</color>
     <color name="gameReadyStartButtonText">#ffffff</color>
     <color name="gameReadyStageText">#ffffff</color>
     <color name="gameReadyEnemiesText">#ffffff</color>
     <color name="gameReadySkillSlotsText">#ffffff</color>
+
+    <color name="enemyPreViewBackground">#33999999</color>
+
+    <color name="gameMenuBackgroundNormal">#aa333333</color>
+    <color name="gameMenuBackgroundPressed">#dd333333</color>
+    <color name="gameMenuText">#ffffff</color>
 
     <color name="directionControlPad">#f0f0f0</color>
     <color name="directionControlBall">#c0c0c0</color>

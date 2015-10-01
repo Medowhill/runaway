@@ -19,26 +19,12 @@
         <item>9</item>
         <item>8</item>
     </integer-array>
-    <integer-array name="dashPlayerDistance">
-        <item>650</item>
-        <item>650</item>
-        <item>650</item>
-        <item>650</item>
-        <item>650</item>
-    </integer-array>
     <integer-array name="dashEnemyFrame">
         <item>10</item>
         <item>9</item>
         <item>8</item>
         <item>7</item>
         <item>6</item>
-    </integer-array>
-    <integer-array name="dashEnemyDistance">
-        <item>400</item>
-        <item>400</item>
-        <item>400</item>
-        <item>400</item>
-        <item>400</item>
     </integer-array>
     <!--Teleportation-->
     <integer-array name="teleportationPlayerFrame">

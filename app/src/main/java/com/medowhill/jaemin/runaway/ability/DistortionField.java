@@ -29,6 +29,6 @@ public class DistortionField extends Ability {
     public void use(GameObject gameObject) {
         super.use(gameObject);
 
-        gameObject.addBuff(new DistortionFieldBuff(gameObject, frame, range, dspeed));
+        gameObject.addBuff(new DistortionFieldBuff(gameObject, frame, range, dspeed, false));
     }
 }

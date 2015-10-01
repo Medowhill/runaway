@@ -9,8 +9,8 @@ import com.medowhill.jaemin.runaway.object.GameObject;
 
 public class CannotUseAbilityBuff extends Buff {
 
-    public CannotUseAbilityBuff(GameObject gameObject, int remainingTime) {
-        super(gameObject, remainingTime);
+    public CannotUseAbilityBuff(GameObject gameObject, int remainingTime, boolean channeling) {
+        super(gameObject, remainingTime, channeling);
         abilityUsable = false;
     }
 

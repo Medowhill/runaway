@@ -25,7 +25,7 @@ public class Protection extends Ability {
     public void use(GameObject gameObject) {
         super.use(gameObject);
 
-        Buff buff = new ImmortalBuff(gameObject, frame);
+        Buff buff = new ImmortalBuff(gameObject, frame, false);
         gameObject.addBuff(buff);
     }
 }

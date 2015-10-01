@@ -33,9 +33,9 @@ public class Illusion extends Ability {
 
             illusion.setDirection(player.getDirection());
 
-            Buff buff = new IllusionBuff(gameObject, frame);
+            Buff buff = new IllusionBuff(gameObject, frame, false);
             gameObject.addBuff(buff);
-            buff = new CannotMoveBuff(illusion, frame);
+            buff = new CannotMoveBuff(illusion, frame, false);
             illusion.addBuff(buff);
         }
     }

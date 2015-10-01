@@ -10,8 +10,8 @@ import com.medowhill.jaemin.runaway.object.GameObject;
 
 public class ReverseDirectionBuff extends Buff {
 
-    public ReverseDirectionBuff(GameObject gameObject, int remainingTime) {
-        super(gameObject, remainingTime);
+    public ReverseDirectionBuff(GameObject gameObject, int remainingTime, boolean channeling) {
+        super(gameObject, remainingTime, channeling);
     }
 
     @Override

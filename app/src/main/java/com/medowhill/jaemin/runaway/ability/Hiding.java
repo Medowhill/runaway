@@ -30,7 +30,7 @@ public class Hiding extends Ability {
     public void use(GameObject gameObject) {
         super.use(gameObject);
 
-        Buff buff = new InvisibleBuff(gameObject, frame);
+        Buff buff = new InvisibleBuff(gameObject, frame, false);
         gameObject.addBuff(buff);
     }
 }

@@ -31,9 +31,9 @@ public class Shadow extends Ability {
             Player player = (Player) gameObject;
             Player illusion = player.getIllusion();
 
-            Buff buff = new IllusionBuff(gameObject, frame);
+            Buff buff = new IllusionBuff(gameObject, frame, false);
             gameObject.addBuff(buff);
-            buff = new ReverseDirectionBuff(illusion, frame);
+            buff = new ReverseDirectionBuff(illusion, frame, false);
             illusion.addBuff(buff);
         }
     }
