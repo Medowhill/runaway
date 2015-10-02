@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.object.Artillery;
+import com.medowhill.jaemin.runaway.object.BottomQuark;
 import com.medowhill.jaemin.runaway.object.Chaser;
 import com.medowhill.jaemin.runaway.object.Enemy;
 import com.medowhill.jaemin.runaway.object.Ghost;
@@ -119,6 +120,9 @@ public class EnemyPreView extends View {
                         break;
                     case 'T':
                         enemy = new TopQuark(null, x, y);
+                        break;
+                    case 'b':
+                        enemy = new BottomQuark(null, x, y);
                         break;
                 }
 

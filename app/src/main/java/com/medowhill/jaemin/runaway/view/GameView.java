@@ -39,7 +39,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private Stage stage;
 
-    private Paint paintNonArea, paintArea, paintFinish, paintGameOver;
+    private Paint paintNonArea, paintArea, paintGameOver;
 
     private DirectionControl directionControl;
     private AbilityButton[] abilityButtons;
@@ -64,9 +64,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         paintArea = new Paint();
         paintArea.setColor(getResources().getColor(R.color.gameViewArea));
-
-        paintFinish = new Paint();
-        paintFinish.setColor(getResources().getColor(R.color.gameViewFinish));
 
         paintGameOver = new Paint();
 

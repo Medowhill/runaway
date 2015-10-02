@@ -2,7 +2,7 @@ package com.medowhill.jaemin.runaway.ability;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.buff.DistortionFieldBuff;
-import com.medowhill.jaemin.runaway.object.DistortionPlayerField;
+import com.medowhill.jaemin.runaway.object.DistortionFieldBackground;
 import com.medowhill.jaemin.runaway.object.GameObject;
 
 /**
@@ -17,13 +17,20 @@ public class DistortionField extends Ability {
     private final int frame;
     private final float dspeed;
 
-    public DistortionField(int levelRange, int levelDSpeed) {
+    public DistortionField(int levelRange, int levelDSpeed, boolean player) {
         super(R.drawable.ability_icon_distortionfield);
 
-        WAITING_FRAME = context.getResources().getInteger(R.integer.distortionFieldPlayerCool);
-        range = context.getResources().getIntArray(R.array.distortionFieldPlayerRange)[levelRange - 1];
-        dspeed = context.getResources().getIntArray(R.array.distortionFieldPlayerDSpeed)[levelDSpeed - 1] / 100f;
-        frame = context.getResources().getInteger(R.integer.distortionFieldPlayerFrame);
+        if (player) {
+            WAITING_FRAME = context.getResources().getInteger(R.integer.distortionFieldPlayerCool);
+            range = context.getResources().getIntArray(R.array.distortionFieldPlayerRange)[levelRange - 1];
+            dspeed = context.getResources().getIntArray(R.array.distortionFieldPlayerDSpeed)[levelDSpeed - 1] / 100f;
+            frame = context.getResources().getInteger(R.integer.distortionFieldPlayerFrame);
+        } else {
+            WAITING_FRAME = context.getResources().getInteger(R.integer.distortionFieldEnemyCool);
+            range = context.getResources().getIntArray(R.array.distortionFieldEnemyRange)[levelRange - 1];
+            dspeed = context.getResources().getIntArray(R.array.distortionFieldEnemyDSpeed)[levelDSpeed - 1] / 100f;
+            frame = context.getResources().getInteger(R.integer.distortionFieldEnemyFrame);
+        }
     }
 
     @Override
@@ -32,6 +39,10 @@ public class DistortionField extends Ability {
 
         gameObject.addBuff(new DistortionFieldBuff(gameObject, frame, range, dspeed, false));
 
-        gameObject.getStage().fields.add(new DistortionPlayerField(gameObject.getStage(), range, range, frame, gameObject));
+        gameObject.getStage().fields.add(new DistortionFieldBackground(gameObject.getStage(), range, frame, gameObject));
+    }
+
+    public float getRange() {
+        return range;
     }
 }

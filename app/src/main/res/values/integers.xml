@@ -37,6 +37,7 @@
     <integer name="sniperSize">3</integer>
     <integer name="artillerySize">3</integer>
     <integer name="topQuarkSize">3</integer>
+    <integer name="bottomQuarkSize">3</integer>
     <integer name="magnetSize">2</integer>
 
     <!--Game Objects Speeds-->
@@ -49,6 +50,7 @@
     <integer name="sniperSpeed">10</integer>
     <integer name="artillerySpeed">10</integer>
     <integer name="topQuarkSpeed">10</integer>
+    <integer name="bottomQuarkSpeed">10</integer>
     <integer name="magnetSpeed">8</integer>
 
     <!--Game Objects Sights-->
@@ -60,6 +62,7 @@
     <integer name="sniperSight">1400</integer>
     <integer name="artillerySight">1400</integer>
     <integer name="topQuarkSight">800</integer>
+    <integer name="bottomQuarkSight">800</integer>
     <integer name="magnetSight">600</integer>
 
     <!--Abilities Waiting Frames-->
@@ -68,13 +71,14 @@
     <integer name="teleportationPlayerCool">80</integer>
     <integer name="teleportationEnemyCool">60</integer>
     <integer name="hidingPlayerCool">160</integer>
-    <integer name="hidingEnemyCool">120</integer>
+    <integer name="hidingEnemyCool">80</integer>
     <integer name="protectionPlayerCool">160</integer>
     <integer name="shadowPlayerCool">240</integer>
     <integer name="illusionPlayerCool">240</integer>
     <integer name="shockWavePlayerCool">320</integer>
-    <integer name="shockWaveEnemyCool">240</integer>
+    <integer name="shockWaveEnemyCool">160</integer>
     <integer name="distortionFieldPlayerCool">320</integer>
+    <integer name="distortionFieldEnemyCool">160</integer>
     <integer name="stunBulletFireEnemyCool">80</integer>
     <integer name="slowBulletFireEnemyCool">20</integer>
 
@@ -86,7 +90,8 @@
     <integer name="shockWavePlayerFrame">10</integer>
     <integer name="shockWaveStrokeWidth">8</integer>
     <integer name="shockWaveEnemyFrame">5</integer>
-    <integer name="distortionFieldPlayerFrame">40</integer>
+    <integer name="distortionFieldPlayerFrame">80</integer>
+    <integer name="distortionFieldEnemyFrame">80</integer>
     <integer name="slowBulletFireEnemyFrame">40</integer>
 
 </resources>

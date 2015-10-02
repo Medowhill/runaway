@@ -192,6 +192,9 @@ public class Stage {
                             case 'T':
                                 enemy = new TopQuark(this, x, y);
                                 break;
+                            case 'b':
+                                enemy = new BottomQuark(this, x, y);
+                                break;
                         }
                         enemies.add(enemy);
                     }

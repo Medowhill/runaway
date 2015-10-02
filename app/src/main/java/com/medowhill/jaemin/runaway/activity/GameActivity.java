@@ -256,7 +256,7 @@ public class GameActivity extends Activity {
             case 6:
                 return new ShockWave(1, 1, true);
             default:
-                return new DistortionField(1, 1);
+                return new DistortionField(1, 1, true);
         }
     }
 
