@@ -189,6 +189,9 @@ public class Stage {
                             case 'm':
                                 enemy = new Magnet(this, x, y);
                                 break;
+                            case 'T':
+                                enemy = new TopQuark(this, x, y);
+                                break;
                         }
                         enemies.add(enemy);
                     }

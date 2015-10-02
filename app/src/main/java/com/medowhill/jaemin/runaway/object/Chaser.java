@@ -32,7 +32,7 @@ public class Chaser extends Enemy {
             float x1 = player.getX(), y1 = player.getY();
             float dx = Math.abs(x1 - x), dy = Math.abs(y1 - y);
             float min = Math.min(dx, dy), max = Math.max(dx, dy);
-            if (min < RADIUS * 3 && distance * 0.5f < max && max < distance * 1.5f)
+            if (min < RADIUS * 2 && distance * 0.75f < max && max < distance * 1.25f)
                 ability.use(this);
         }
     }

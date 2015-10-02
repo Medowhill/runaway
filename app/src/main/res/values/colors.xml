@@ -32,8 +32,9 @@
     <color name="gameViewArea">#ffe0ff</color>
     <color name="gameViewFinish">#900090</color>
 
-    <color name="shockWavePlayerStroke">#d06060</color>
-    <color name="distortionFieldPlayerBackground">#60d060d0</color>
+    <color name="shockWavePlayerStroke">#2e7d32</color>
+    <color name="shockWaveEnemyStroke">#9e9d24</color>
+    <color name="distortionFieldPlayerBackground">#4081c784</color>
     <color name="stunBulletFireBullet">#0d47a1</color>
     <color name="slowBulletFireBullet">#0d4d40</color>
 
@@ -70,5 +71,8 @@
 
     <color name="magnetNormal">#4fc3f7</color>
     <color name="magnetDetecting">#0288d1</color>
+
+    <color name="topQuarkNormal">#dce775</color>
+    <color name="topQuarkDetecting">#afb42b</color>
 
 </resources>

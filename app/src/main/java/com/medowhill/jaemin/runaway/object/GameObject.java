@@ -197,18 +197,24 @@ public abstract class GameObject {
         if (movable) {
             float dx = 0, dy = 0;
 
+            float s_;
+            if (speedMultiplier <= .1f)
+                s_ = .1f;
+            else
+                s_ = speedMultiplier;
+
             switch (direction) {
                 case Direction.LEFT:
-                    dx = -1 * speed * speedMultiplier;
+                    dx = -1 * speed * s_;
                     break;
                 case Direction.RIGHT:
-                    dx = speed * speedMultiplier;
+                    dx = speed * s_;
                     break;
                 case Direction.UP:
-                    dy = -1 * speed * speedMultiplier;
+                    dy = -1 * speed * s_;
                     break;
                 case Direction.DOWN:
-                    dy = speed * speedMultiplier;
+                    dy = speed * s_;
                     break;
             }
 

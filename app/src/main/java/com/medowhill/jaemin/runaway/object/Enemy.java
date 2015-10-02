@@ -55,7 +55,8 @@ public abstract class Enemy extends GameObject {
         if (!player.isVisible())
             return;
 
-        if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > sight * sight)
+        float d = (float) Math.sqrt((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y)) - player.RADIUS - this.RADIUS;
+        if (d > sight)
             return;
 
         for (Wall wall : stage.walls) {
@@ -82,7 +83,8 @@ public abstract class Enemy extends GameObject {
     void detectIllusion(Player illusion) {
         float x1 = illusion.x, y1 = illusion.y;
 
-        if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > sight * sight)
+        float d = (float) Math.sqrt((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y)) - illusion.RADIUS - this.RADIUS;
+        if (d > sight)
             return;
 
         for (Wall wall : stage.walls) {

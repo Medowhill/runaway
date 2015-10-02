@@ -33,7 +33,8 @@ public class Ghost extends Enemy {
         if (!player.isVisible())
             return;
 
-        if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > sight * sight)
+        float d = (float) Math.sqrt((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y)) - player.RADIUS - this.RADIUS;
+        if (d > sight)
             return;
 
         detect = true;
@@ -45,7 +46,8 @@ public class Ghost extends Enemy {
     void detectIllusion(Player illusion) {
         float x1 = illusion.x, y1 = illusion.y;
 
-        if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) > sight * sight)
+        float d = (float) Math.sqrt((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y)) - illusion.RADIUS - this.RADIUS;
+        if (d > sight)
             return;
 
         detectIllusion = true;

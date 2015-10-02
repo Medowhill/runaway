@@ -18,6 +18,7 @@ import com.medowhill.jaemin.runaway.object.Observer;
 import com.medowhill.jaemin.runaway.object.Phantom;
 import com.medowhill.jaemin.runaway.object.Sniper;
 import com.medowhill.jaemin.runaway.object.Teleporter;
+import com.medowhill.jaemin.runaway.object.TopQuark;
 
 import java.util.ArrayList;
 
@@ -115,6 +116,9 @@ public class EnemyPreView extends View {
                         break;
                     case 'm':
                         enemy = new Magnet(null, x, y);
+                        break;
+                    case 'T':
+                        enemy = new TopQuark(null, x, y);
                         break;
                 }
 

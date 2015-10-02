@@ -22,7 +22,7 @@ public class DistortionFieldBuff extends Buff {
     public void duringBuff() {
         for (Enemy enemy : gameObject.getStage().enemies) {
             float x1 = gameObject.getX(), y1 = gameObject.getY(), x2 = enemy.getX(), y2 = enemy.getY();
-            float d = (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) + enemy.RADIUS;
+            float d = (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) - enemy.RADIUS;
             if (d < range)
                 enemy.addBuff(new SpeedChangeBuff(enemy, 1, dspeed, channeling));
         }

@@ -5,6 +5,7 @@
         <item>p,100,400/f,2900,400/w,3000,800,0,0/e,s,1500,400/s,400,400/s,800,400/s,1200,400</item>
         <item>p,100,400/f,2900,400/w,3000,800,0,0/e,a,1500,400/s,400,400/s,800,400/s,1200,400</item>
         <item>p,100,400/f,2900,400/w,3000,800,0,0/e,m,1500,400/s,400,400/s,800,400/s,1200,400</item>
+        <item>p,100,400/f,2900,400/w,3000,800,0,0/e,T,1500,400/s,400,400/s,800,400/s,1200,400</item>
         <item>p,100,400/f,100,2600/w,3000,3000,0,2200,2200,800,0,0/e,t,1500,400/e,o,2600,1500/e,t,1500,2600</item>
         <item>p,2900,400/f,2900,2600/w,3000,800,800,2200,3000,3000,0,0/e,c,1500,400/e,o,400,1500/e,c,1500,2600</item>
         <item>p,100,400/f,2800,3600/w,3000,2400,800,3200,3000,4000,0,1600,2200,800,0,0/e,o,2600,400/e,g,2600,1200/e,c,2600,2000/e,c,400,2000/e,g,400,2800/e,o,400,3600</item>
@@ -93,18 +94,46 @@
         <item>750</item>
         <item>800</item>
     </integer-array>
-    <integer-array name="distortionFieldPlayerRange">
+    <integer-array name="shockWaveEnemyRange">
+        <item>500</item>
+        <item>550</item>
         <item>600</item>
         <item>650</item>
         <item>700</item>
-        <item>750</item>
-        <item>800</item>
+    </integer-array>
+    <integer-array name="shockWaveEnemyDistance">
+        <item>-300</item>
+        <item>-325</item>
+        <item>-350</item>
+        <item>-375</item>
+        <item>-400</item>
+    </integer-array>
+    <integer-array name="distortionFieldPlayerRange">
+        <item>400</item>
+        <item>450</item>
+        <item>500</item>
+        <item>550</item>
+        <item>600</item>
     </integer-array>
     <integer-array name="distortionFieldPlayerDSpeed">
-        <item>-30</item>
-        <item>-40</item>
         <item>-50</item>
+        <item>-55</item>
         <item>-60</item>
+        <item>-65</item>
+        <item>-70</item>
+    </integer-array>
+    <integer-array name="distortionFieldEnemyRange">
+        <item>400</item>
+        <item>450</item>
+        <item>500</item>
+        <item>550</item>
+        <item>600</item>
+    </integer-array>
+    <integer-array name="distortionFieldEnemyDSpeed">
+        <item>-50</item>
+        <item>-55</item>
+        <item>-60</item>
+        <item>-65</item>
         <item>-70</item>
     </integer-array>
     <integer-array name="stunBulletFireEnemyFrame">
