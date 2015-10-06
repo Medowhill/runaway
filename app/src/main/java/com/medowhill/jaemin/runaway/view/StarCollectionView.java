@@ -19,6 +19,8 @@ public class StarCollectionView extends View {
     private float ratio;
     private Star[] stars;
 
+    private boolean visible = false;
+
     public StarCollectionView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -37,12 +39,11 @@ public class StarCollectionView extends View {
         }
 
         ratio = w / (SIZE * stars.length);
-        invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (stars != null) {
+        if (visible && stars != null) {
             canvas.scale(ratio, ratio);
 
             for (Star star : stars)
@@ -55,5 +56,10 @@ public class StarCollectionView extends View {
             stars[index].setCollect(collect);
             invalidate();
         }
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+        invalidate();
     }
 }

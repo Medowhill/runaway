@@ -38,6 +38,8 @@ public class AbilityButton extends View {
 
     private Paint paintBorder, paintTouched, paintCool;
 
+    private boolean visible = false;
+
     private Handler drawHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -78,8 +80,10 @@ public class AbilityButton extends View {
         }
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), iconResourceID);
-        icon = Bitmap.createScaledBitmap(bitmap, (int) (getWidth() * 2 * INNER_SIZE), (int) (getHeight() * 2 * INNER_SIZE), false);
-        bitmap.recycle();
+        if (bitmap != null) {
+            icon = Bitmap.createScaledBitmap(bitmap, (int) (getWidth() * 2 * INNER_SIZE), (int) (getHeight() * 2 * INNER_SIZE), false);
+            bitmap.recycle();
+        }
     }
 
     @Override
@@ -115,18 +119,21 @@ public class AbilityButton extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        int width = getWidth(), height = getHeight();
+        if (visible) {
+            int width = getWidth(), height = getHeight();
 
-        canvas.drawRoundRect(outerRect, width * ROUND_RECT, height * ROUND_RECT, paintBorder);
-        canvas.drawBitmap(icon, width * (0.5f - INNER_SIZE), height * (0.5f - INNER_SIZE), null);
+            canvas.drawRoundRect(outerRect, width * ROUND_RECT, height * ROUND_RECT, paintBorder);
+            if (icon != null)
+                canvas.drawBitmap(icon, width * (0.5f - INNER_SIZE), height * (0.5f - INNER_SIZE), null);
 
-        if (touched)
-            canvas.drawRect(innerRect, paintTouched);
+            if (touched)
+                canvas.drawRect(innerRect, paintTouched);
 
-        if (ratio != 0) {
-            for (Path path : coolPaths)
-                canvas.drawPath(path, paintCool);
-            canvas.drawArc(innerRect, -90 - 360 * ratio, 360 * ratio, true, paintCool);
+            if (ratio != 0) {
+                for (Path path : coolPaths)
+                    canvas.drawPath(path, paintCool);
+                canvas.drawArc(innerRect, -90 - 360 * ratio, 360 * ratio, true, paintCool);
+            }
         }
     }
 
@@ -149,5 +156,10 @@ public class AbilityButton extends View {
 
     public Handler getDrawHandler() {
         return drawHandler;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+        invalidate();
     }
 }

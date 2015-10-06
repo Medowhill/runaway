@@ -33,7 +33,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private final int WIDTH, HEIGHT, BASE_SIZE;
 
-    private final int FRAME, FRAME_LENGTH, GAME_OVER_FRAME;
+    private final int FRAME, FRAME_LENGTH, FADING_FRAME;
 
     private float ratio = 0;
 
@@ -57,7 +57,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         FRAME = context.getResources().getInteger(R.integer.frame);
         FRAME_LENGTH = 1000 / FRAME;
-        GAME_OVER_FRAME = context.getResources().getInteger(R.integer.gameOverFrame);
+        FADING_FRAME = context.getResources().getInteger(R.integer.gameOverFrame);
 
         paintNonArea = new Paint();
         paintNonArea.setColor(getResources().getColor(R.color.gameViewNonArea));
@@ -132,13 +132,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public boolean isPlaying() {
-        return !surfaceThread.gameClear && !surfaceThread.gameOver;
+        return !surfaceThread.gameFinish && !surfaceThread.gamePrepare;
     }
 
     // Game Play method
 
+    public void restartGame() {
+        surfaceThread.gameFinish = true;
+    }
+
     public void startGame() {
         surfaceThread.gameStart = true;
+        surfaceThread.gamePrepare = true;
         surfaceThread.lastTime = System.currentTimeMillis();
     }
 
@@ -146,9 +151,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private class SurfaceThread extends Thread {
 
         SurfaceHolder surfaceHolder;
-        boolean run = true, gameStart = false, pause = false, gameOver = false, gameClear = false;
+        boolean run = true, gameStart = false, pause = false;
+        boolean gamePrepare = false, gameFinish = false, gameSuccess = false, gameFail = false;
         long lastTime;
-        int gameOverFrame;
+        int fadingFrame;
 
         public SurfaceThread() {
             surfaceHolder = getHolder();
@@ -175,7 +181,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 Player player = stage.getPlayer();
 
-                                if (!pause && !gameOver && !gameClear) {
+                                if (!pause && !gamePrepare && !gameFinish) {
                                     player.setDirection(directionControl.getDirection());
 
                                     for (int i = 0; i < player.getAbilities().size(); i++) {
@@ -204,32 +210,30 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                     player.getIllusion().move();
                                 }
 
-                                if (!pause && !gameClear && player.touch(stage.finish)) {
-                                    gameClear = true;
-                                    Message message = new Message();
-                                    message.what = GameActivity.GAME_OVER;
-                                    gameOverHandler.sendMessage(message);
+                                if (!pause && !gamePrepare && !gameFinish && player.touch(stage.finish)) {
+                                    gameFinish = true;
+                                    gameSuccess = true;
+                                    gameOverHandler.sendEmptyMessage(GameActivity.GAME_FINISH);
                                 }
 
                                 ArrayList<Enemy> enemies = stage.enemies;
-                                if (!pause && !gameClear) {
+                                if (!pause && !gamePrepare && (!gameFinish || gameFail)) {
                                     for (Enemy enemy : enemies) {
                                         enemy.setDirection();
                                         enemy.useAbility();
                                         enemy.decreaseAbilityWaiting();
                                         enemy.controlBuff();
                                         enemy.move();
-                                        if (player.isMortal() && !gameOver && player.touch(enemy)) {
-                                            gameOver = true;
-                                            Message message = new Message();
-                                            message.what = 0;
-                                            gameOverHandler.sendMessage(message);
+                                        if (player.isMortal() && !gameFinish && player.touch(enemy)) {
+                                            gameFinish = true;
+                                            gameFail = true;
+                                            gameOverHandler.sendEmptyMessage(GameActivity.GAME_FINISH);
                                         }
                                     }
                                 }
 
                                 ArrayList<Star> stars = stage.stars;
-                                if (!pause && !gameClear) {
+                                if (!pause && !gamePrepare && !gameFinish) {
                                     for (int i = 0; i < stars.size(); i++) {
                                         if (player.touch(stars.get(i))) {
                                             stars.remove(i);
@@ -239,7 +243,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 }
 
                                 ArrayList<Bullet> bullets = stage.bullets;
-                                if (!pause && !gameClear) {
+                                if (!pause && !gamePrepare && (!gameFinish || gameFail)) {
                                     for (int i = 0; i < bullets.size(); i++) {
                                         Bullet bullet = bullets.get(i);
                                         bullet.move();
@@ -256,12 +260,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 }
 
                                 ArrayList<Field> fields = stage.fields;
-                                for (int i = 0; i < fields.size(); i++) {
-                                    Field field = fields.get(i);
-                                    field.resize();
-                                    if (field.isFinish()) {
-                                        fields.remove(i);
-                                        i--;
+                                if (!pause && !gamePrepare) {
+                                    for (int i = 0; i < fields.size(); i++) {
+                                        Field field = fields.get(i);
+                                        field.resize();
+                                        if (field.isFinish()) {
+                                            fields.remove(i);
+                                            i--;
+                                        }
                                     }
                                 }
 
@@ -292,23 +298,35 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 for (Field field : fields)
                                     field.draw(canvas);
 
-                                if (gameOver || gameClear) {
+                                if (gamePrepare) {
                                     canvas.translate(-dx, -dy);
 
-                                    paintGameOver.setColor(Color.argb(255 * gameOverFrame / GAME_OVER_FRAME, 0, 0, 0));
+                                    paintGameOver.setColor(Color.argb(255 - 255 * fadingFrame / FADING_FRAME, 0, 0, 0));
                                     canvas.drawRect(0, 0, WIDTH, HEIGHT, paintGameOver);
-                                    gameOverFrame++;
-                                    if (gameOverFrame == GAME_OVER_FRAME) {
+                                    fadingFrame++;
+                                    if (fadingFrame == FADING_FRAME) {
+                                        gamePrepare = false;
+                                        fadingFrame = 0;
+                                        gameOverHandler.sendEmptyMessage(GameActivity.GAME_START);
+                                    }
+                                } else if (gameFinish) {
+                                    canvas.translate(-dx, -dy);
+
+                                    paintGameOver.setColor(Color.argb(255 * fadingFrame / FADING_FRAME, 0, 0, 0));
+                                    canvas.drawRect(0, 0, WIDTH, HEIGHT, paintGameOver);
+                                    fadingFrame++;
+                                    if (fadingFrame == FADING_FRAME) {
                                         Message message = new Message();
-                                        if (gameClear) {
-                                            message.what = GameActivity.ACTIVITY_FIN;
+                                        if (gameSuccess) {
+                                            message.what = GameActivity.ACTIVITY_FINISH;
                                             run = false;
-                                        } else if (gameOver) {
+                                        } else
                                             message.what = GameActivity.GAME_RESTART;
-                                            gameOver = false;
-                                            gameOverFrame = 0;
-                                            gameStart = false;
-                                        }
+                                        gameFail = false;
+                                        gameSuccess = false;
+                                        gameFinish = false;
+                                        gameStart = false;
+                                        fadingFrame = 0;
                                         gameOverHandler.sendMessage(message);
                                     }
                                 } else if (pause) {

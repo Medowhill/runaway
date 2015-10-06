@@ -8,6 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.medowhill.jaemin.runaway.view.StarCollectionView
+        android:id="@+id/game_starCollection"
+        android:layout_width="@dimen/gameStarCollectionWidth"
+        android:layout_height="@dimen/gameStarCollectionHeight"
+        android:layout_gravity="top|left" />
+
     <com.medowhill.jaemin.runaway.view.DirectionControl
         android:id="@+id/game_directionControl"
         android:layout_width="@dimen/gameDirectionControlSize"
@@ -120,11 +126,5 @@
             android:visibility="invisible" />
 
     </LinearLayout>
-
-    <com.medowhill.jaemin.runaway.view.StarCollectionView
-        android:id="@+id/game_starCollection"
-        android:layout_width="@dimen/gameStarCollectionWidth"
-        android:layout_height="@dimen/gameStarCollectionHeight"
-        android:layout_gravity="top|left" />
 
 </FrameLayout>

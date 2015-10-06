@@ -68,7 +68,7 @@ public class GameReadyActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                intent.putExtra("Ability", new int[]{ability1, ability2, ability3, ability4});
+                intent.putExtra("Ability", new int[]{ability1, ability2, ability3, -1});
                 intent.putExtra("stage", stage);
                 startActivityForResult(intent, REQUEST_CODE);
             }
