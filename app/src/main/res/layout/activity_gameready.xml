@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/gameReadyDialogWidth"
-    android:layout_height="@dimen/gameReadyDialogHeight">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/gameReady_linearLayout_ready"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/gameReadyDialogWidth"
+        android:layout_height="@dimen/gameReadyDialogHeight"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -101,8 +102,9 @@
 
     <LinearLayout
         android:id="@+id/gameReady_linearLayout_result"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/gameReadyDialogWidth"
+        android:layout_height="@dimen/gameReadyDialogHeight"
+        android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:visibility="invisible">
@@ -135,5 +137,10 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <com.medowhill.jaemin.runaway.view.FadeView
+        android:id="@+id/gameReady_fade"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

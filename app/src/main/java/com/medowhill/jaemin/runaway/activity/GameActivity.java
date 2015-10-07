@@ -68,6 +68,8 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        overridePendingTransition(0, 0);
+
         gameView = (GameView) findViewById(R.id.game_gameView);
         directionControl = (DirectionControl) findViewById(R.id.game_directionControl);
         buttonPause = (ImageView) findViewById(R.id.game_button_pause);

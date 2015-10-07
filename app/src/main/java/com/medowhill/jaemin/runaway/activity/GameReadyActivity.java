@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -13,6 +17,7 @@ import android.widget.TextView;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.view.EnemyPreView;
+import com.medowhill.jaemin.runaway.view.FadeView;
 
 /**
  * Copyright 2015. Hong Jaemin
@@ -31,6 +36,9 @@ public class GameReadyActivity extends Activity {
     TextView textView;
     LinearLayout linearLayoutReady, linearLayoutResult;
     EnemyPreView enemyPreView;
+    FadeView fadeView;
+
+    Handler fadingHandler;
 
     int ability1 = 0, ability2 = 0, ability3 = 0, ability4 = 0;
     int stage;
@@ -42,7 +50,10 @@ public class GameReadyActivity extends Activity {
 
         overridePendingTransition(R.anim.gameready_activitystart, 0);
 
-        this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         buttonStart = (Button) findViewById(R.id.gameReady_button_start);
         buttonAbility1 = (ImageButton) findViewById(R.id.gameReady_button_ability1);
@@ -56,6 +67,9 @@ public class GameReadyActivity extends Activity {
         linearLayoutReady = (LinearLayout) findViewById(R.id.gameReady_linearLayout_ready);
         linearLayoutResult = (LinearLayout) findViewById(R.id.gameReady_linearLayout_result);
         enemyPreView = (EnemyPreView) findViewById(R.id.gameReady_enemyPreview);
+        fadeView = (FadeView) findViewById(R.id.gameReady_fade);
+
+        fadingHandler = new FadingHandler(this);
 
         Intent intent = getIntent();
         stage = intent.getIntExtra("stage", 1);
@@ -67,10 +81,9 @@ public class GameReadyActivity extends Activity {
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                intent.putExtra("Ability", new int[]{ability1, ability2, ability3, -1});
-                intent.putExtra("stage", stage);
-                startActivityForResult(intent, REQUEST_CODE);
+                int duration = getResources().getInteger(R.integer.gameReadyFadeOutDuration);
+                fadeView.fadeOut(duration);
+                fadingHandler.sendEmptyMessageDelayed(0, duration);
             }
         });
 
@@ -157,6 +170,7 @@ public class GameReadyActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        fadeView.initialize();
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             Intent intent = new Intent();
             switch (data.getIntExtra("result", RESULT_RESELECT)) {
@@ -184,4 +198,26 @@ public class GameReadyActivity extends Activity {
 
         overridePendingTransition(0, R.anim.gameready_activityfinish);
     }
+
+    void startGame() {
+        Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+        intent.putExtra("Ability", new int[]{ability1, ability2, ability3, -1});
+        intent.putExtra("stage", stage);
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+}
+
+class FadingHandler extends Handler {
+
+    GameReadyActivity gameReadyActivity;
+
+    public FadingHandler(GameReadyActivity gameReadyActivity) {
+        this.gameReadyActivity = gameReadyActivity;
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        gameReadyActivity.startGame();
+    }
+
 }

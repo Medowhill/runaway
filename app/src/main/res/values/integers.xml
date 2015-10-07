@@ -9,6 +9,9 @@
     <integer name="shadowSize">7</integer>
     <integer name="maxPointerMove">3</integer>
 
+    <!--Game Ready Activity-->
+    <integer name="gameReadyFadeOutDuration">1000</integer>
+
     <!--EnemyPreView-->
     <integer name="enemyPreviewDecreasingRatio">20</integer>
     <integer name="enemyPreviewRadius">2</integer>
