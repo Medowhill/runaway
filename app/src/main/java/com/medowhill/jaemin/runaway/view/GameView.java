@@ -43,7 +43,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private DirectionControl directionControl;
     private AbilityButton[] abilityButtons;
-    private Handler gameOverHandler;
+    private StarCollectionView starCollectionView;
+    private Handler gameHandler;
 
     private SurfaceThread surfaceThread;
 
@@ -106,8 +107,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     // Getter & Setter
 
-    public void setGameOverHandler(Handler gameOverHandler) {
-        this.gameOverHandler = gameOverHandler;
+    public void setGameHandler(Handler gameHandler) {
+        this.gameHandler = gameHandler;
     }
 
     public void setDirectionControl(DirectionControl directionControl) {
@@ -116,6 +117,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setAbilityButtons(AbilityButton[] abilityButtons) {
         this.abilityButtons = abilityButtons;
+    }
+
+    public void setStarCollectionView(StarCollectionView starCollectionView) {
+        this.starCollectionView = starCollectionView;
     }
 
     public void setStage(Stage stage) {
@@ -213,7 +218,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 if (!pause && !gamePrepare && !gameFinish && player.touch(stage.finish)) {
                                     gameFinish = true;
                                     gameSuccess = true;
-                                    gameOverHandler.sendEmptyMessage(GameActivity.GAME_FINISH);
+                                    gameHandler.sendEmptyMessage(GameActivity.GAME_FINISH);
                                 }
 
                                 ArrayList<Enemy> enemies = stage.enemies;
@@ -227,7 +232,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                         if (player.isMortal() && !gameFinish && player.touch(enemy)) {
                                             gameFinish = true;
                                             gameFail = true;
-                                            gameOverHandler.sendEmptyMessage(GameActivity.GAME_FINISH);
+                                            gameHandler.sendEmptyMessage(GameActivity.GAME_FINISH);
                                         }
                                     }
                                 }
@@ -235,9 +240,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                 ArrayList<Star> stars = stage.stars;
                                 if (!pause && !gamePrepare && !gameFinish) {
                                     for (int i = 0; i < stars.size(); i++) {
-                                        if (player.touch(stars.get(i))) {
-                                            stars.remove(i);
-                                            i--;
+                                        Star star = stars.get(i);
+                                        if (!star.isCollect() && player.touch(star)) {
+                                            star.setCollect(true);
+                                            starCollectionView.setStarCollect(i, true);
+                                            gameHandler.sendEmptyMessage(GameActivity.COLLECT_STAR);
                                         }
                                     }
                                 }
@@ -270,6 +277,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                         }
                                     }
                                 }
+
+                                if (!pause)
+                                    stage.finish.framePass();
 
                                 float dx = WIDTH / 4, dy = HEIGHT / 4;
                                 if (stage.getxMax() - WIDTH / 4 < player.getX())
@@ -307,7 +317,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                     if (fadingFrame == FADING_FRAME) {
                                         gamePrepare = false;
                                         fadingFrame = 0;
-                                        gameOverHandler.sendEmptyMessage(GameActivity.GAME_START);
+                                        gameHandler.sendEmptyMessage(GameActivity.GAME_START);
                                     }
                                 } else if (gameFinish) {
                                     canvas.translate(-dx, -dy);
@@ -327,7 +337,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                         gameFinish = false;
                                         gameStart = false;
                                         fadingFrame = 0;
-                                        gameOverHandler.sendMessage(message);
+                                        gameHandler.sendMessage(message);
                                     }
                                 } else if (pause) {
                                     canvas.translate(-dx, -dy);

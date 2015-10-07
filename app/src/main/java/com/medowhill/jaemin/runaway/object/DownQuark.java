@@ -5,16 +5,17 @@ import com.medowhill.jaemin.runaway.ability.Ability;
 import com.medowhill.jaemin.runaway.ability.Dash;
 
 /**
- * Created by Jaemin on 2015-09-10.
+ * Created by Jaemin on 2015-10-07.
  */
-public class Chaser extends Enemy {
+public class DownQuark extends Enemy {
 
     private final float distance;
 
-    public Chaser(Stage stage, float x, float y) {
-        super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.chaserSize),
-                context.getResources().getColor(R.color.chaserNormal), context.getResources().getColor(R.color.chaserDetecting),
-                x, y, context.getResources().getInteger(R.integer.chaserSpeed), context.getResources().getInteger(R.integer.chaserSight));
+    public DownQuark(Stage stage, float x, float y) {
+        super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.downQuarkSize),
+                context.getResources().getColor(R.color.downQuarkNormal), context.getResources().getColor(R.color.downQuarkDetecting),
+                x, y, context.getResources().getInteger(R.integer.downQuarkSpeed),
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.downQuarkSight));
 
         Dash dash = new Dash(1, false);
         abilities.add(dash);

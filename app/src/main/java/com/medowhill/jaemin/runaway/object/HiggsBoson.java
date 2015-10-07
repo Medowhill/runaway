@@ -5,17 +5,17 @@ import com.medowhill.jaemin.runaway.ability.Ability;
 import com.medowhill.jaemin.runaway.ability.DistortionField;
 
 /**
- * Created by Jaemin on 2015-10-02.
+ * Created by Jaemin on 2015-09-10.
  */
-public class BottomQuark extends Enemy {
+public class HiggsBoson extends Enemy {
 
     private final float range;
 
-    public BottomQuark(Stage stage, float x, float y) {
-        super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.bottomQuarkSize),
-                context.getResources().getColor(R.color.bottomQuarkNormal), context.getResources().getColor(R.color.bottomQuarkDetecting),
+    public HiggsBoson(Stage stage, float x, float y) {
+        super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.higgsBosonSize),
+                context.getResources().getColor(R.color.higgsBosonNormal), context.getResources().getColor(R.color.higgsBosonDetecting),
                 x, y, context.getResources().getInteger(R.integer.higgsBosonSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.bottomQuarkSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.higgsBosonSight));
 
         DistortionField distortionField = new DistortionField(1, 1, false);
         abilities.add(distortionField);

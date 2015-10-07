@@ -9,16 +9,16 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.medowhill.jaemin.runaway.R;
-import com.medowhill.jaemin.runaway.object.Artillery;
+import com.medowhill.jaemin.runaway.object.CharmQuark;
 import com.medowhill.jaemin.runaway.object.BottomQuark;
-import com.medowhill.jaemin.runaway.object.Chaser;
+import com.medowhill.jaemin.runaway.object.HiggsBoson;
 import com.medowhill.jaemin.runaway.object.Enemy;
-import com.medowhill.jaemin.runaway.object.Ghost;
-import com.medowhill.jaemin.runaway.object.Magnet;
-import com.medowhill.jaemin.runaway.object.Observer;
-import com.medowhill.jaemin.runaway.object.Phantom;
-import com.medowhill.jaemin.runaway.object.Sniper;
-import com.medowhill.jaemin.runaway.object.Teleporter;
+import com.medowhill.jaemin.runaway.object.ElectronNeutrino;
+import com.medowhill.jaemin.runaway.object.ZBoson;
+import com.medowhill.jaemin.runaway.object.Electron;
+import com.medowhill.jaemin.runaway.object.MuonNeutrino;
+import com.medowhill.jaemin.runaway.object.Gluon;
+import com.medowhill.jaemin.runaway.object.StrangeQuark;
 import com.medowhill.jaemin.runaway.object.TopQuark;
 
 import java.util.ArrayList;
@@ -95,28 +95,28 @@ public class EnemyPreView extends View {
                 y = Float.parseFloat(datas[3]);
                 switch (datas[1].charAt(0)) {
                     case 'o':
-                        enemy = new Observer(null, x, y);
+                        enemy = new Electron(null, x, y);
                         break;
                     case 'c':
-                        enemy = new Chaser(null, x, y);
+                        enemy = new HiggsBoson(null, x, y);
                         break;
                     case 't':
-                        enemy = new Teleporter(null, x, y);
+                        enemy = new StrangeQuark(null, x, y);
                         break;
                     case 'g':
-                        enemy = new Ghost(null, x, y);
+                        enemy = new ElectronNeutrino(null, x, y);
                         break;
                     case 'p':
-                        enemy = new Phantom(null, x, y);
+                        enemy = new MuonNeutrino(null, x, y);
                         break;
                     case 's':
-                        enemy = new Sniper(null, x, y);
+                        enemy = new Gluon(null, x, y);
                         break;
                     case 'a':
-                        enemy = new Artillery(null, x, y);
+                        enemy = new CharmQuark(null, x, y);
                         break;
                     case 'm':
-                        enemy = new Magnet(null, x, y);
+                        enemy = new ZBoson(null, x, y);
                         break;
                     case 'T':
                         enemy = new TopQuark(null, x, y);

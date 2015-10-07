@@ -48,34 +48,43 @@
     <color name="playerImmortal">#1b5e20</color>
     <color name="playerIllusion">#c8e6c9</color>
 
-    <color name="observerNormal">#e57373</color>
-    <color name="observerDetecting">#d32f2f</color>
+    <color name="electronNormal">#e57373</color>
+    <color name="electronDetecting">#d32f2f</color>
+    <color name="downQuarkNormal">#ba68c8</color>
+    <color name="downQuarkDetecting">#7b1fa2</color>
+    <color name="electronNeutrinoNormal">#f06292</color>
+    <color name="electronNeutrinoDetecting">#c2185b</color>
+    <color name="upQuarkNormal">#7986cb</color>
+    <color name="upQuarkDetecting">#303f9f</color>
 
-    <color name="chaserNormal">#ba68c8</color>
-    <color name="chaserDetecting">#7b1fa2</color>
+    <color name="muonNormal">#e57373</color>
+    <color name="muonDetecting">#d32f2f</color>
+    <color name="strangeQuarkNormal">#7986cb</color>
+    <color name="strangeQuarkDetecting">#303f9f</color>
+    <color name="muonNeutrinoNormal">#9575cd</color>
+    <color name="muonNeutrinoDetecting">#512da8</color>
+    <color name="charmQuarkNormal">#4db6ac</color>
+    <color name="charmQuarkDetecting">#00796b</color>
 
-    <color name="teleporterNormal">#7986cb</color>
-    <color name="teleporterDetecting">#303f9f</color>
-
-    <color name="ghostNormal">#f06292</color>
-    <color name="ghostDetecting">#c2185b</color>
-
-    <color name="phantomNormal">#9575cd</color>
-    <color name="phantomDetecting">#512da8</color>
-
-    <color name="sniperNormal">#64b5f6</color>
-    <color name="sniperDetecting">#1976d2</color>
-
-    <color name="artilleryNormal">#4db6ac</color>
-    <color name="artilleryDetecting">#00796b</color>
-
-    <color name="magnetNormal">#4fc3f7</color>
-    <color name="magnetDetecting">#0288d1</color>
-
-    <color name="topQuarkNormal">#dce775</color>
-    <color name="topQuarkDetecting">#afb42b</color>
-
+    <color name="tauNormal">#e57373</color>
+    <color name="tauDetecting">#d32f2f</color>
     <color name="bottomQuarkNormal">#ffd54f</color>
     <color name="bottomQuarkDetecting">#ffa000</color>
+    <color name="tauNeutrinoNormal">#9575cd</color>
+    <color name="tauNeutrinoDetecting">#512da8</color>
+    <color name="topQuarkNormal">#4db6ac</color>
+    <color name="topQuarkDetecting">#00796b</color>
+
+    <color name="photonNormal">#e57373</color>
+    <color name="photonDetecting">#d32f2f</color>
+    <color name="zBosonNormal">#4fc3f7</color>
+    <color name="zBosonDetecting">#0288d1</color>
+    <color name="wBosonNormal">#ffd54f</color>
+    <color name="wBosonDetecting">#ffa000</color>
+    <color name="gluonNormal">#64b5f6</color>
+    <color name="gluonDetecting">#1976d2</color>
+    <color name="higgsBosonNormal">#dce775</color>
+    <color name="higgsBosonDetecting">#afb42b</color>
+
 
 </resources>

@@ -24,49 +24,83 @@
     <!--Game Frame-->
     <integer name="frame">40</integer>
     <integer name="gameOverFrame">40</integer>
-
-    <!--Game Objects Shapes-->
-    <integer name="starVertices">10</integer>
+    <integer name="gameFinishPeriod">25</integer>
 
     <!--Game Objects Sizes-->
     <integer name="baseSize">30</integer>
+
     <integer name="starSize">2</integer>
+    <integer name="finishSize">2</integer>
     <integer name="playerSize">2</integer>
-    <integer name="observerSize">2</integer>
-    <integer name="chaserSize">2</integer>
-    <integer name="teleporterSize">2</integer>
-    <integer name="ghostSize">1</integer>
-    <integer name="phantomSize">1</integer>
-    <integer name="sniperSize">3</integer>
-    <integer name="artillerySize">3</integer>
+
+    <integer name="electronSize">2</integer>
+    <integer name="downQuarkSize">2</integer>
+    <integer name="electronNeutrinoSize">1</integer>
+    <integer name="upQuarkSize">3</integer>
+
+    <integer name="muonSize">2</integer>
+    <integer name="strangeQuarkSize">2</integer>
+    <integer name="muonNeutrinoSize">1</integer>
+    <integer name="charmQuarkSize">3</integer>
+
+    <integer name="tauSize">2</integer>
+    <integer name="bottomQuarkSize">2</integer>
+    <integer name="tauNeutrinoSize">1</integer>
     <integer name="topQuarkSize">3</integer>
-    <integer name="bottomQuarkSize">3</integer>
-    <integer name="magnetSize">2</integer>
+
+    <integer name="photonSize">2</integer>
+    <integer name="zBosonSize">2</integer>
+    <integer name="wBosonSize">1</integer>
+    <integer name="gluonSize">3</integer>
+    <integer name="higgsBosonSize">3</integer>
 
     <!--Game Objects Speeds-->
-    <integer name="playerSpeed">25</integer>
-    <integer name="observerSpeed">16</integer>
-    <integer name="chaserSpeed">12</integer>
-    <integer name="teleporterSpeed">12</integer>
-    <integer name="ghostSpeed">14</integer>
-    <integer name="phantomSpeed">14</integer>
-    <integer name="sniperSpeed">10</integer>
-    <integer name="artillerySpeed">10</integer>
-    <integer name="topQuarkSpeed">10</integer>
-    <integer name="bottomQuarkSpeed">10</integer>
-    <integer name="magnetSpeed">8</integer>
+    <integer name="playerSpeed">24</integer>
+
+    <integer name="electronSpeed">14</integer>
+    <integer name="downQuarkSpeed">10</integer>
+    <integer name="electronNeutrinoSpeed">12</integer>
+    <integer name="upQuarkSpeed">8</integer>
+
+    <integer name="muonSpeed">16</integer>
+    <integer name="strangeQuarkSpeed">12</integer>
+    <integer name="muonNeutrinoSpeed">14</integer>
+    <integer name="charmQuarkSpeed">10</integer>
+
+    <integer name="tauSpeed">18</integer>
+    <integer name="bottomQuarkSpeed">14</integer>
+    <integer name="tauNeutrinoSpeed">16</integer>
+    <integer name="topQuarkSpeed">12</integer>
+
+    <integer name="photonSpeed">20</integer>
+    <integer name="zBosonSpeed">16</integer>
+    <integer name="wBosonSpeed">18</integer>
+    <integer name="gluonSpeed">14</integer>
+    <integer name="higgsBosonSpeed">14</integer>
 
     <!--Game Objects Sights-->
-    <integer name="observerSight">800</integer>
-    <integer name="chaserSight">1000</integer>
-    <integer name="teleporterSight">1000</integer>
-    <integer name="ghostSight">1200</integer>
-    <integer name="phantomSight">1200</integer>
-    <integer name="sniperSight">1400</integer>
-    <integer name="artillerySight">1400</integer>
-    <integer name="topQuarkSight">800</integer>
-    <integer name="bottomQuarkSight">800</integer>
-    <integer name="magnetSight">600</integer>
+    <integer name="baseSight">100</integer>
+
+    <integer name="electronSight">10</integer>
+    <integer name="downQuarkSight">10</integer>
+    <integer name="electronNeutrinoSight">10</integer>
+    <integer name="upQuarkSight">10</integer>
+
+    <integer name="muonSight">12</integer>
+    <integer name="strangeQuarkSight">12</integer>
+    <integer name="muonNeutrinoSight">12</integer>
+    <integer name="charmQuarkSight">12</integer>
+
+    <integer name="tauSight">14</integer>
+    <integer name="bottomQuarkSight">14</integer>
+    <integer name="tauNeutrinoSight">14</integer>
+    <integer name="topQuarkSight">14</integer>
+
+    <integer name="photonSight">16</integer>
+    <integer name="zBosonSight">16</integer>
+    <integer name="wBosonSight">16</integer>
+    <integer name="gluonSight">16</integer>
+    <integer name="higgsBosonSight">16</integer>
 
     <!--Abilities Waiting Frames-->
     <integer name="dashPlayerCool">80</integer>

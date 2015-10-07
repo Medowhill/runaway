@@ -5,17 +5,17 @@ import com.medowhill.jaemin.runaway.ability.Ability;
 import com.medowhill.jaemin.runaway.ability.ShockWave;
 
 /**
- * Created by Jaemin on 2015-10-02.
+ * Created by Jaemin on 2015-10-07.
  */
-public class TopQuark extends Enemy {
+public class UpQuark extends Enemy {
 
     private final float range;
 
-    public TopQuark(Stage stage, float x, float y) {
-        super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.topQuarkSize),
-                context.getResources().getColor(R.color.topQuarkNormal), context.getResources().getColor(R.color.topQuarkDetecting),
-                x, y, context.getResources().getInteger(R.integer.topQuarkSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.topQuarkSight));
+    public UpQuark(Stage stage, float radius, int color, int colorDetecting, float x, float y, float speed, float sight) {
+        super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.upQuarkSize),
+                context.getResources().getColor(R.color.upQuarkNormal), context.getResources().getColor(R.color.upQuarkDetecting),
+                x, y, context.getResources().getInteger(R.integer.upQuarkSpeed),
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.upQuarkSight));
 
         ShockWave shockWave = new ShockWave(1, 1, false);
         abilities.add(shockWave);

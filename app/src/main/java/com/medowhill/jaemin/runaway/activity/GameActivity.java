@@ -11,7 +11,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
@@ -38,7 +37,7 @@ import java.util.ArrayList;
 
 public class GameActivity extends Activity {
 
-    public static final int GAME_FINISH = 0, ACTIVITY_FINISH = 1, GAME_START = 2, GAME_RESUME = 3, GAME_RESTART = 4;
+    public static final int GAME_FINISH = 0, ACTIVITY_FINISH = 1, GAME_START = 2, GAME_RESTART = 4, COLLECT_STAR = 5;
 
     final int[] ABILITY_BUTTON_ID = new int[]{R.id.game_abilityButton1, R.id.game_abilityButton2, R.id.game_abilityButton3, R.id.game_abilityButton4};
     final int[] BUTTON_ID = new int[]{R.id.game_button_restart, R.id.game_button_reselectAbilities, R.id.game_button_selectStage, R.id.game_button_goToMainMenu, R.id.game_button_options};
@@ -50,18 +49,17 @@ public class GameActivity extends Activity {
     private AbilityButton[] abilityButtons;
     private ImageView buttonPause, buttonResume;
     private Button[] buttons;
-    private LinearLayout linearLayoutAbilityButton;
     private StarCollectionView starCollectionView;
 
     private Animation[] animationShowMenu, animationHideMenu;
     private Animation animationButtonDisappear, animationButtonAppear;
-    private boolean animatingMenu = false, showing = true;
+    private boolean animatingMenu = false, showing = true, replay = false;
 
     private int stageNum;
     private int abilityNum;
     private int[] abilities;
 
-    private Handler gameOverHandler;
+    private Handler gameHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +72,6 @@ public class GameActivity extends Activity {
         directionControl = (DirectionControl) findViewById(R.id.game_directionControl);
         buttonPause = (ImageView) findViewById(R.id.game_button_pause);
         buttonResume = (ImageView) findViewById(R.id.game_button_resume);
-        linearLayoutAbilityButton = (LinearLayout) findViewById(R.id.game_linearLayout_abilityButton);
         starCollectionView = (StarCollectionView) findViewById(R.id.game_starCollection);
         buttons = new Button[BUTTON_ID.length];
 
@@ -84,7 +81,7 @@ public class GameActivity extends Activity {
         for (int i = 0; i < abilityButtons.length; i++)
             abilityButtons[i] = (AbilityButton) findViewById(ABILITY_BUTTON_ID[i]);
 
-        gameOverHandler = new GameHandler(this);
+        gameHandler = new GameHandler(this);
 
         animationShowMenu = new Animation[buttons.length];
         animationHideMenu = new Animation[buttons.length];
@@ -119,8 +116,12 @@ public class GameActivity extends Activity {
                 public void onAnimationEnd(Animation animation) {
                     buttons[k].setVisibility(View.INVISIBLE);
                     if (k == buttons.length - 1) {
-                        gameView.setPause(false);
-                        setGameControlVisibility(true);
+                        if (replay) {
+                            replay = false;
+                        } else {
+                            gameView.setPause(false);
+                            setGameControlVisibility(true);
+                        }
                         animatingMenu = false;
                     }
                 }
@@ -175,6 +176,7 @@ public class GameActivity extends Activity {
             public void onClick(View v) {
                 if (!animatingMenu) {
                     pause();
+                    replay = true;
                     gameView.setPause(false);
                     gameView.restartGame();
                 }
@@ -217,9 +219,10 @@ public class GameActivity extends Activity {
             }
         });
 
-        gameView.setGameOverHandler(gameOverHandler);
+        gameView.setGameHandler(gameHandler);
         gameView.setDirectionControl(directionControl);
         gameView.setAbilityButtons(abilityButtons);
+        gameView.setStarCollectionView(starCollectionView);
 
         Intent intent = getIntent();
         stageNum = intent.getIntExtra("stage", 1);
@@ -277,6 +280,8 @@ public class GameActivity extends Activity {
             abilityButtons[i].clearClick();
         }
 
+        starCollectionView.initialize();
+
         gameView.setStage(stage);
         gameView.startGame();
     }
@@ -317,7 +322,8 @@ public class GameActivity extends Activity {
             case GAME_START:
                 setGameControlVisibility(true);
                 break;
-            case GAME_RESUME:
+            case COLLECT_STAR:
+                starCollectionView.invalidate();
                 break;
         }
     }

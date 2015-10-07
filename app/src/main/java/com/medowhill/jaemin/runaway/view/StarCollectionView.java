@@ -15,7 +15,6 @@ public class StarCollectionView extends View {
 
     private final float SIZE_RATIO = 0.8f, SIZE;
 
-    private int width, height;
     private float ratio;
     private Star[] stars;
 
@@ -25,19 +24,14 @@ public class StarCollectionView extends View {
         super(context, attrs);
 
         SIZE = getResources().getInteger(R.integer.baseSize) * getResources().getInteger(R.integer.starSize) * 2 / SIZE_RATIO;
+
+        stars = new Star[3];
+        for (int i = 0; i < stars.length; i++)
+            stars[i] = new Star(null, SIZE * (2 * i + 1) / 2, SIZE / 2);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        width = w;
-        height = h;
-
-        stars = new Star[3];
-        for (int i = 0; i < stars.length; i++) {
-            stars[i] = new Star(null, SIZE * (2 * i + 1) / 2, SIZE / 2);
-            stars[i].setCollect(false);
-        }
-
         ratio = w / (SIZE * stars.length);
     }
 
@@ -52,10 +46,14 @@ public class StarCollectionView extends View {
     }
 
     public void setStarCollect(int index, boolean collect) {
-        if (0 <= index && index < stars.length) {
+        if (0 <= index && index < stars.length)
             stars[index].setCollect(collect);
-            invalidate();
-        }
+    }
+
+    public void initialize() {
+        for (Star star : stars)
+            star.setCollect(false);
+        invalidate();
     }
 
     public void setVisible(boolean visible) {

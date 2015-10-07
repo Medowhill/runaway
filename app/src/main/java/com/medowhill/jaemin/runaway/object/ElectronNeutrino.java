@@ -5,12 +5,13 @@ import com.medowhill.jaemin.runaway.R;
 /**
  * Created by Jaemin on 2015-09-10.
  */
-public class Ghost extends Enemy {
+public class ElectronNeutrino extends Enemy {
 
-    public Ghost(Stage stage, float x, float y) {
-        super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.ghostSize),
-                context.getResources().getColor(R.color.ghostNormal), context.getResources().getColor(R.color.ghostDetecting),
-                x, y, context.getResources().getInteger(R.integer.ghostSpeed), context.getResources().getInteger(R.integer.ghostSight));
+    public ElectronNeutrino(Stage stage, float x, float y) {
+        super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.electronNeutrinoSize),
+                context.getResources().getColor(R.color.electronNeutrinoNormal), context.getResources().getColor(R.color.electronNeutrinoDetecting),
+                x, y, context.getResources().getInteger(R.integer.electronNeutrinoSpeed),
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.electronNeutrinoSight));
     }
 
     @Override

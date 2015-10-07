@@ -7,14 +7,15 @@ import com.medowhill.jaemin.runaway.ability.Teleportation;
 /**
  * Created by Jaemin on 2015-09-10.
  */
-public class Teleporter extends Enemy {
+public class StrangeQuark extends Enemy {
 
     private final float distance;
 
-    public Teleporter(Stage stage, float x, float y) {
-        super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.teleporterSize),
-                context.getResources().getColor(R.color.teleporterNormal), context.getResources().getColor(R.color.teleporterDetecting),
-                x, y, context.getResources().getInteger(R.integer.teleporterSpeed), context.getResources().getInteger(R.integer.teleporterSight));
+    public StrangeQuark(Stage stage, float x, float y) {
+        super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.strangeQuarkSize),
+                context.getResources().getColor(R.color.strangeQuarkNormal), context.getResources().getColor(R.color.strangeQuarkDetecting),
+                x, y, context.getResources().getInteger(R.integer.strangeQuarkSpeed),
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.strangeQuarkSight));
 
         Teleportation teleportation = new Teleportation(1, false);
         abilities.add(teleportation);

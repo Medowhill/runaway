@@ -166,28 +166,28 @@ public class Stage {
                         y = Float.parseFloat(datas[3]);
                         switch (datas[1].charAt(0)) {
                             case 'o':
-                                enemy = new Observer(this, x, y);
+                                enemy = new Electron(this, x, y);
                                 break;
                             case 'c':
-                                enemy = new Chaser(this, x, y);
+                                enemy = new HiggsBoson(this, x, y);
                                 break;
                             case 't':
-                                enemy = new Teleporter(this, x, y);
+                                enemy = new StrangeQuark(this, x, y);
                                 break;
                             case 'g':
-                                enemy = new Ghost(this, x, y);
+                                enemy = new ElectronNeutrino(this, x, y);
                                 break;
                             case 'p':
-                                enemy = new Phantom(this, x, y);
+                                enemy = new MuonNeutrino(this, x, y);
                                 break;
                             case 's':
-                                enemy = new Sniper(this, x, y);
+                                enemy = new Gluon(this, x, y);
                                 break;
                             case 'a':
-                                enemy = new Artillery(this, x, y);
+                                enemy = new CharmQuark(this, x, y);
                                 break;
                             case 'm':
-                                enemy = new Magnet(this, x, y);
+                                enemy = new ZBoson(this, x, y);
                                 break;
                             case 'T':
                                 enemy = new TopQuark(this, x, y);
@@ -209,7 +209,7 @@ public class Stage {
                     if (!forPreview) {
                         x = Float.parseFloat(datas[1]);
                         y = Float.parseFloat(datas[2]);
-                        Star star = new Star(this, x, y);
+                        Star star = new Star(this, x, y, true);
                         stars.add(star);
                     }
                     break;
