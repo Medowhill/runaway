@@ -39,6 +39,46 @@ public abstract class Enemy extends GameObject {
         this.sight = sight;
     }
 
+    public static Enemy makeEnemy(Stage stage, float x, float y, char type) {
+        switch (type) {
+            case 'e':
+                return new Electron(stage, x, y);
+            case 'd':
+                return new DownQuark(stage, x, y);
+            case 'E':
+                return new ElectronNeutrino(stage, x, y);
+            case 'u':
+                return new UpQuark(stage, x, y);
+            case 'm':
+                return new Muon(stage, x, y);
+            case 's':
+                return new StrangeQuark(stage, x, y);
+            case 'M':
+                return new MuonNeutrino(stage, x, y);
+            case 'c':
+                return new CharmQuark(stage, x, y);
+            case 't':
+                return new Tau(stage, x, y);
+            case 'b':
+                return new BottomQuark(stage, x, y);
+            case 'T':
+                return new TauNeutrino(stage, x, y);
+            case 'q':
+                return new TopQuark(stage, x, y);
+            case 'p':
+                return new Photon(stage, x, y);
+            case 'z':
+                return new ZBoson(stage, x, y);
+            case 'w':
+                return new WBoson(stage, x, y);
+            case 'g':
+                return new Gluon(stage, x, y);
+            case 'h':
+                return new HiggsBoson(stage, x, y);
+        }
+        return null;
+    }
+
     // Moving Method
 
     public void detect() {

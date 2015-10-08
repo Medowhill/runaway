@@ -161,41 +161,9 @@ public class Stage {
                     break;
                 case 'e':
                     if (!forPreview) {
-                        Enemy enemy = null;
                         x = Float.parseFloat(datas[2]);
                         y = Float.parseFloat(datas[3]);
-                        switch (datas[1].charAt(0)) {
-                            case 'o':
-                                enemy = new Electron(this, x, y);
-                                break;
-                            case 'c':
-                                enemy = new HiggsBoson(this, x, y);
-                                break;
-                            case 't':
-                                enemy = new StrangeQuark(this, x, y);
-                                break;
-                            case 'g':
-                                enemy = new ElectronNeutrino(this, x, y);
-                                break;
-                            case 'p':
-                                enemy = new MuonNeutrino(this, x, y);
-                                break;
-                            case 's':
-                                enemy = new Gluon(this, x, y);
-                                break;
-                            case 'a':
-                                enemy = new CharmQuark(this, x, y);
-                                break;
-                            case 'm':
-                                enemy = new ZBoson(this, x, y);
-                                break;
-                            case 'T':
-                                enemy = new TopQuark(this, x, y);
-                                break;
-                            case 'b':
-                                enemy = new BottomQuark(this, x, y);
-                                break;
-                        }
+                        Enemy enemy = Enemy.makeEnemy(this, x, y, datas[1].charAt(0));
                         enemies.add(enemy);
                     }
                     break;

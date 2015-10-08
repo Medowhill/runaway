@@ -11,7 +11,7 @@ public class UpQuark extends Enemy {
 
     private final float range;
 
-    public UpQuark(Stage stage, float radius, int color, int colorDetecting, float x, float y, float speed, float sight) {
+    public UpQuark(Stage stage, float x, float y) {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.upQuarkSize),
                 context.getResources().getColor(R.color.upQuarkNormal), context.getResources().getColor(R.color.upQuarkDetecting),
                 x, y, context.getResources().getInteger(R.integer.upQuarkSpeed),

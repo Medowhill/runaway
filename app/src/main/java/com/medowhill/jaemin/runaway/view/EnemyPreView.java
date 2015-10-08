@@ -9,17 +9,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.medowhill.jaemin.runaway.R;
-import com.medowhill.jaemin.runaway.object.CharmQuark;
-import com.medowhill.jaemin.runaway.object.BottomQuark;
-import com.medowhill.jaemin.runaway.object.HiggsBoson;
 import com.medowhill.jaemin.runaway.object.Enemy;
-import com.medowhill.jaemin.runaway.object.ElectronNeutrino;
-import com.medowhill.jaemin.runaway.object.ZBoson;
-import com.medowhill.jaemin.runaway.object.Electron;
-import com.medowhill.jaemin.runaway.object.MuonNeutrino;
-import com.medowhill.jaemin.runaway.object.Gluon;
-import com.medowhill.jaemin.runaway.object.StrangeQuark;
-import com.medowhill.jaemin.runaway.object.TopQuark;
 
 import java.util.ArrayList;
 
@@ -90,41 +80,10 @@ public class EnemyPreView extends View {
             String[] datas = data.split(",");
             float x, y;
             if (data.charAt(0) == 'e') {
-                Enemy enemy = null;
+
                 x = Float.parseFloat(datas[2]);
                 y = Float.parseFloat(datas[3]);
-                switch (datas[1].charAt(0)) {
-                    case 'o':
-                        enemy = new Electron(null, x, y);
-                        break;
-                    case 'c':
-                        enemy = new HiggsBoson(null, x, y);
-                        break;
-                    case 't':
-                        enemy = new StrangeQuark(null, x, y);
-                        break;
-                    case 'g':
-                        enemy = new ElectronNeutrino(null, x, y);
-                        break;
-                    case 'p':
-                        enemy = new MuonNeutrino(null, x, y);
-                        break;
-                    case 's':
-                        enemy = new Gluon(null, x, y);
-                        break;
-                    case 'a':
-                        enemy = new CharmQuark(null, x, y);
-                        break;
-                    case 'm':
-                        enemy = new ZBoson(null, x, y);
-                        break;
-                    case 'T':
-                        enemy = new TopQuark(null, x, y);
-                        break;
-                    case 'b':
-                        enemy = new BottomQuark(null, x, y);
-                        break;
-                }
+                Enemy enemy = Enemy.makeEnemy(null, x, y, datas[1].charAt(0));
 
                 int color = enemy.COLOR;
                 if (!colors.contains(color)) {
