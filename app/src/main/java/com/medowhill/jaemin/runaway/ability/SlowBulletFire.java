@@ -28,7 +28,7 @@ public class SlowBulletFire extends Ability {
     public void use(GameObject gameObject) {
         super.use(gameObject);
 
-        Player player = gameObject.getStage().getPlayer();
+        Player player = gameObject.getStage().player;
 
         Buff[] buffs = new Buff[1];
         buffs[0] = new SpeedChangeBuff(player, frame, dSpeed, false);

@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
-    private final int WIDTH, HEIGHT, BASE_SIZE;
+    private final int WIDTH, HEIGHT;
 
     private final int FRAME, FRAME_LENGTH, FADING_FRAME;
 
@@ -54,7 +54,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         WIDTH = getResources().getInteger(R.integer.gameWidth);
         HEIGHT = getResources().getInteger(R.integer.gameHeight);
-        BASE_SIZE = getResources().getInteger(R.integer.baseSize);
 
         FRAME = context.getResources().getInteger(R.integer.frame);
         FRAME_LENGTH = 1000 / FRAME;
@@ -184,7 +183,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                                 canvas.drawRect(0, 0, WIDTH, HEIGHT, paintNonArea);
 
-                                Player player = stage.getPlayer();
+                                Player player = stage.player;
 
                                 if (!pause && !gamePrepare && !gameFinish) {
                                     player.setDirection(directionControl.getDirection());

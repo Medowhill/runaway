@@ -15,7 +15,8 @@ public class StrangeQuark extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.strangeQuarkSize),
                 context.getResources().getColor(R.color.strangeQuarkNormal), context.getResources().getColor(R.color.strangeQuarkDetecting),
                 x, y, context.getResources().getInteger(R.integer.strangeQuarkSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.strangeQuarkSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.strangeQuarkSight),
+                context.getResources().getString(R.string.enemyStrangeQuarkName), 's');
 
         Teleportation teleportation = new Teleportation(1, false);
         abilities.add(teleportation);
@@ -27,7 +28,7 @@ public class StrangeQuark extends Enemy {
         Ability ability = abilities.get(0);
 
         if (!ability.isWaiting() && (detect || detectIllusion)) {
-            Player player = stage.getPlayer();
+            Player player = stage.player;
             if (detectIllusion)
                 player = player.getIllusion();
             float x1 = player.getX(), y1 = player.getY();

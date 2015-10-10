@@ -13,6 +13,24 @@
     <string name="gameMenuGoToMainMenu">Main Menu</string>
     <string name="gameMenuOptions">Options</string>
 
+    <string name="enemyElectronName">Electron</string>
+    <string name="enemyDownQuarkName">Down Quark</string>
+    <string name="enemyElectronNeutrinoName">Electron Neutrino</string>
+    <string name="enemyUpQuarkName">Up Quark</string>
+    <string name="enemyMuonName">Muon</string>
+    <string name="enemyStrangeQuarkName">Strange Quark</string>
+    <string name="enemyMuonNeutrinoName">Muon Neutrino</string>
+    <string name="enemyCharmQuarkName">Charm Quark</string>
+    <string name="enemyTauName">Tau</string>
+    <string name="enemyBottomQuarkName">Bottom Quark</string>
+    <string name="enemyTauNeutrinoName">Tau Neutrino</string>
+    <string name="enemyTopQuarkName">Top Quark</string>
+    <string name="enemyPhotonName">Photon</string>
+    <string name="enemyZBosonName">Z Boson</string>
+    <string name="enemyWBosonName">W Boson</string>
+    <string name="enemyGluonName">Gluon</string>
+    <string name="enemyHiggsBosonName">Higgs Boson</string>
+
     <string name="abilityDashName">Dash</string>
     <string name="abilityTeleportationName">Teleportation</string>
     <string name="abilityHidingName">Hiding</string>

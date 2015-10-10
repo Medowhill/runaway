@@ -23,6 +23,9 @@
         <activity
             android:name=".activity.GameActivity"
             android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".activity.EnemyInformationActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

@@ -11,7 +11,8 @@ public class ElectronNeutrino extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.electronNeutrinoSize),
                 context.getResources().getColor(R.color.electronNeutrinoNormal), context.getResources().getColor(R.color.electronNeutrinoDetecting),
                 x, y, context.getResources().getInteger(R.integer.electronNeutrinoSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.electronNeutrinoSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.electronNeutrinoSight),
+                context.getResources().getString(R.string.enemyElectronNeutrinoName), 'E');
     }
 
     @Override
@@ -21,7 +22,7 @@ public class ElectronNeutrino extends Enemy {
     @Override
     public void detect() {
 
-        Player player = stage.getPlayer();
+        Player player = stage.player;
 
         float x1 = player.x, y1 = player.y;
 

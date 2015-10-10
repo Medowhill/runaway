@@ -11,7 +11,8 @@ public class Photon extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.photonSize),
                 context.getResources().getColor(R.color.photonNormal), context.getResources().getColor(R.color.photonDetecting),
                 x, y, context.getResources().getInteger(R.integer.photonSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.photonSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.photonSight),
+                context.getResources().getString(R.string.enemyPhotonName), 'p');
     }
 
     @Override

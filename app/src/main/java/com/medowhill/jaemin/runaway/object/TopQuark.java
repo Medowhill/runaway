@@ -15,7 +15,8 @@ public class TopQuark extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.topQuarkSize),
                 context.getResources().getColor(R.color.topQuarkNormal), context.getResources().getColor(R.color.topQuarkDetecting),
                 x, y, context.getResources().getInteger(R.integer.topQuarkSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.topQuarkSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.topQuarkSight),
+                context.getResources().getString(R.string.enemyTopQuarkName), 'q');
 
         ShockWave shockWave = new ShockWave(1, 1, false);
         abilities.add(shockWave);
@@ -27,7 +28,7 @@ public class TopQuark extends Enemy {
         Ability ability = abilities.get(0);
 
         if (!ability.isWaiting() && (detect || detectIllusion)) {
-            Player player = stage.getPlayer();
+            Player player = stage.player;
             if (detectIllusion)
                 player = player.getIllusion();
             float x1 = player.getX(), y1 = player.getY();

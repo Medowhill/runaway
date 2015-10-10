@@ -13,7 +13,8 @@ public class Gluon extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.gluonSize),
                 context.getResources().getColor(R.color.gluonNormal), context.getResources().getColor(R.color.gluonDetecting),
                 x, y, context.getResources().getInteger(R.integer.gluonSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.gluonSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.gluonSight),
+                context.getResources().getString(R.string.enemyGluonName), 'g');
 
         StunBulletFire stunBulletFire = new StunBulletFire(1);
         abilities.add(stunBulletFire);

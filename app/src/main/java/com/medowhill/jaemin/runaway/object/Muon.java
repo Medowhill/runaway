@@ -11,7 +11,8 @@ public class Muon extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.muonSize),
                 context.getResources().getColor(R.color.muonNormal), context.getResources().getColor(R.color.muonDetecting),
                 x, y, context.getResources().getInteger(R.integer.muonSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.muonSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.muonSight),
+                context.getResources().getString(R.string.enemyMuonName), 'm');
     }
 
     @Override

@@ -14,7 +14,8 @@ public class ZBoson extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.zBosonSize),
                 context.getResources().getColor(R.color.zBosonNormal), context.getResources().getColor(R.color.zBosonDetecting),
                 x, y, context.getResources().getInteger(R.integer.zBosonSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.zBosonSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.zBosonSight),
+                context.getResources().getString(R.string.enemyWBosonName), 'w');
 
         Magnetism magnetism = new Magnetism(1);
         abilities.add(magnetism);

@@ -15,7 +15,8 @@ public class BottomQuark extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.bottomQuarkSize),
                 context.getResources().getColor(R.color.bottomQuarkNormal), context.getResources().getColor(R.color.bottomQuarkDetecting),
                 x, y, context.getResources().getInteger(R.integer.higgsBosonSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.bottomQuarkSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.bottomQuarkSight),
+                context.getResources().getString(R.string.enemyBottomQuarkName), 'b');
 
         DistortionField distortionField = new DistortionField(1, 1, false);
         abilities.add(distortionField);
@@ -27,7 +28,7 @@ public class BottomQuark extends Enemy {
         Ability ability = abilities.get(0);
 
         if (!ability.isWaiting() && (detect || detectIllusion)) {
-            Player player = stage.getPlayer();
+            Player player = stage.player;
             if (detectIllusion)
                 player = player.getIllusion();
             float x1 = player.getX(), y1 = player.getY();

@@ -33,7 +33,7 @@ public class DistortionFieldBuff extends Buff {
                     enemy.addBuff(new SpeedChangeBuff(enemy, 1, dspeed, channeling));
             }
         } else {
-            Player player = gameObject.getStage().getPlayer();
+            Player player = gameObject.getStage().player;
             float x1 = gameObject.getX(), y1 = gameObject.getY(), x2 = player.getX(), y2 = player.getY();
             float d = (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) - player.RADIUS;
             if (d < range)

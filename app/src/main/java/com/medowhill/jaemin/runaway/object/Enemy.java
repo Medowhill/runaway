@@ -16,6 +16,9 @@ public abstract class Enemy extends GameObject {
     // Static Constant
     static final int RE_DIRECTION_FRAME = 20;
 
+    public final String name;
+    public final char typeCharacter;
+
     // Sight
     float sight;
 
@@ -30,13 +33,16 @@ public abstract class Enemy extends GameObject {
     Paint paintDetecting;
 
     // Constructor
-    public Enemy(Stage stage, float radius, int color, int colorDetecting, float x, float y, float speed, float sight) {
+    public Enemy(Stage stage, float radius, int color, int colorDetecting, float x, float y, float speed, float sight, String name, char typeCharacter) {
         super(stage, radius, color, x, y, speed);
 
         paintDetecting = new Paint();
         paintDetecting.setColor(colorDetecting);
 
         this.sight = sight;
+
+        this.name = name;
+        this.typeCharacter = typeCharacter;
     }
 
     public static Enemy makeEnemy(Stage stage, float x, float y, char type) {
@@ -82,7 +88,7 @@ public abstract class Enemy extends GameObject {
     // Moving Method
 
     public void detect() {
-        Player player = stage.getPlayer();
+        Player player = stage.player;
 
         float x1 = player.x, y1 = player.y;
 
@@ -152,7 +158,7 @@ public abstract class Enemy extends GameObject {
 
         detect();
 
-        Player player = stage.getPlayer();
+        Player player = stage.player;
 
         float x1 = player.x, y1 = player.y;
 

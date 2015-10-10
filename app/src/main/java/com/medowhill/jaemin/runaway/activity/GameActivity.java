@@ -267,7 +267,7 @@ public class GameActivity extends Activity {
 
     private void readyGame() {
         Stage stage = new Stage(this, stageNum);
-        ArrayList<Ability> playerAbilities = stage.getPlayer().getAbilities();
+        ArrayList<Ability> playerAbilities = stage.player.getAbilities();
         for (int i = 0; i < abilities.length; i++)
             if (abilities[i] != -1)
                 playerAbilities.add(getAbility(i * 2 + abilities[i]));

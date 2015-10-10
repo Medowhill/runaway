@@ -13,7 +13,8 @@ public class CharmQuark extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.charmQuarkSize),
                 context.getResources().getColor(R.color.charmQuarkNormal), context.getResources().getColor(R.color.charmQuarkDetecting),
                 x, y, context.getResources().getInteger(R.integer.charmQuarkSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.charmQuarkSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.charmQuarkSight),
+                context.getResources().getString(R.string.enemyCharmQuarkName), 'c');
 
         SlowBulletFire slowBulletFire = new SlowBulletFire(1);
         abilities.add(slowBulletFire);

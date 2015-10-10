@@ -13,7 +13,8 @@ public class MuonNeutrino extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.muonNeutrinoSize),
                 context.getResources().getColor(R.color.muonNeutrinoNormal), context.getResources().getColor(R.color.muonNeutrinoDetecting),
                 x, y, context.getResources().getInteger(R.integer.muonNeutrinoSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.muonNeutrinoSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.muonNeutrinoSight),
+                context.getResources().getString(R.string.enemyMuonNeutrinoName), 'M');
 
         abilities.add(new Hiding(1, false));
     }

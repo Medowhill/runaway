@@ -13,7 +13,8 @@ public class WBoson extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.wBosonSize),
                 context.getResources().getColor(R.color.wBosonNormal), context.getResources().getColor(R.color.wBosonDetecting),
                 x, y, context.getResources().getInteger(R.integer.wBosonSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.wBosonSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.wBosonSight),
+                context.getResources().getString(R.string.enemyWBosonName), 'w');
 
         abilities.add(new Hiding(1, false));
     }

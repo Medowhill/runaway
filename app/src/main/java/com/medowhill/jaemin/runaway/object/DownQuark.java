@@ -15,7 +15,8 @@ public class DownQuark extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.downQuarkSize),
                 context.getResources().getColor(R.color.downQuarkNormal), context.getResources().getColor(R.color.downQuarkDetecting),
                 x, y, context.getResources().getInteger(R.integer.downQuarkSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.downQuarkSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.downQuarkSight),
+                context.getResources().getString(R.string.enemyDownQuarkName), 'd');
 
         Dash dash = new Dash(1, false);
         abilities.add(dash);
@@ -27,7 +28,7 @@ public class DownQuark extends Enemy {
         Ability ability = abilities.get(0);
 
         if (!ability.isWaiting() && (detect || detectIllusion)) {
-            Player player = stage.getPlayer();
+            Player player = stage.player;
             if (detectIllusion)
                 player = player.getIllusion();
             float x1 = player.getX(), y1 = player.getY();

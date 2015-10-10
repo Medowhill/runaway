@@ -11,7 +11,8 @@ public class TauNeutrino extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.tauNeutrinoSize),
                 context.getResources().getColor(R.color.tauNeutrinoNormal), context.getResources().getColor(R.color.tauNeutrinoDetecting),
                 x, y, context.getResources().getInteger(R.integer.tauNeutrinoSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.tauNeutrinoSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.tauNeutrinoSight),
+                context.getResources().getString(R.string.enemyTauNeutrinoName), 'T');
     }
 
     @Override
@@ -21,7 +22,7 @@ public class TauNeutrino extends Enemy {
     @Override
     public void detect() {
 
-        Player player = stage.getPlayer();
+        Player player = stage.player;
 
         float x1 = player.x, y1 = player.y;
 

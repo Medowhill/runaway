@@ -32,13 +32,25 @@ public class Stage {
 
     public final Path area;
 
+    public Player player;
+
     public Finish finish;
 
     private float xMax, yMax;
 
-    private Player player;
-
     private float xStart, yStart, xFinish, yFinish;
+
+    public Stage(Context context) {
+        MAP_RADIUS = context.getResources().getInteger(R.integer.mapRadius);
+
+        enemies = new ArrayList<>();
+        walls = new ArrayList<>();
+        buffs = new ArrayList<>();
+        stars = new ArrayList<>();
+        fields = new ArrayList<>();
+        bullets = new ArrayList<>();
+        area = new Path();
+    }
 
     public Stage(Context context, int stage) {
         this(context, stage, false);
@@ -183,10 +195,6 @@ public class Stage {
                     break;
             }
         }
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     public float getxFinish() {

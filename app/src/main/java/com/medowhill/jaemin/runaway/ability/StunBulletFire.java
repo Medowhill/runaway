@@ -29,7 +29,7 @@ public class StunBulletFire extends Ability {
     public void use(GameObject gameObject) {
         super.use(gameObject);
 
-        Player player = gameObject.getStage().getPlayer();
+        Player player = gameObject.getStage().player;
 
         Buff[] buffs = new Buff[3];
         buffs[0] = new CannotMoveBuff(player, frame, false);

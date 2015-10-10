@@ -28,7 +28,7 @@ public class GameReadyActivity extends Activity {
 
     public static final int RESULT_RESELECT = 0, RESULT_NEXT = 1, RESULT_STAGE = 3, RESULT_MAIN = 2;
 
-    final int REQUEST_CODE = 0;
+    final int REQUEST_CODE_GAME = 0;
 
     Button buttonStart;
     ImageButton buttonAbility1, buttonAbility2, buttonAbility3, buttonAbility4;
@@ -38,7 +38,7 @@ public class GameReadyActivity extends Activity {
     EnemyPreView enemyPreView;
     FadeView fadeView;
 
-    Handler fadingHandler;
+    Handler fadingHandler, enemyInfoHandler;
 
     int ability1 = 0, ability2 = 0, ability3 = 0, ability4 = 0;
     int stage;
@@ -70,6 +70,7 @@ public class GameReadyActivity extends Activity {
         fadeView = (FadeView) findViewById(R.id.gameReady_fade);
 
         fadingHandler = new FadingHandler(this);
+        enemyInfoHandler = new EnemyInfoHandler(this);
 
         Intent intent = getIntent();
         stage = intent.getIntExtra("stage", 1);
@@ -77,6 +78,7 @@ public class GameReadyActivity extends Activity {
         textView.setText(textView.getText().toString() + " " + stage);
 
         enemyPreView.setStage(stage);
+        enemyPreView.setEnemyInfoHandler(enemyInfoHandler);
 
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,7 +173,7 @@ public class GameReadyActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         fadeView.initialize();
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE_GAME && resultCode == RESULT_OK) {
             Intent intent = new Intent();
             switch (data.getIntExtra("result", RESULT_RESELECT)) {
                 case RESULT_NEXT:
@@ -203,7 +205,13 @@ public class GameReadyActivity extends Activity {
         Intent intent = new Intent(getApplicationContext(), GameActivity.class);
         intent.putExtra("Ability", new int[]{ability1, ability2, ability3, -1});
         intent.putExtra("stage", stage);
-        startActivityForResult(intent, REQUEST_CODE);
+        startActivityForResult(intent, REQUEST_CODE_GAME);
+    }
+
+    void showEnemyInfo(char type) {
+        Intent intent = new Intent(getApplicationContext(), EnemyInformationActivity.class);
+        intent.putExtra("type", type);
+        startActivity(intent);
     }
 }
 
@@ -220,4 +228,17 @@ class FadingHandler extends Handler {
         gameReadyActivity.startGame();
     }
 
+}
+
+class EnemyInfoHandler extends Handler {
+    GameReadyActivity gameReadyActivity;
+
+    public EnemyInfoHandler(GameReadyActivity gameReadyActivity) {
+        this.gameReadyActivity = gameReadyActivity;
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        gameReadyActivity.showEnemyInfo((char) msg.what);
+    }
 }

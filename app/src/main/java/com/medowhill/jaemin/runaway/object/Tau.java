@@ -11,7 +11,8 @@ public class Tau extends Enemy {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.tauSize),
                 context.getResources().getColor(R.color.tauNormal), context.getResources().getColor(R.color.tauDetecting),
                 x, y, context.getResources().getInteger(R.integer.tauSpeed),
-                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.tauSight));
+                context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.tauSight),
+                context.getResources().getString(R.string.enemyTauName), 't');
     }
 
     @Override
