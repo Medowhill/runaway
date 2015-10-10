@@ -126,6 +126,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         this.stage = stage;
     }
 
+    public boolean[] getStarCollection() {
+        boolean[] starCollection = new boolean[3];
+        for (int i = 0; i < stage.stars.size(); i++)
+            starCollection[i] = stage.stars.get(i).isCollect();
+        return starCollection;
+    }
+
+    public void setStarCollection(boolean[] starCollection) {
+        for (int i = 0; i < stage.stars.size(); i++)
+            stage.stars.get(i).setCollect(starCollection[i]);
+    }
+
     public boolean getPause() {
         return surfaceThread.pause;
     }

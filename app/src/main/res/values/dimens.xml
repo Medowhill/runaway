@@ -22,6 +22,8 @@
     <dimen name="gameReadySkillSlotMargin">5dp</dimen>
     <dimen name="gameReadyResultButtonSize">65dp</dimen>
     <dimen name="gameReadyResultButtonMargin">55dp</dimen>
+    <dimen name="gameReadyStarCollectionWidth">300dp</dimen>
+    <dimen name="gameReadyStarCollectionHeight">100dp</dimen>
 
     <dimen name="enemyInfoEnemyNameSize">40sp</dimen>
     <dimen name="enemyInfoEnemyStatusTitleSize">25sp</dimen>

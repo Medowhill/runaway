@@ -11,6 +11,7 @@
 
     <!--Game Ready Activity-->
     <integer name="gameReadyFadeOutDuration">1000</integer>
+    <integer name="gameReadyStarShowDelay">350</integer>
 
     <!--EnemyPreView-->
     <integer name="enemyPreviewDecreasingRatio">20</integer>

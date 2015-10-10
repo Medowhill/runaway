@@ -50,9 +50,9 @@ public class StarCollectionView extends View {
             stars[index].setCollect(collect);
     }
 
-    public void initialize() {
-        for (Star star : stars)
-            star.setCollect(false);
+    public void initialize(boolean[] starCollection) {
+        for (int i = 0; i < stars.length; i++)
+            stars[i].setCollect(starCollection[i]);
         invalidate();
     }
 

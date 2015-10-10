@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.view.EnemyPreView;
 import com.medowhill.jaemin.runaway.view.FadeView;
+import com.medowhill.jaemin.runaway.view.StarCollectionView;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -42,8 +43,9 @@ public class GameReadyActivity extends Activity {
     LinearLayout linearLayoutReady, linearLayoutResult;
     EnemyPreView enemyPreView;
     FadeView fadeView;
+    StarCollectionView starCollectionView;
 
-    Handler fadingHandler, enemyInfoHandler;
+    Handler fadingHandler, enemyInfoHandler, gameResultHandler;
 
     SharedPreferences sharedPreferences;
 
@@ -58,8 +60,7 @@ public class GameReadyActivity extends Activity {
         overridePendingTransition(R.anim.gameready_activitystart, 0);
 
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         buttonStart = (Button) findViewById(R.id.gameReady_button_start);
@@ -75,11 +76,13 @@ public class GameReadyActivity extends Activity {
         linearLayoutResult = (LinearLayout) findViewById(R.id.gameReady_linearLayout_result);
         enemyPreView = (EnemyPreView) findViewById(R.id.gameReady_enemyPreview);
         fadeView = (FadeView) findViewById(R.id.gameReady_fade);
+        starCollectionView = (StarCollectionView) findViewById(R.id.gameReady_starCollection);
 
         sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
 
         fadingHandler = new FadingHandler(this);
         enemyInfoHandler = new EnemyInfoHandler(this);
+        gameResultHandler = new GameResultHandler(this);
 
         Intent intent = getIntent();
         stage = intent.getIntExtra("stage", 1);
@@ -88,6 +91,8 @@ public class GameReadyActivity extends Activity {
 
         enemyPreView.setStage(stage);
         enemyPreView.setEnemyInfoHandler(enemyInfoHandler);
+
+        starCollectionView.setVisible(true);
 
         final byte[] abilityLevel = getAbilityLevel();
         if (abilityLevel[0] != 0) {
@@ -185,7 +190,6 @@ public class GameReadyActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra("result", StageSelectActivity.RESULT_NEXT);
-                intent.putExtra("stage", stage);
                 intent.putExtra("next", false);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -197,7 +201,6 @@ public class GameReadyActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra("result", StageSelectActivity.RESULT_NEXT);
-                intent.putExtra("stage", stage);
                 intent.putExtra("next", true);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -215,11 +218,24 @@ public class GameReadyActivity extends Activity {
                     linearLayoutReady.setVisibility(View.INVISIBLE);
                     linearLayoutResult.setVisibility(View.VISIBLE);
 
-                    int previousStage = sharedPreferences.getInt("stage", 0);
+                    int previousStage = sharedPreferences.getInt("stage", 1);
                     if (previousStage < stage + 1) {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("stage", stage + 1);
                         editor.apply();
+                    }
+
+                    int starInitial = data.getIntExtra("starCollectionInitial", 0);
+                    for (int i = 0; i < starInitial; i++)
+                        starCollectionView.setStarCollect(i, true);
+                    starCollectionView.invalidate();
+
+                    int starFinal = data.getIntExtra("starCollectionFinal", 0);
+                    if (starInitial < starFinal) {
+                        Message message = new Message();
+                        message.arg1 = starFinal;
+                        message.arg2 = starInitial;
+                        gameResultHandler.sendMessageDelayed(message, getResources().getInteger(R.integer.gameReadyStarShowDelay));
                     }
                     break;
                 case RESULT_STAGE:
@@ -275,6 +291,18 @@ public class GameReadyActivity extends Activity {
         intent.putExtra("type", type);
         startActivity(intent);
     }
+
+    void showStar(int finalStar, int current) {
+        starCollectionView.setStarCollect(current, true);
+        starCollectionView.invalidate();
+        current++;
+        if (current < finalStar) {
+            Message message = new Message();
+            message.arg1 = finalStar;
+            message.arg2 = current;
+            gameResultHandler.sendMessageDelayed(message, getResources().getInteger(R.integer.gameReadyStarShowDelay));
+        }
+    }
 }
 
 class FadingHandler extends Handler {
@@ -302,5 +330,18 @@ class EnemyInfoHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
         gameReadyActivity.showEnemyInfo((char) msg.what);
+    }
+}
+
+class GameResultHandler extends Handler {
+    GameReadyActivity gameReadyActivity;
+
+    public GameResultHandler(GameReadyActivity gameReadyActivity) {
+        this.gameReadyActivity = gameReadyActivity;
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        gameReadyActivity.showStar(msg.arg1, msg.arg2);
     }
 }

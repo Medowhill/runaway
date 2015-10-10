@@ -359,8 +359,8 @@ public class StageSelectView extends View {
     }
 
     public void openNewStage(int stage) {
-        if (stage + 1 > lastStage)
-            lastStage = stage + 1;
+        if (stage > lastStage)
+            lastStage = stage;
         invalidate();
     }
 

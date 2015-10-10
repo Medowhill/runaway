@@ -28,6 +28,9 @@ import com.medowhill.jaemin.runaway.view.DirectionControl;
 import com.medowhill.jaemin.runaway.view.GameView;
 import com.medowhill.jaemin.runaway.view.StarCollectionView;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -58,6 +61,8 @@ public class GameActivity extends Activity {
     private int stageNum;
     private int abilityNum;
     private int[] abilities;
+    private byte[] abilityLevel;
+    private boolean[] starCollectionInitial;
 
     private Handler gameHandler;
 
@@ -227,6 +232,7 @@ public class GameActivity extends Activity {
         Intent intent = getIntent();
         stageNum = intent.getIntExtra("stage", 1);
         abilities = intent.getIntArrayExtra("Ability");
+        starCollectionInitial = getStarCollection();
 
         readyGame();
 
@@ -245,23 +251,41 @@ public class GameActivity extends Activity {
     }
 
     private Ability getAbility(int n) {
+        if (abilityLevel == null) {
+            try {
+                FileInputStream fileInputStream = openFileInput("abilityLevel");
+                abilityLevel = new byte[fileInputStream.available()];
+                fileInputStream.read(abilityLevel);
+                fileInputStream.close();
+            } catch (IOException e) {
+                abilityLevel = new byte[10];
+                try {
+                    FileOutputStream fileOutputStream = openFileOutput("abilityLevel", MODE_PRIVATE);
+                    fileOutputStream.write(abilityLevel);
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
+
         switch (n) {
             case 0:
-                return new Dash(1, true);
+                return new Dash(abilityLevel[0], true);
             case 1:
-                return new Teleportation(1, true);
+                return new Teleportation(abilityLevel[1], true);
             case 2:
-                return new Hiding(1, true);
+                return new Hiding(abilityLevel[2], true);
             case 3:
-                return new Protection(1);
+                return new Protection(abilityLevel[3]);
             case 4:
-                return new Shadow(1);
+                return new Shadow(abilityLevel[4]);
             case 5:
-                return new Illusion(1);
+                return new Illusion(abilityLevel[5]);
             case 6:
-                return new ShockWave(1, 1, true);
+                return new ShockWave(abilityLevel[6], abilityLevel[7], true);
             default:
-                return new DistortionField(1, 1, true);
+                return new DistortionField(abilityLevel[8], abilityLevel[9], true);
         }
     }
 
@@ -280,9 +304,10 @@ public class GameActivity extends Activity {
             abilityButtons[i].clearClick();
         }
 
-        starCollectionView.initialize();
+        starCollectionView.initialize(starCollectionInitial);
 
         gameView.setStage(stage);
+        gameView.setStarCollection(starCollectionInitial);
         gameView.startGame();
     }
 
@@ -311,8 +336,21 @@ public class GameActivity extends Activity {
                 setGameControlVisibility(false);
                 break;
             case ACTIVITY_FINISH:
+                boolean[] starCollection = gameView.getStarCollection();
+                setStarCollection(starCollection);
+
+                int initialCount = 0, finalCount = 0;
+                for (int i = 0; i < starCollection.length; i++) {
+                    if (starCollectionInitial[i])
+                        initialCount++;
+                    if (starCollection[i])
+                        finalCount++;
+                }
+
                 Intent intent = new Intent();
                 intent.putExtra("result", GameReadyActivity.RESULT_NEXT);
+                intent.putExtra("starCollectionInitial", initialCount);
+                intent.putExtra("starCollectionFinal", finalCount);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;
@@ -341,6 +379,49 @@ public class GameActivity extends Activity {
                 abilityButtons[i].setVisible(false);
             starCollectionView.setVisible(false);
             buttonPause.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    boolean[] getStarCollection() {
+        byte[] arr;
+        try {
+            FileInputStream fileInputStream = openFileInput("starCollection" + stageNum);
+            arr = new byte[fileInputStream.available()];
+            fileInputStream.read(arr);
+            fileInputStream.close();
+        } catch (IOException e) {
+            arr = new byte[1];
+            try {
+                FileOutputStream fileOutputStream = openFileOutput("starCollection" + stageNum, MODE_PRIVATE);
+                fileOutputStream.write(arr);
+                fileOutputStream.flush();
+                fileOutputStream.close();
+            } catch (IOException e1) {
+            }
+        }
+
+        int star = arr[0];
+        boolean[] stars = new boolean[3];
+        for (int i = 0; i < stars.length; i++) {
+            stars[i] = star % 2 != 0;
+            star /= 2;
+        }
+        return stars;
+    }
+
+    void setStarCollection(boolean[] starCollection) {
+        byte sum = 0;
+        for (int i = starCollection.length - 1; i >= 0; i--) {
+            sum *= 2;
+            sum += (starCollection[i]) ? 1 : 0;
+        }
+        byte[] arr = new byte[]{sum};
+        try {
+            FileOutputStream fileOutputStream = openFileOutput("starCollection" + stageNum, MODE_PRIVATE);
+            fileOutputStream.write(arr);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (IOException e1) {
         }
     }
 }

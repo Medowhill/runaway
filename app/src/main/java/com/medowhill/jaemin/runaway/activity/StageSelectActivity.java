@@ -57,8 +57,6 @@ public class StageSelectActivity extends Activity {
                         resumeActivityHandler.sendEmptyMessageDelayed(0, WAIT);
                         break;
                     case RESULT_NEXT:
-                        int stage = data.getIntExtra("stage", 0);
-                        stageSelectView.openNewStage(stage);
                         if (data.getBooleanExtra("next", false))
                             resumeActivityHandler.sendEmptyMessageDelayed(1, WAIT);
                         else
@@ -72,6 +70,14 @@ public class StageSelectActivity extends Activity {
         } else if (resultCode == RESULT_CANCELED) {
             stageSelectView.defaultScale(false);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        int stage = sharedPreferences.getInt("stage", 1);
+        stageSelectView.openNewStage(stage);
     }
 
     void startStage(int stage) {

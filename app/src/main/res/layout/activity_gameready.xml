@@ -110,6 +110,20 @@
         android:visibility="invisible">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.medowhill.jaemin.runaway.view.StarCollectionView
+                android:id="@+id/gameReady_starCollection"
+                android:layout_width="@dimen/gameReadyStarCollectionWidth"
+                android:layout_height="@dimen/gameReadyStarCollectionHeight"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
