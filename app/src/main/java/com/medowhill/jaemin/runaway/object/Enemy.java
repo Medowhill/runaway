@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import com.medowhill.jaemin.runaway.Direction;
+import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
 
 /**
@@ -217,6 +218,23 @@ public abstract class Enemy extends GameObject {
         direction = direction2;
         direction2 = Direction.NONE;
         move();
+    }
+
+    // Getter
+
+    public int getSight() {
+        return (int) (this.sight / context.getResources().getInteger(R.integer.baseSight));
+    }
+
+    public int getSize() {
+        return (int) (this.RADIUS / context.getResources().getInteger(R.integer.baseSize));
+    }
+
+    public String getAbilityName() {
+        if (abilities.size() == 0)
+            return context.getResources().getString(R.string.abilityNone);
+        else
+            return abilities.get(0).name;
     }
 
     // Ability Method

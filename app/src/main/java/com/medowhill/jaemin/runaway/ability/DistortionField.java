@@ -18,7 +18,7 @@ public class DistortionField extends Ability {
     private final float dspeed;
 
     public DistortionField(int levelRange, int levelDSpeed, boolean player) {
-        super(R.drawable.ability_icon_distortionfield);
+        super(R.drawable.ability_icon_distortionfield, context.getResources().getString(R.string.abilityDistortionFieldName));
 
         if (player) {
             WAITING_FRAME = context.getResources().getInteger(R.integer.distortionFieldPlayerCool);

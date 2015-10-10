@@ -17,7 +17,7 @@ public class Shadow extends Ability {
     private final int frame;
 
     public Shadow(int level) {
-        super(R.drawable.ability_icon_shadow);
+        super(R.drawable.ability_icon_shadow, context.getResources().getString(R.string.abilityShadowName));
 
         WAITING_FRAME = context.getResources().getInteger(R.integer.shadowPlayerCool);
         frame = context.getResources().getIntArray(R.array.shadowFrame)[level - 1];

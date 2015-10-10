@@ -14,11 +14,14 @@ public abstract class Ability {
     static Context context;
 
     public final int iconResourceID;
+    public final String name;
+
     public int WAITING_FRAME;
     int remainWaitingFrame;
 
-    Ability(int iconResourceID) {
+    Ability(int iconResourceID, String name) {
         this.iconResourceID = iconResourceID;
+        this.name = name;
     }
 
     public static void setContext(Context context) {

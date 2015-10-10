@@ -17,7 +17,7 @@ public class Illusion extends Ability {
     private final int frame;
 
     public Illusion(int level) {
-        super(R.drawable.ability_icon_illusion);
+        super(R.drawable.ability_icon_illusion, context.getResources().getString(R.string.abilityIllusionName));
 
         WAITING_FRAME = context.getResources().getInteger(R.integer.illusionPlayerCool);
         frame = context.getResources().getIntArray(R.array.illusionFrame)[level - 1];

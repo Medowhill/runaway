@@ -16,7 +16,7 @@ public class SlowBulletFire extends Ability {
     private final float speed, dSpeed;
 
     public SlowBulletFire(int level) {
-        super(0);
+        super(0, context.getResources().getString(R.string.abilitySlowBulletFireName));
 
         WAITING_FRAME = context.getResources().getInteger(R.integer.slowBulletFireEnemyCool);
         frame = context.getResources().getInteger(R.integer.slowBulletFireEnemyFrame);

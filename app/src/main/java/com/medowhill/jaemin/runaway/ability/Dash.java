@@ -18,7 +18,7 @@ public class Dash extends Ability {
     private final float distance;
 
     public Dash(int level, boolean player) {
-        super(R.drawable.ability_icon_dash);
+        super(R.drawable.ability_icon_dash, context.getResources().getString(R.string.abilityDashName));
 
         if (player) {
             WAITING_FRAME = context.getResources().getInteger(R.integer.dashPlayerCool);

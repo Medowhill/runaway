@@ -15,7 +15,7 @@ public class Protection extends Ability {
     private final int frame;
 
     public Protection(int level) {
-        super(R.drawable.ability_icon_protection);
+        super(R.drawable.ability_icon_protection, context.getResources().getString(R.string.abilityProtectionName));
 
         WAITING_FRAME = context.getResources().getInteger(R.integer.protectionPlayerCool);
         frame = context.getResources().getIntArray(R.array.protectionFrame)[level - 1];

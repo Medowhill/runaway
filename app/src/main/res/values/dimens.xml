@@ -23,4 +23,11 @@
     <dimen name="gameReadyResultButtonSize">65dp</dimen>
     <dimen name="gameReadyResultButtonMargin">55dp</dimen>
 
+    <dimen name="enemyInfoEnemyNameSize">40sp</dimen>
+    <dimen name="enemyInfoEnemyStatusTitleSize">25sp</dimen>
+    <dimen name="enemyInfoEnemyStatusSize">30sp</dimen>
+    <dimen name="enemyInfoEnemyDetailSize">25sp</dimen>
+    <dimen name="enemyInfoEnemyViewHeight">100dp</dimen>
+    <dimen name="enemyInfoEnemyViewMargin">10dp</dimen>
+
 </resources>

@@ -27,7 +27,7 @@ public class ShockWave extends Ability {
     private final boolean player;
 
     public ShockWave(int levelRange, int levelDistance, boolean player) {
-        super(R.drawable.ability_icon_shockwave);
+        super(R.drawable.ability_icon_shockwave, context.getResources().getString(R.string.abilityShockWaveName));
 
         if (player) {
             WAITING_FRAME = context.getResources().getInteger(R.integer.shockWavePlayerCool);

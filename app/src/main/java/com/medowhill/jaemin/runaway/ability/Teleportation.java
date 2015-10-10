@@ -19,7 +19,7 @@ public class Teleportation extends Ability {
     private final float distance;
 
     public Teleportation(int level, boolean player) {
-        super(R.drawable.ability_icon_teleportation);
+        super(R.drawable.ability_icon_teleportation, context.getResources().getString(R.string.abilityTeleportationName));
 
         if (player) {
             WAITING_FRAME = context.getResources().getInteger(R.integer.teleportationPlayerCool);

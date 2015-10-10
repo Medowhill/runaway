@@ -15,7 +15,7 @@ public class Hiding extends Ability {
     private final int frame;
 
     public Hiding(int level, boolean player) {
-        super(R.drawable.ability_icon_hiding);
+        super(R.drawable.ability_icon_hiding, context.getResources().getString(R.string.abilityHidingName));
 
         if (player) {
             WAITING_FRAME = context.getResources().getInteger(R.integer.hidingPlayerCool);

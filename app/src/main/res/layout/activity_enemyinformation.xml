@@ -2,18 +2,158 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/enemyInfoBackground"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/enemyInfo_textView_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/enemyInfoEnemyNameText"
+        android:textSize="@dimen/enemyInfoEnemyNameSize" />
 
     <com.medowhill.jaemin.runaway.view.EnemyInformationView
         android:id="@+id/enemyInfo_enemyInfoView"
         android:layout_width="match_parent"
+        android:layout_height="@dimen/enemyInfoEnemyViewHeight"
+        android:layout_marginBottom="@dimen/enemyInfoEnemyViewMargin"
+        android:layout_marginTop="@dimen/enemyInfoEnemyViewMargin" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/statusSize"
+                        android:textColor="@color/enemyInfoEnemyStatusTitleText"
+                        android:textSize="@dimen/enemyInfoEnemyStatusTitleSize" />
+
+                    <TextView
+                        android:id="@+id/enemyInfo_textView_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/enemyInfoEnemyStatusText"
+                        android:textSize="@dimen/enemyInfoEnemyStatusSize" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/statusSpeed"
+                        android:textColor="@color/enemyInfoEnemyStatusTitleText"
+                        android:textSize="@dimen/enemyInfoEnemyStatusTitleSize" />
+
+                    <TextView
+                        android:id="@+id/enemyInfo_textView_speed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/enemyInfoEnemyStatusText"
+                        android:textSize="@dimen/enemyInfoEnemyStatusSize" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/statusSight"
+                        android:textColor="@color/enemyInfoEnemyStatusTitleText"
+                        android:textSize="@dimen/enemyInfoEnemyStatusTitleSize" />
+
+                    <TextView
+                        android:id="@+id/enemyInfo_textView_sight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/enemyInfoEnemyStatusText"
+                        android:textSize="@dimen/enemyInfoEnemyStatusSize" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/statusAbility"
+                        android:textColor="@color/enemyInfoEnemyStatusTitleText"
+                        android:textSize="@dimen/enemyInfoEnemyStatusTitleSize" />
+
+                    <TextView
+                        android:id="@+id/enemyInfo_textView_ability"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/enemyInfoEnemyStatusText"
+                        android:textSize="@dimen/enemyInfoEnemyStatusSize" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/enemyInfo_textView_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/enemyInfoEnemyDetailText"
+            android:textSize="@dimen/enemyInfoEnemyDetailSize" />
+
+    </LinearLayout>
 
 </LinearLayout>

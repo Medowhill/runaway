@@ -87,6 +87,10 @@ public class EnemyInformationView extends SurfaceView implements SurfaceHolder.C
         }
     }
 
+    public Enemy getEnemy() {
+        return enemy;
+    }
+
     public void setEnemyType(char enemyType) {
         this.enemyType = enemyType;
     }

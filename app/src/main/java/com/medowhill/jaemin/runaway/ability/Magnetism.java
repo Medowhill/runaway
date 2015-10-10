@@ -14,7 +14,7 @@ public class Magnetism extends Ability {
     private final float dSpeed;
 
     public Magnetism(int level) {
-        super(0);
+        super(0, context.getResources().getString(R.string.abilityMagnetismName));
 
         dSpeed = context.getResources().getIntArray(R.array.magnetismEnemyDSpeed)[level - 1] / 800.f;
     }

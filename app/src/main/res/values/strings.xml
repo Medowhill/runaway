@@ -31,6 +31,7 @@
     <string name="enemyGluonName">Gluon</string>
     <string name="enemyHiggsBosonName">Higgs Boson</string>
 
+    <string name="abilityNone">-</string>
     <string name="abilityDashName">Dash</string>
     <string name="abilityTeleportationName">Teleportation</string>
     <string name="abilityHidingName">Hiding</string>
@@ -39,4 +40,12 @@
     <string name="abilityIllusionName">Illusion</string>
     <string name="abilityShockWaveName">Shock Wave</string>
     <string name="abilityDistortionFieldName">Distortion Field</string>
+    <string name="abilityMagnetismName">Acceleration</string>
+    <string name="abilitySlowBulletFireName">Decelerating Shot</string>
+    <string name="abilityStunBulletFireName">Stunning Shot</string>
+
+    <string name="statusSpeed">Speed</string>
+    <string name="statusSight">Sight</string>
+    <string name="statusSize">Size</string>
+    <string name="statusAbility">Skill</string>
 </resources>
