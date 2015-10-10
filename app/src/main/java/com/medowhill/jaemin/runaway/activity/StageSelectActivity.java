@@ -23,11 +23,11 @@ public class StageSelectActivity extends Activity {
     private static final int REQUEST_GAME_READY = 0;
     private final int WAIT = 250;
 
-    private StageSelectView stageSelectView;
+    StageSelectView stageSelectView;
 
-    private SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences;
 
-    private Handler stageSelectHandler, resumeActivityHandler;
+    Handler stageSelectHandler, resumeActivityHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,12 +58,6 @@ public class StageSelectActivity extends Activity {
                         break;
                     case RESULT_NEXT:
                         int stage = data.getIntExtra("stage", 0);
-                        int previousStage = sharedPreferences.getInt("stage", 0);
-                        if (previousStage < stage + 1) {
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putInt("stage", stage + 1);
-                            editor.apply();
-                        }
                         stageSelectView.openNewStage(stage);
                         if (data.getBooleanExtra("next", false))
                             resumeActivityHandler.sendEmptyMessageDelayed(1, WAIT);

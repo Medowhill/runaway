@@ -2,6 +2,7 @@ package com.medowhill.jaemin.runaway.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,6 +19,10 @@ import android.widget.TextView;
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.view.EnemyPreView;
 import com.medowhill.jaemin.runaway.view.FadeView;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Copyright 2015. Hong Jaemin
@@ -40,7 +45,9 @@ public class GameReadyActivity extends Activity {
 
     Handler fadingHandler, enemyInfoHandler;
 
-    int ability1 = 0, ability2 = 0, ability3 = 0, ability4 = 0;
+    SharedPreferences sharedPreferences;
+
+    int ability1 = -1, ability2 = -1, ability3 = -1, ability4 = -1;
     int stage;
 
     @Override
@@ -69,6 +76,8 @@ public class GameReadyActivity extends Activity {
         enemyPreView = (EnemyPreView) findViewById(R.id.gameReady_enemyPreview);
         fadeView = (FadeView) findViewById(R.id.gameReady_fade);
 
+        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+
         fadingHandler = new FadingHandler(this);
         enemyInfoHandler = new EnemyInfoHandler(this);
 
@@ -79,6 +88,24 @@ public class GameReadyActivity extends Activity {
 
         enemyPreView.setStage(stage);
         enemyPreView.setEnemyInfoHandler(enemyInfoHandler);
+
+        final byte[] abilityLevel = getAbilityLevel();
+        if (abilityLevel[0] != 0) {
+            buttonAbility1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_dash));
+            ability1 = 0;
+        }
+        if (abilityLevel[2] != 0) {
+            buttonAbility2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_hiding));
+            ability2 = 0;
+        }
+        if (abilityLevel[4] != 0) {
+            buttonAbility3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shadow));
+            ability3 = 0;
+        }
+        if (abilityLevel[6] != 0) {
+            buttonAbility4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shockwave));
+            ability4 = 0;
+        }
 
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,48 +119,56 @@ public class GameReadyActivity extends Activity {
         buttonAbility1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ability1++;
-                ability1 %= 2;
-                if (ability1 % 2 == 0)
-                    buttonAbility1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_dash));
-                else
-                    buttonAbility1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_teleportation));
+                if (abilityLevel[0] * abilityLevel[1] != 0) {
+                    ability1++;
+                    ability1 %= 2;
+                    if (ability1 % 2 == 0)
+                        buttonAbility1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_dash));
+                    else
+                        buttonAbility1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_teleportation));
+                }
             }
         });
 
         buttonAbility2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ability2++;
-                ability2 %= 2;
-                if (ability2 % 2 == 0)
-                    buttonAbility2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_hiding));
-                else
-                    buttonAbility2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_protection));
+                if (abilityLevel[2] * abilityLevel[3] != 0) {
+                    ability2++;
+                    ability2 %= 2;
+                    if (ability2 % 2 == 0)
+                        buttonAbility2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_hiding));
+                    else
+                        buttonAbility2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_protection));
+                }
             }
         });
 
         buttonAbility3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ability3++;
-                ability3 %= 2;
-                if (ability3 % 2 == 0)
-                    buttonAbility3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shadow));
-                else
-                    buttonAbility3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_illusion));
+                if (abilityLevel[4] * abilityLevel[5] != 0) {
+                    ability3++;
+                    ability3 %= 2;
+                    if (ability3 % 2 == 0)
+                        buttonAbility3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shadow));
+                    else
+                        buttonAbility3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_illusion));
+                }
             }
         });
 
         buttonAbility4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ability4++;
-                ability4 %= 2;
-                if (ability4 % 2 == 0)
-                    buttonAbility4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shockwave));
-                else
-                    buttonAbility4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_distortionfield));
+                if (abilityLevel[6] * abilityLevel[8] != 0) {
+                    ability4++;
+                    ability4 %= 2;
+                    if (ability4 % 2 == 0)
+                        buttonAbility4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shockwave));
+                    else
+                        buttonAbility4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_distortionfield));
+                }
             }
         });
 
@@ -179,6 +214,13 @@ public class GameReadyActivity extends Activity {
                 case RESULT_NEXT:
                     linearLayoutReady.setVisibility(View.INVISIBLE);
                     linearLayoutResult.setVisibility(View.VISIBLE);
+
+                    int previousStage = sharedPreferences.getInt("stage", 0);
+                    if (previousStage < stage + 1) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("stage", stage + 1);
+                        editor.apply();
+                    }
                     break;
                 case RESULT_STAGE:
                     intent.putExtra("result", StageSelectActivity.RESULT_FIN);
@@ -201,9 +243,29 @@ public class GameReadyActivity extends Activity {
         overridePendingTransition(0, R.anim.gameready_activityfinish);
     }
 
+    byte[] getAbilityLevel() {
+        byte[] arr;
+        try {
+            FileInputStream fileInputStream = openFileInput("abilityLevel");
+            arr = new byte[fileInputStream.available()];
+            fileInputStream.read(arr);
+            fileInputStream.close();
+        } catch (IOException e) {
+            arr = new byte[10];
+            try {
+                FileOutputStream fileOutputStream = openFileOutput("abilityLevel", MODE_PRIVATE);
+                fileOutputStream.write(arr);
+                fileOutputStream.flush();
+                fileOutputStream.close();
+            } catch (IOException e1) {
+            }
+        }
+        return arr;
+    }
+
     void startGame() {
         Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-        intent.putExtra("Ability", new int[]{ability1, ability2, ability3, -1});
+        intent.putExtra("Ability", new int[]{ability1, ability2, ability3, ability4});
         intent.putExtra("stage", stage);
         startActivityForResult(intent, REQUEST_CODE_GAME);
     }
