@@ -15,13 +15,13 @@ public class SlowBulletFire extends Ability {
     private final int frame;
     private final float speed, dSpeed;
 
-    public SlowBulletFire(int level) {
+    public SlowBulletFire() {
         super(0, context.getResources().getString(R.string.abilitySlowBulletFireName));
 
         WAITING_FRAME = context.getResources().getInteger(R.integer.slowBulletFireEnemyCool);
         frame = context.getResources().getInteger(R.integer.slowBulletFireEnemyFrame);
-        speed = context.getResources().getIntArray(R.array.slowBulletFireEnemySpeed)[level - 1];
-        dSpeed = context.getResources().getIntArray(R.array.slowBulletFireEnemyDSpeed)[level - 1] / 100.f;
+        speed = context.getResources().getInteger(R.integer.slowBulletFireEnemySpeed);
+        dSpeed = context.getResources().getInteger(R.integer.slowBulletFireEnemyDSpeed) / 100.f;
     }
 
     @Override

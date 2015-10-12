@@ -18,7 +18,7 @@ public class DownQuark extends Enemy {
                 context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.downQuarkSight),
                 context.getResources().getString(R.string.enemyDownQuarkName), 'd');
 
-        Dash dash = new Dash(1, false);
+        Dash dash = new Dash();
         abilities.add(dash);
         distance = dash.getDistance();
     }

@@ -43,6 +43,7 @@
     <string name="abilityMagnetismName">Acceleration</string>
     <string name="abilitySlowBulletFireName">Decelerating Shot</string>
     <string name="abilityStunBulletFireName">Stunning Shot</string>
+    <string name="abilitySpeedUpName">Speed Up</string>
 
     <string name="statusSpeed">Speed</string>
     <string name="statusSight">Sight</string>

@@ -18,7 +18,7 @@ public class StrangeQuark extends Enemy {
                 context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.strangeQuarkSight),
                 context.getResources().getString(R.string.enemyStrangeQuarkName), 's');
 
-        Teleportation teleportation = new Teleportation(1, false);
+        Teleportation teleportation = new Teleportation();
         abilities.add(teleportation);
         distance = teleportation.getDistance();
     }

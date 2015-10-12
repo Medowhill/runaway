@@ -16,7 +16,7 @@ public class Gluon extends Enemy {
                 context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.gluonSight),
                 context.getResources().getString(R.string.enemyGluonName), 'g');
 
-        StunBulletFire stunBulletFire = new StunBulletFire(1);
+        StunBulletFire stunBulletFire = new StunBulletFire();
         abilities.add(stunBulletFire);
     }
 

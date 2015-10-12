@@ -17,20 +17,22 @@ public class DistortionField extends Ability {
     private final int frame;
     private final float dspeed;
 
-    public DistortionField(int levelRange, int levelDSpeed, boolean player) {
+    public DistortionField(int levelRange, int levelDSpeed) {
         super(R.drawable.ability_icon_distortionfield, context.getResources().getString(R.string.abilityDistortionFieldName));
 
-        if (player) {
-            WAITING_FRAME = context.getResources().getInteger(R.integer.distortionFieldPlayerCool);
-            range = context.getResources().getIntArray(R.array.distortionFieldPlayerRange)[levelRange - 1];
-            dspeed = context.getResources().getIntArray(R.array.distortionFieldPlayerDSpeed)[levelDSpeed - 1] / 100f;
-            frame = context.getResources().getInteger(R.integer.distortionFieldPlayerFrame);
-        } else {
-            WAITING_FRAME = context.getResources().getInteger(R.integer.distortionFieldEnemyCool);
-            range = context.getResources().getIntArray(R.array.distortionFieldEnemyRange)[levelRange - 1];
-            dspeed = context.getResources().getIntArray(R.array.distortionFieldEnemyDSpeed)[levelDSpeed - 1] / 100f;
-            frame = context.getResources().getInteger(R.integer.distortionFieldEnemyFrame);
-        }
+        WAITING_FRAME = context.getResources().getInteger(R.integer.distortionFieldPlayerCool);
+        range = context.getResources().getIntArray(R.array.distortionFieldPlayerRange)[levelRange - 1];
+        dspeed = context.getResources().getIntArray(R.array.distortionFieldPlayerDSpeed)[levelDSpeed - 1] / 100f;
+        frame = context.getResources().getInteger(R.integer.distortionFieldPlayerFrame);
+    }
+
+    public DistortionField() {
+        super(R.drawable.ability_icon_distortionfield, context.getResources().getString(R.string.abilityDistortionFieldName));
+
+        WAITING_FRAME = context.getResources().getInteger(R.integer.distortionFieldEnemyCool);
+        range = context.getResources().getInteger(R.integer.distortionFieldEnemyRange);
+        dspeed = context.getResources().getInteger(R.integer.distortionFieldEnemyDSpeed) / 100f;
+        frame = context.getResources().getInteger(R.integer.distortionFieldEnemyFrame);
     }
 
     @Override

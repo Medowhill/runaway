@@ -271,9 +271,9 @@ public class GameActivity extends Activity {
 
         switch (n) {
             case 0:
-                return new Dash(abilityLevel[0], true);
+                return new Dash(abilityLevel[0]);
             case 1:
-                return new Teleportation(abilityLevel[1], true);
+                return new Teleportation(abilityLevel[1]);
             case 2:
                 return new Hiding(abilityLevel[2], true);
             case 3:
@@ -285,7 +285,7 @@ public class GameActivity extends Activity {
             case 6:
                 return new ShockWave(abilityLevel[6], abilityLevel[7], true);
             default:
-                return new DistortionField(abilityLevel[8], abilityLevel[9], true);
+                return new DistortionField(abilityLevel[8], abilityLevel[9]);
         }
     }
 

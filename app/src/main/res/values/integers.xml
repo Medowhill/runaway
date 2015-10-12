@@ -119,17 +119,36 @@
     <integer name="distortionFieldEnemyCool">160</integer>
     <integer name="stunBulletFireEnemyCool">80</integer>
     <integer name="slowBulletFireEnemyCool">20</integer>
+    <integer name="speedUpEnemyCool">80</integer>
 
     <!--Abilities Values-->
     <integer name="dashPlayerDistance">650</integer>
     <integer name="dashEnemyDistance">450</integer>
+    <integer name="dashEnemyFrame">10</integer>
+
     <integer name="teleportationPlayerDistance">650</integer>
     <integer name="teleportationEnemyDistance">450</integer>
+    <integer name="teleportationEnemyFrame">10</integer>
+
     <integer name="shockWavePlayerFrame">10</integer>
     <integer name="shockWaveStrokeWidth">8</integer>
     <integer name="shockWaveEnemyFrame">5</integer>
+
     <integer name="distortionFieldPlayerFrame">80</integer>
     <integer name="distortionFieldEnemyFrame">80</integer>
+    <integer name="distortionFieldEnemyRange">400</integer>
+    <integer name="distortionFieldEnemyDSpeed">-50</integer>
+
     <integer name="slowBulletFireEnemyFrame">40</integer>
+    <integer name="slowBulletFireEnemyDSpeed">-30</integer>
+    <integer name="slowBulletFireEnemySpeed">40</integer>
+
+    <integer name="stunBulletFireEnemyFrame">30</integer>
+    <integer name="stunBulletFireEnemySpeed">40</integer>
+
+    <integer name="magnetismEnemyDSpeed">8</integer>
+
+    <integer name="speedUPEnemyFrame">20</integer>
+    <integer name="speedUpEnemyDSpeed">10</integer>
 
 </resources>

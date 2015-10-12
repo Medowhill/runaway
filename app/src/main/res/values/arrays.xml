@@ -23,13 +23,6 @@
         <item>9</item>
         <item>8</item>
     </integer-array>
-    <integer-array name="dashEnemyFrame">
-        <item>10</item>
-        <item>9</item>
-        <item>8</item>
-        <item>7</item>
-        <item>6</item>
-    </integer-array>
     <!--Teleportation-->
     <integer-array name="teleportationPlayerFrame">
         <item>14</item>
@@ -37,13 +30,6 @@
         <item>10</item>
         <item>9</item>
         <item>8</item>
-    </integer-array>
-    <integer-array name="teleportationEnemyFrame">
-        <item>10</item>
-        <item>9</item>
-        <item>8</item>
-        <item>7</item>
-        <item>6</item>
     </integer-array>
     <!--Hiding-->
     <integer-array name="hidingPlayerFrame">
@@ -55,11 +41,9 @@
     </integer-array>
     <integer-array name="hidingEnemyFrame">
         <item>30</item>
-        <item>35</item>
-        <item>40</item>
-        <item>45</item>
         <item>50</item>
     </integer-array>
+    <!--Protection-->
     <integer-array name="protectionFrame">
         <item>40</item>
         <item>50</item>
@@ -67,6 +51,7 @@
         <item>70</item>
         <item>80</item>
     </integer-array>
+    <!--Shadow-->
     <integer-array name="shadowFrame">
         <item>40</item>
         <item>50</item>
@@ -74,6 +59,7 @@
         <item>70</item>
         <item>80</item>
     </integer-array>
+    <!--Illusion-->
     <integer-array name="illusionFrame">
         <item>40</item>
         <item>50</item>
@@ -81,6 +67,7 @@
         <item>70</item>
         <item>80</item>
     </integer-array>
+    <!--ShockWave-->
     <integer-array name="shockWavePlayerRange">
         <item>600</item>
         <item>650</item>
@@ -97,18 +84,13 @@
     </integer-array>
     <integer-array name="shockWaveEnemyRange">
         <item>500</item>
-        <item>550</item>
-        <item>600</item>
-        <item>650</item>
         <item>700</item>
     </integer-array>
     <integer-array name="shockWaveEnemyDistance">
         <item>-300</item>
-        <item>-325</item>
-        <item>-350</item>
-        <item>-375</item>
-        <item>-400</item>
+        <item>-500</item>
     </integer-array>
+    <!--DistortionField-->
     <integer-array name="distortionFieldPlayerRange">
         <item>400</item>
         <item>450</item>
@@ -122,55 +104,6 @@
         <item>-60</item>
         <item>-65</item>
         <item>-70</item>
-    </integer-array>
-    <integer-array name="distortionFieldEnemyRange">
-        <item>400</item>
-        <item>450</item>
-        <item>500</item>
-        <item>550</item>
-        <item>600</item>
-    </integer-array>
-    <integer-array name="distortionFieldEnemyDSpeed">
-        <item>-50</item>
-        <item>-55</item>
-        <item>-60</item>
-        <item>-65</item>
-        <item>-70</item>
-    </integer-array>
-    <integer-array name="stunBulletFireEnemyFrame">
-        <item>30</item>
-        <item>32</item>
-        <item>34</item>
-        <item>36</item>
-        <item>38</item>
-    </integer-array>
-    <integer-array name="stunBulletFireEnemySpeed">
-        <item>40</item>
-        <item>43</item>
-        <item>46</item>
-        <item>49</item>
-        <item>52</item>
-    </integer-array>
-    <integer-array name="slowBulletFireEnemyDSpeed">
-        <item>-30</item>
-        <item>-40</item>
-        <item>-50</item>
-        <item>-60</item>
-        <item>-70</item>
-    </integer-array>
-    <integer-array name="slowBulletFireEnemySpeed">
-        <item>40</item>
-        <item>43</item>
-        <item>46</item>
-        <item>49</item>
-        <item>52</item>
-    </integer-array>
-    <integer-array name="magnetismEnemyDSpeed">
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
     </integer-array>
 
 </resources>

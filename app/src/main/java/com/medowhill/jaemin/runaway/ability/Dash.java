@@ -17,18 +17,21 @@ public class Dash extends Ability {
     private final int frame;
     private final float distance;
 
-    public Dash(int level, boolean player) {
+    public Dash(int level) {
         super(R.drawable.ability_icon_dash, context.getResources().getString(R.string.abilityDashName));
 
-        if (player) {
-            WAITING_FRAME = context.getResources().getInteger(R.integer.dashPlayerCool);
-            frame = context.getResources().getIntArray(R.array.dashPlayerFrame)[level - 1];
-            distance = context.getResources().getInteger(R.integer.dashPlayerDistance);
-        } else {
-            WAITING_FRAME = context.getResources().getInteger(R.integer.dashEnemyCool);
-            frame = context.getResources().getIntArray(R.array.dashEnemyFrame)[level - 1];
-            distance = context.getResources().getInteger(R.integer.dashEnemyDistance);
-        }
+        WAITING_FRAME = context.getResources().getInteger(R.integer.dashPlayerCool);
+        frame = context.getResources().getIntArray(R.array.dashPlayerFrame)[level - 1];
+        distance = context.getResources().getInteger(R.integer.dashPlayerDistance);
+
+    }
+
+    public Dash() {
+        super(R.drawable.ability_icon_dash, context.getResources().getString(R.string.abilityDashName));
+
+        WAITING_FRAME = context.getResources().getInteger(R.integer.dashEnemyCool);
+        frame = context.getResources().getInteger(R.integer.dashEnemyFrame);
+        distance = context.getResources().getInteger(R.integer.dashEnemyDistance);
     }
 
     @Override

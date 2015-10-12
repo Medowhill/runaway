@@ -38,4 +38,6 @@
     <string name="statusSight">시야</string>
     <string name="statusSize">크기</string>
     <string name="statusSpeed">속력</string>
+    <string name="abilitySpeedUpName">속력 상승</string>
+    <string name="abilityNone">-</string>
 </resources>

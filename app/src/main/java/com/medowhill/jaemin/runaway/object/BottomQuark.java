@@ -2,14 +2,12 @@ package com.medowhill.jaemin.runaway.object;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.ability.Ability;
-import com.medowhill.jaemin.runaway.ability.DistortionField;
+import com.medowhill.jaemin.runaway.ability.SpeedUp;
 
 /**
  * Created by Jaemin on 2015-10-02.
  */
 public class BottomQuark extends Enemy {
-
-    private final float range;
 
     public BottomQuark(Stage stage, float x, float y) {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.bottomQuarkSize),
@@ -18,23 +16,15 @@ public class BottomQuark extends Enemy {
                 context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.bottomQuarkSight),
                 context.getResources().getString(R.string.enemyBottomQuarkName), 'b');
 
-        DistortionField distortionField = new DistortionField(1, 1, false);
-        abilities.add(distortionField);
-        range = distortionField.getRange();
+        SpeedUp speedUp = new SpeedUp();
+        abilities.add(speedUp);
     }
 
     @Override
     public void useAbility() {
         Ability ability = abilities.get(0);
 
-        if (!ability.isWaiting() && (detect || detectIllusion)) {
-            Player player = stage.player;
-            if (detectIllusion)
-                player = player.getIllusion();
-            float x1 = player.getX(), y1 = player.getY();
-            float d = (float) Math.sqrt((x1 - this.x) * (x1 - this.x) + (y1 - this.y) * (y1 - this.y)) - player.RADIUS;
-            if (d < range)
-                ability.use(this);
-        }
+        if (!ability.isWaiting() && (detect || detectIllusion))
+            ability.use(this);
     }
 }

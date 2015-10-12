@@ -16,7 +16,7 @@ public class CharmQuark extends Enemy {
                 context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.charmQuarkSight),
                 context.getResources().getString(R.string.enemyCharmQuarkName), 'c');
 
-        SlowBulletFire slowBulletFire = new SlowBulletFire(1);
+        SlowBulletFire slowBulletFire = new SlowBulletFire();
         abilities.add(slowBulletFire);
     }
 

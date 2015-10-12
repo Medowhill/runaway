@@ -18,18 +18,20 @@ public class Teleportation extends Ability {
     private final int frame;
     private final float distance;
 
-    public Teleportation(int level, boolean player) {
+    public Teleportation(int level) {
         super(R.drawable.ability_icon_teleportation, context.getResources().getString(R.string.abilityTeleportationName));
 
-        if (player) {
-            WAITING_FRAME = context.getResources().getInteger(R.integer.teleportationPlayerCool);
-            frame = context.getResources().getIntArray(R.array.teleportationPlayerFrame)[level - 1];
-            distance = context.getResources().getInteger(R.integer.teleportationPlayerDistance);
-        } else {
-            WAITING_FRAME = context.getResources().getInteger(R.integer.teleportationEnemyCool);
-            frame = context.getResources().getIntArray(R.array.teleportationEnemyFrame)[level - 1];
-            distance = context.getResources().getInteger(R.integer.teleportationEnemyDistance);
-        }
+        WAITING_FRAME = context.getResources().getInteger(R.integer.teleportationPlayerCool);
+        frame = context.getResources().getIntArray(R.array.teleportationPlayerFrame)[level - 1];
+        distance = context.getResources().getInteger(R.integer.teleportationPlayerDistance);
+    }
+
+    public Teleportation() {
+        super(R.drawable.ability_icon_teleportation, context.getResources().getString(R.string.abilityTeleportationName));
+
+        WAITING_FRAME = context.getResources().getInteger(R.integer.teleportationEnemyCool);
+        frame = context.getResources().getInteger(R.integer.teleportationEnemyFrame);
+        distance = context.getResources().getInteger(R.integer.teleportationEnemyDistance);
     }
 
     @Override

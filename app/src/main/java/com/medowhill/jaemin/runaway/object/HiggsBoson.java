@@ -18,7 +18,7 @@ public class HiggsBoson extends Enemy {
                 context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.higgsBosonSight),
                 context.getResources().getString(R.string.enemyHiggsBosonName), 'h');
 
-        DistortionField distortionField = new DistortionField(1, 1, false);
+        DistortionField distortionField = new DistortionField();
         abilities.add(distortionField);
         range = distortionField.getRange();
     }

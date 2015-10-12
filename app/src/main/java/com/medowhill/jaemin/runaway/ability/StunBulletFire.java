@@ -17,12 +17,12 @@ public class StunBulletFire extends Ability {
     private final int frame;
     private final float speed;
 
-    public StunBulletFire(int level) {
+    public StunBulletFire() {
         super(0, context.getResources().getString(R.string.abilityStunBulletFireName));
 
         WAITING_FRAME = context.getResources().getInteger(R.integer.stunBulletFireEnemyCool);
-        frame = context.getResources().getIntArray(R.array.stunBulletFireEnemyFrame)[level - 1];
-        speed = context.getResources().getIntArray(R.array.stunBulletFireEnemySpeed)[level - 1];
+        frame = context.getResources().getInteger(R.integer.stunBulletFireEnemyFrame);
+        speed = context.getResources().getInteger(R.integer.stunBulletFireEnemySpeed);
     }
 
     @Override

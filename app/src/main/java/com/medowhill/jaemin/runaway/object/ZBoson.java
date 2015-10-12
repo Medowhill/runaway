@@ -17,7 +17,7 @@ public class ZBoson extends Enemy {
                 context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.zBosonSight),
                 context.getResources().getString(R.string.enemyWBosonName), 'w');
 
-        Magnetism magnetism = new Magnetism(1);
+        Magnetism magnetism = new Magnetism();
         abilities.add(magnetism);
     }
 
