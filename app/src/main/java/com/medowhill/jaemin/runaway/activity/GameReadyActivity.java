@@ -39,7 +39,7 @@ public class GameReadyActivity extends Activity {
     Button buttonStart;
     ImageButton buttonAbility1, buttonAbility2, buttonAbility3, buttonAbility4;
     ImageButton buttonReplay, buttonStage, buttonNext;
-    TextView textView;
+    TextView textViewStage, textViewFirst, textViewStar;
     LinearLayout linearLayoutReady, linearLayoutResult;
     EnemyPreView enemyPreView;
     FadeView fadeView;
@@ -51,6 +51,7 @@ public class GameReadyActivity extends Activity {
 
     int ability1 = -1, ability2 = -1, ability3 = -1, ability4 = -1;
     int stage;
+    int finalStar = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,9 @@ public class GameReadyActivity extends Activity {
         buttonReplay = (ImageButton) findViewById(R.id.gameReady_button_replay);
         buttonStage = (ImageButton) findViewById(R.id.gameReady_button_stage);
         buttonNext = (ImageButton) findViewById(R.id.gameReady_button_next);
-        textView = (TextView) findViewById(R.id.gameReady_textView_stage);
+        textViewStage = (TextView) findViewById(R.id.gameReady_textView_stage);
+        textViewFirst = (TextView) findViewById(R.id.gameReady_textView_firstClear);
+        textViewStar = (TextView) findViewById(R.id.gameReady_textView_star);
         linearLayoutReady = (LinearLayout) findViewById(R.id.gameReady_linearLayout_ready);
         linearLayoutResult = (LinearLayout) findViewById(R.id.gameReady_linearLayout_result);
         enemyPreView = (EnemyPreView) findViewById(R.id.gameReady_enemyPreview);
@@ -87,7 +90,7 @@ public class GameReadyActivity extends Activity {
         Intent intent = getIntent();
         stage = intent.getIntExtra("stage", 1);
 
-        textView.setText(textView.getText().toString() + " " + stage);
+        textViewStage.setText(textViewStage.getText().toString() + " " + stage);
 
         enemyPreView.setStage(stage);
         enemyPreView.setEnemyInfoHandler(enemyInfoHandler);
@@ -95,19 +98,19 @@ public class GameReadyActivity extends Activity {
         starCollectionView.setVisible(true);
 
         final byte[] abilityLevel = getAbilityLevel();
-        if (abilityLevel[0] != 0) {
+        if (abilityLevel[1] != 0) {
             buttonAbility1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_dash));
             ability1 = 0;
         }
-        if (abilityLevel[2] != 0) {
+        if (abilityLevel[3] != 0) {
             buttonAbility2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_hiding));
             ability2 = 0;
         }
-        if (abilityLevel[4] != 0) {
+        if (abilityLevel[5] != 0) {
             buttonAbility3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shadow));
             ability3 = 0;
         }
-        if (abilityLevel[6] != 0) {
+        if (abilityLevel[7] != 0) {
             buttonAbility4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shockwave));
             ability4 = 0;
         }
@@ -124,7 +127,7 @@ public class GameReadyActivity extends Activity {
         buttonAbility1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (abilityLevel[0] * abilityLevel[1] != 0) {
+                if (abilityLevel[1] * abilityLevel[2] != 0) {
                     ability1++;
                     ability1 %= 2;
                     if (ability1 % 2 == 0)
@@ -138,7 +141,7 @@ public class GameReadyActivity extends Activity {
         buttonAbility2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (abilityLevel[2] * abilityLevel[3] != 0) {
+                if (abilityLevel[3] * abilityLevel[4] != 0) {
                     ability2++;
                     ability2 %= 2;
                     if (ability2 % 2 == 0)
@@ -152,7 +155,7 @@ public class GameReadyActivity extends Activity {
         buttonAbility3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (abilityLevel[4] * abilityLevel[5] != 0) {
+                if (abilityLevel[5] * abilityLevel[6] != 0) {
                     ability3++;
                     ability3 %= 2;
                     if (ability3 % 2 == 0)
@@ -166,7 +169,7 @@ public class GameReadyActivity extends Activity {
         buttonAbility4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (abilityLevel[6] * abilityLevel[8] != 0) {
+                if (abilityLevel[7] * abilityLevel[9] != 0) {
                     ability4++;
                     ability4 %= 2;
                     if (ability4 % 2 == 0)
@@ -219,10 +222,15 @@ public class GameReadyActivity extends Activity {
                     linearLayoutResult.setVisibility(View.VISIBLE);
 
                     int previousStage = sharedPreferences.getInt("stage", 1);
-                    if (previousStage < stage + 1) {
+                    boolean firstClear = previousStage == stage;
+                    if (firstClear) {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("stage", stage + 1);
                         editor.apply();
+
+                        int[] open = getResources().getIntArray(R.array.abilityOpenStage);
+                        for (int i = 0; i < open.length; i++)
+                            if (open[i] == stage) ;
                     }
 
                     int starInitial = data.getIntExtra("starCollectionInitial", 0);
@@ -230,13 +238,12 @@ public class GameReadyActivity extends Activity {
                         starCollectionView.setStarCollect(i, true);
                     starCollectionView.invalidate();
 
-                    int starFinal = data.getIntExtra("starCollectionFinal", 0);
-                    if (starInitial < starFinal) {
-                        Message message = new Message();
-                        message.arg1 = starFinal;
-                        message.arg2 = starInitial;
-                        gameResultHandler.sendMessageDelayed(message, getResources().getInteger(R.integer.gameReadyStarShowDelay));
-                    }
+                    finalStar = data.getIntExtra("starCollectionFinal", 0);
+                    if (starInitial < finalStar)
+                        gameResultHandler.sendEmptyMessageDelayed(starInitial, getResources().getInteger(R.integer.gameReadyStarShowDelay));
+                    else
+                        finalStar = -1;
+
                     break;
                 case RESULT_STAGE:
                     intent.putExtra("result", StageSelectActivity.RESULT_FIN);
@@ -267,7 +274,8 @@ public class GameReadyActivity extends Activity {
             fileInputStream.read(arr);
             fileInputStream.close();
         } catch (IOException e) {
-            arr = new byte[10];
+            arr = new byte[11];
+            arr[0] = 1;
             try {
                 FileOutputStream fileOutputStream = openFileOutput("abilityLevel", MODE_PRIVATE);
                 fileOutputStream.write(arr);
@@ -292,16 +300,12 @@ public class GameReadyActivity extends Activity {
         startActivity(intent);
     }
 
-    void showStar(int finalStar, int current) {
+    void showStar(int current) {
         starCollectionView.setStarCollect(current, true);
         starCollectionView.invalidate();
         current++;
-        if (current < finalStar) {
-            Message message = new Message();
-            message.arg1 = finalStar;
-            message.arg2 = current;
-            gameResultHandler.sendMessageDelayed(message, getResources().getInteger(R.integer.gameReadyStarShowDelay));
-        }
+        if (current < finalStar)
+            gameResultHandler.sendEmptyMessageDelayed(current, getResources().getInteger(R.integer.gameReadyStarShowDelay));
     }
 }
 
@@ -342,6 +346,6 @@ class GameResultHandler extends Handler {
 
     @Override
     public void handleMessage(Message msg) {
-        gameReadyActivity.showStar(msg.arg1, msg.arg2);
+        gameReadyActivity.showStar(msg.what);
     }
 }

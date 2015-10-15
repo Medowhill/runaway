@@ -68,26 +68,21 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         paintGameOver = new Paint();
 
         getHolder().addCallback(this);
-
-        surfaceThread = new SurfaceThread();
     }
 
     // Override Method
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        float widthRatio = 1.f * w / WIDTH;
-        float heightRatio = 1.f * h / HEIGHT;
-        ratio = Math.min(widthRatio, heightRatio);
-    }
-
-    @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        surfaceThread = new SurfaceThread();
         surfaceThread.start();
     }
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        float widthRatio = 1.f * width / WIDTH;
+        float heightRatio = 1.f * height / HEIGHT;
+        ratio = Math.min(widthRatio, heightRatio);
     }
 
     @Override

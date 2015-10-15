@@ -115,10 +115,28 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <com.medowhill.jaemin.runaway.view.StarCollectionView
-                android:id="@+id/gameReady_starCollection"
-                android:layout_width="@dimen/gameReadyStarCollectionWidth"
-                android:layout_height="@dimen/gameReadyStarCollectionHeight"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+
+                <com.medowhill.jaemin.runaway.view.StarCollectionView
+                    android:id="@+id/gameReady_starCollection"
+                    android:layout_width="@dimen/gameReadyStarCollectionWidth"
+                    android:layout_height="@dimen/gameReadyStarCollectionHeight" />
+
+                <TextView
+                    android:id="@+id/gameReady_textView_firstClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/gameReadyFirstClear" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/gameReady_textView_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical" />
 
         </LinearLayout>

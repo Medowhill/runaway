@@ -6,6 +6,7 @@
     <string name="gameReadyEnemies">Enemies</string>
     <string name="gameReadySkillSlots">Skill Slots</string>
     <string name="gameReadyStage">STAGE</string>
+    <string name="gameReadyFirstClear">Stage Clear Bonus : +2</string>
 
     <string name="gameMenuRestart">Restart</string>
     <string name="gameMenuReselectAbilities">Reselect Abilities</string>

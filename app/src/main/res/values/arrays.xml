@@ -14,6 +14,41 @@
         <item>p,450,450/f,5850,450/s,4050,450/s,2250,450/s,3150,2250/e,d,2250,450/e,E,2250,1350/e,e,2250,2250/e,u,3150,2250/e,d,4050,450/e,E,4050,1350/e,e,4050,2250/w,2700,1800,3600,0,6300,900,4500,2700,1800,900,0,0</item>
     </string-array>
 
+    <!--Ability Open Stage-->
+    <integer-array name="abilityOpenStage">
+        <item>-1</item>
+        <item>3</item>
+        <item>26</item>
+        <item>13</item>
+        <item>37</item>
+        <item>51</item>
+        <item>76</item>
+        <item>62</item>
+        <item>91</item>
+    </integer-array>
+    <integer-array name="abilityLevelUpCost">
+        <item>4</item>
+        <item>3</item>
+        <item>5</item>
+        <item>4</item>
+        <item>6</item>
+        <item>7</item>
+        <item>9</item>
+        <item>8</item>
+        <item>10</item>
+    </integer-array>
+    <integer-array name="abilityLevelUpPossible">
+        <item>9</item>
+        <item>4</item>
+        <item>4</item>
+        <item>4</item>
+        <item>4</item>
+        <item>4</item>
+        <item>4</item>
+        <item>4</item>
+        <item>4</item>
+    </integer-array>
+
     <!--Abilities Values-->
     <!--Dash-->
     <integer-array name="dashPlayerFrame">

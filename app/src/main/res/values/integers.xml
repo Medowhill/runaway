@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Main View Size-->
+    <integer name="toWorldSelectButtonSize">540</integer>
+    <integer name="toWorldSelectButtonInnerSize">160</integer>
+    <integer name="toWorldSelectButtonSpeed">30</integer>
+    <integer name="toWorldSelectButtonMove">4</integer>
+    <integer name="toWorldSelectButtonCircleRadius">8</integer>
+
     <!--Stage Select View Size-->
     <integer name="decreasingRatio">5</integer>
     <integer name="boundaryStroke">5</integer>

@@ -258,7 +258,8 @@ public class GameActivity extends Activity {
                 fileInputStream.read(abilityLevel);
                 fileInputStream.close();
             } catch (IOException e) {
-                abilityLevel = new byte[10];
+                abilityLevel = new byte[11];
+                abilityLevel[0] = 1;
                 try {
                     FileOutputStream fileOutputStream = openFileOutput("abilityLevel", MODE_PRIVATE);
                     fileOutputStream.write(abilityLevel);
@@ -271,21 +272,21 @@ public class GameActivity extends Activity {
 
         switch (n) {
             case 0:
-                return new Dash(abilityLevel[0]);
+                return new Dash(abilityLevel[1]);
             case 1:
-                return new Teleportation(abilityLevel[1]);
+                return new Teleportation(abilityLevel[2]);
             case 2:
-                return new Hiding(abilityLevel[2], true);
+                return new Hiding(abilityLevel[3], true);
             case 3:
-                return new Protection(abilityLevel[3]);
+                return new Protection(abilityLevel[4]);
             case 4:
-                return new Shadow(abilityLevel[4]);
+                return new Shadow(abilityLevel[5]);
             case 5:
-                return new Illusion(abilityLevel[5]);
+                return new Illusion(abilityLevel[6]);
             case 6:
-                return new ShockWave(abilityLevel[6], abilityLevel[7], true);
+                return new ShockWave(abilityLevel[7], abilityLevel[8], true);
             default:
-                return new DistortionField(abilityLevel[8], abilityLevel[9]);
+                return new DistortionField(abilityLevel[9], abilityLevel[10]);
         }
     }
 

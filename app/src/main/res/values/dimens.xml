@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="mainToWorldSelectButtonSize">150dp</dimen>
+
     <dimen name="gameDirectionControlSize">140dp</dimen>
     <dimen name="gameAbilityButtonSize">65dp</dimen>
     <dimen name="gameMenuWidth">300dp</dimen>
@@ -24,6 +26,8 @@
     <dimen name="gameReadyResultButtonMargin">55dp</dimen>
     <dimen name="gameReadyStarCollectionWidth">300dp</dimen>
     <dimen name="gameReadyStarCollectionHeight">100dp</dimen>
+    <dimen name="gameReadyFirstClearTextSize">20sp</dimen>
+    <dimen name="gameReadyStarTextSize">75sp</dimen>
 
     <dimen name="enemyInfoEnemyNameSize">40sp</dimen>
     <dimen name="enemyInfoEnemyStatusTitleSize">25sp</dimen>
