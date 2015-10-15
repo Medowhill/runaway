@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen">
+        android:theme="@style/appTheme">
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="landscape">
@@ -17,12 +17,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.WorldSelectActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/dialogTheme"></activity>
+        <activity
             android:name=".activity.StageSelectActivity"
             android:screenOrientation="landscape"></activity>
         <activity
             android:name=".activity.GameReadyActivity"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"></activity>
+            android:theme="@style/dialogTheme"></activity>
         <activity
             android:name=".activity.GameActivity"
             android:screenOrientation="landscape"></activity>

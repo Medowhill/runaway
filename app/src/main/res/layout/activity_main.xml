@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_background">
@@ -9,5 +10,39 @@
         android:layout_width="@dimen/mainToWorldSelectButtonSize"
         android:layout_height="@dimen/mainToWorldSelectButtonSize"
         android:layout_gravity="center" />
+
+    <ImageView
+        android:id="@+id/main_imageView"
+        android:layout_width="@dimen/mainToWorldSelectButtonSize"
+        android:layout_height="@dimen/mainToWorldSelectButtonSize"
+        android:layout_gravity="center"
+        android:background="@drawable/main_button_background"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/main_button_upgrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_upgrade" />
+
+        <ImageButton
+            android:id="@+id/main_button_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_setting" />
+
+        <ImageButton
+            android:id="@+id/main_button_credit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_credit" />
+
+    </LinearLayout>
 
 </FrameLayout>

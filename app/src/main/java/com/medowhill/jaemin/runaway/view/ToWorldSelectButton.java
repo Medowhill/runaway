@@ -66,8 +66,10 @@ public class ToWorldSelectButton extends SurfaceView implements SurfaceHolder.Ca
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        surfaceThread = new SurfaceThread();
-        surfaceThread.start();
+        if (surfaceThread == null) {
+            surfaceThread = new SurfaceThread();
+            surfaceThread.start();
+        }
     }
 
     @Override
@@ -86,6 +88,7 @@ public class ToWorldSelectButton extends SurfaceView implements SurfaceHolder.Ca
             } catch (InterruptedException e) {
             }
         }
+        surfaceThread = null;
     }
 
     // Surface Thread

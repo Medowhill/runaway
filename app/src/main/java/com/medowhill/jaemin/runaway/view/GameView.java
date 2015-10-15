@@ -48,6 +48,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private SurfaceThread surfaceThread;
 
+    private boolean gameStart = false, pause = false;
+    private boolean gamePrepare = false, gameFinish = false, gameSuccess = false, gameFail = false;
+    private long lastTime;
+    private int fadingFrame;
+
     // Constructor
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -74,8 +79,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        surfaceThread = new SurfaceThread();
-        surfaceThread.start();
+        if (surfaceThread == null) {
+            surfaceThread = new SurfaceThread();
+            surfaceThread.start();
+        }
     }
 
     @Override
@@ -97,6 +104,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             } catch (InterruptedException e) {
             }
         }
+        surfaceThread = null;
     }
 
     // Getter & Setter
@@ -134,38 +142,35 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public boolean getPause() {
-        return surfaceThread.pause;
+        return pause;
     }
 
     public void setPause(boolean pause) {
         if (isPlaying())
-            surfaceThread.pause = pause;
+            this.pause = pause;
     }
 
     public boolean isPlaying() {
-        return !surfaceThread.gameFinish && !surfaceThread.gamePrepare;
+        return !gameFinish && !gamePrepare;
     }
 
     // Game Play method
 
     public void restartGame() {
-        surfaceThread.gameFinish = true;
+        gameFinish = true;
     }
 
     public void startGame() {
-        surfaceThread.gameStart = true;
-        surfaceThread.gamePrepare = true;
-        surfaceThread.lastTime = System.currentTimeMillis();
+        gameStart = true;
+        gamePrepare = true;
+        lastTime = System.currentTimeMillis();
     }
 
     // Surface Thread
     private class SurfaceThread extends Thread {
 
         SurfaceHolder surfaceHolder;
-        boolean run = true, gameStart = false, pause = false;
-        boolean gamePrepare = false, gameFinish = false, gameSuccess = false, gameFail = false;
-        long lastTime;
-        int fadingFrame;
+        boolean run = true;
 
         public SurfaceThread() {
             surfaceHolder = getHolder();
