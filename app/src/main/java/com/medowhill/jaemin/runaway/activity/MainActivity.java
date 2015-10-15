@@ -46,8 +46,6 @@ public class MainActivity extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Intent intent = new Intent(getApplicationContext(), WorldSelectActivity.class);
-                startActivityForResult(intent, 0);
             }
 
             @Override
@@ -76,6 +74,9 @@ public class MainActivity extends Activity {
                 imageView.setVisibility(View.VISIBLE);
                 toWorldSelectButton.setVisibility(View.INVISIBLE);
                 frameLayout.startAnimation(animationToWorldSelect);
+
+                Intent intent = new Intent(getApplicationContext(), WorldSelectActivity.class);
+                startActivityForResult(intent, 0);
             }
         });
 

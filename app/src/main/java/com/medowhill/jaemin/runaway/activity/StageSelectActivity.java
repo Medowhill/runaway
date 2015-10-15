@@ -63,6 +63,9 @@ public class StageSelectActivity extends Activity {
                             resumeActivityHandler.sendEmptyMessageDelayed(0, WAIT);
                         break;
                     case RESULT_MAIN:
+                        Intent intent = new Intent();
+                        intent.putExtra("result", WorldSelectActivity.RESULT_MAIN);
+                        setResult(RESULT_OK, intent);
                         finish();
                         break;
                 }

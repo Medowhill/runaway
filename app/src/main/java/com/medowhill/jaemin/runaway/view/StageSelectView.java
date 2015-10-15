@@ -69,13 +69,13 @@ public class StageSelectView extends View {
     public StageSelectView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        DECREASING_RATIO = getResources().getInteger(R.integer.decreasingRatio);
+        DECREASING_RATIO = getResources().getInteger(R.integer.stageSelectDecreasingRatio);
         WIDTH = getResources().getInteger(R.integer.gameWidth);
-        BOUNDARY_STROKE = getResources().getInteger(R.integer.boundaryStroke);
-        BOUNDARY_RADIUS = getResources().getInteger(R.integer.boundaryRadius);
-        BOUNDARY_MARGIN = getResources().getInteger(R.integer.boundaryMargin);
-        SHADOW_SIZE = getResources().getInteger(R.integer.shadowSize);
-        MAX_POINTER_MOVE = getResources().getInteger(R.integer.maxPointerMove);
+        BOUNDARY_STROKE = getResources().getInteger(R.integer.stageSelectBoundaryStroke);
+        BOUNDARY_RADIUS = getResources().getInteger(R.integer.stageSelectBoundaryRadius);
+        BOUNDARY_MARGIN = getResources().getInteger(R.integer.stageSelectBoundaryMargin);
+        SHADOW_SIZE = getResources().getInteger(R.integer.stageSelectShadowSize);
+        MAX_POINTER_MOVE = getResources().getInteger(R.integer.stageSelectMaxPointerMove);
 
         FRAME = getResources().getInteger(R.integer.frame);
         FRAME_LENGTH = 1000 / FRAME;

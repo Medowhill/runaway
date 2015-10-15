@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--Main View-->
+    <!--Main Activity-->
     <integer name="toWorldSelectButtonSize">540</integer>
     <integer name="toWorldSelectButtonInnerSize">160</integer>
     <integer name="toWorldSelectButtonSpeed">22</integer>
@@ -10,13 +10,18 @@
     <integer name="toWorldSelectAnimationDuration">400</integer>
     <integer name="fromWorldSelectAnimationDuration">400</integer>
 
-    <!--Stage Select View Size-->
-    <integer name="decreasingRatio">5</integer>
-    <integer name="boundaryStroke">5</integer>
-    <integer name="boundaryRadius">5</integer>
-    <integer name="boundaryMargin">200</integer>
-    <integer name="shadowSize">7</integer>
-    <integer name="maxPointerMove">3</integer>
+    <!--World Select View-->
+    <integer name="worldSelectViewSize">1000</integer>
+    <integer name="worldSelectShadowSize">10</integer>
+    <integer name="worldSelectClickedDistance">5</integer>
+
+    <!--Stage Select View-->
+    <integer name="stageSelectDecreasingRatio">5</integer>
+    <integer name="stageSelectBoundaryStroke">5</integer>
+    <integer name="stageSelectBoundaryRadius">5</integer>
+    <integer name="stageSelectBoundaryMargin">200</integer>
+    <integer name="stageSelectShadowSize">7</integer>
+    <integer name="stageSelectMaxPointerMove">3</integer>
 
     <!--Game Ready Activity-->
     <integer name="gameReadyFadeOutDuration">1000</integer>

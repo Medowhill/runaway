@@ -3,6 +3,8 @@
 
     <dimen name="mainToWorldSelectButtonSize">150dp</dimen>
 
+    <dimen name="worldSelectWorldSelectViewSize">300dp</dimen>
+
     <dimen name="gameDirectionControlSize">140dp</dimen>
     <dimen name="gameAbilityButtonSize">65dp</dimen>
     <dimen name="gameMenuWidth">300dp</dimen>
