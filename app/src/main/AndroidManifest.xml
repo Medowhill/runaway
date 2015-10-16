@@ -17,6 +17,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.UpgradeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/dialogTheme"></activity>
+        <activity
             android:name=".activity.WorldSelectActivity"
             android:screenOrientation="landscape"
             android:theme="@style/dialogTheme"></activity>

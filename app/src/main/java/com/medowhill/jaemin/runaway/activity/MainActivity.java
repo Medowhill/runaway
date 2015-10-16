@@ -80,13 +80,13 @@ public class MainActivity extends Activity {
             }
         });
 
-//        buttonUpgrade.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), .class);
-//                startActivity(intent);
-//            }
-//        });
+        buttonUpgrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), UpgradeActivity.class);
+                startActivity(intent);
+            }
+        });
 
 //        buttonSetting.setOnClickListener(new View.OnClickListener() {
 //            @Override

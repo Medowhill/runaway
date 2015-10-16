@@ -10,6 +10,10 @@
     <integer name="toWorldSelectAnimationDuration">400</integer>
     <integer name="fromWorldSelectAnimationDuration">400</integer>
 
+    <!--Upgrade Activity-->
+    <integer name="upgradeActivityStartAnimationDuration">400</integer>
+    <integer name="upgradeActivityFinishAnimationDuration">400</integer>
+
     <!--World Select View-->
     <integer name="worldSelectViewSize">1000</integer>
     <integer name="worldSelectShadowSize">10</integer>

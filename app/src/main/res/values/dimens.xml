@@ -3,6 +3,16 @@
 
     <dimen name="mainToWorldSelectButtonSize">150dp</dimen>
 
+    <dimen name="upgradeScrollViewWidth">480dp</dimen>
+    <dimen name="upgradeUpgradeViewMargin">5dp</dimen>
+    <dimen name="upgradeUpgradeViewHeight">75dp</dimen>
+    <dimen name="upgradeBitmapMargin">7dp</dimen>
+    <dimen name="upgradeBackgroundRadius">5dp</dimen>
+    <dimen name="upgradeInfoTextSize">20sp</dimen>
+    <dimen name="upgradeInfoLevelSize">25sp</dimen>
+    <dimen name="upgradeInfoMaxSize">20sp</dimen>
+    <dimen name="upgradeStrokeWidth">2dp</dimen>
+
     <dimen name="worldSelectWorldSelectViewSize">300dp</dimen>
 
     <dimen name="gameDirectionControlSize">140dp</dimen>

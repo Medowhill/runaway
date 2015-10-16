@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <integer-array name="upgradeIcon">
+        <item>@drawable/main_upgrade_normal</item>
+        <item>@drawable/ability_icon_dash</item>
+        <item>@drawable/ability_icon_teleportation</item>
+        <item>@drawable/ability_icon_hiding</item>
+        <item>@drawable/ability_icon_protection</item>
+        <item>@drawable/ability_icon_illusion</item>
+        <item>@drawable/ability_icon_shadow</item>
+        <item>@drawable/ability_icon_shockwave</item>
+        <item>@drawable/ability_icon_shockwave</item>
+        <item>@drawable/ability_icon_distortionfield</item>
+        <item>@drawable/ability_icon_distortionfield</item>
+    </integer-array>
+
+    <integer-array name="upgradeMaxLevel">
+        <item>10</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+    </integer-array>
+
+    <string-array name="upgradeInfo">
+        <item>이동 속력이 상승합니다.</item>
+        <item>질주 스킬의 이동에 소요되는 시간이 짧아집니다.</item>
+        <item>공간 도약 스킬의 사용에 필요한 준비 시간이 짧아집니다.</item>
+        <item>은신 스킬의 지속 시간이 길어집니다.</item>
+        <item>방어막 스킬의 지속 시간이 길어집니다.</item>
+        <item>환영 스킬의 지속 시간이 길어집니다.</item>
+        <item>그림자 스킬의 지속 시간이 길어집니다.</item>
+        <item>충격파 스킬의 사정 거리가 길어집니다.</item>
+        <item>충격파 스킬이 적을 밀쳐내는 길이가 길어집니다.</item>
+        <item>시공간 왜곡 스킬이 영향을 미치는 범위가 넓어집니다.</item>
+        <item>시공간 왜곡 스킬이 적이 더 느려지도록 만듭니다.</item>
+    </string-array>
+
     <string-array name="worldShape">
         <item>50,50,250,950</item>
         <item>300,50,650,300</item>

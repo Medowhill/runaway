@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="@dimen/upgradeScrollViewWidth"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.medowhill.jaemin.runaway.view.UpgradeView
+                android:id="@+id/upgrade_upgrade0"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/upgradeUpgradeViewHeight"
+                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
+
+            <com.medowhill.jaemin.runaway.view.UpgradeView
+                android:id="@+id/upgrade_upgrade1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/upgradeUpgradeViewHeight"
+                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
+
+            <com.medowhill.jaemin.runaway.view.UpgradeView
+                android:id="@+id/upgrade_upgrade2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/upgradeUpgradeViewHeight"
+                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
+
+            <com.medowhill.jaemin.runaway.view.UpgradeView
+                android:id="@+id/upgrade_upgrade3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/upgradeUpgradeViewHeight"
+                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
+
+            <com.medowhill.jaemin.runaway.view.UpgradeView
+                android:id="@+id/upgrade_upgrade4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/upgradeUpgradeViewHeight"
+                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
+
+            <com.medowhill.jaemin.runaway.view.UpgradeView
+                android:id="@+id/upgrade_upgrade5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/upgradeUpgradeViewHeight"
+                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
+
+            <com.medowhill.jaemin.runaway.view.UpgradeView
+                android:id="@+id/upgrade_upgrade6"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/upgradeUpgradeViewHeight"
+                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
+
+            <com.medowhill.jaemin.runaway.view.UpgradeView
+                android:id="@+id/upgrade_upgrade7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/upgradeUpgradeViewHeight"
+                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
+
+            <com.medowhill.jaemin.runaway.view.UpgradeView
+                android:id="@+id/upgrade_upgrade8"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/upgradeUpgradeViewHeight"
+                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
+
+            <com.medowhill.jaemin.runaway.view.UpgradeView
+                android:id="@+id/upgrade_upgrade9"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/upgradeUpgradeViewHeight"
+                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
+
+            <com.medowhill.jaemin.runaway.view.UpgradeView
+                android:id="@+id/upgrade_upgrade10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/upgradeUpgradeViewHeight"
+                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

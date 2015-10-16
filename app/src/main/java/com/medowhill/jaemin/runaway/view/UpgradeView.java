@@ -1,0 +1,131 @@
+package com.medowhill.jaemin.runaway.view;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.util.AttributeSet;
+import android.view.View;
+
+import com.medowhill.jaemin.runaway.R;
+
+/**
+ * Created by Jaemin on 2015-10-16.
+ */
+public class UpgradeView extends View {
+
+    private final TypedArray BITMAP_RESOURCE;
+    private final String[] UPGRADE_INFO;
+    private final int[] MAX_LEVEL;
+
+    private final int BITMAP_MARGIN, BACKGROUND_RADIUS;
+
+    private int width, height;
+
+    private int upgrade = -1;
+
+    private Bitmap icon;
+
+    private RectF[] rects;
+
+    private RectF rectBackground;
+
+    private String stringLevel, stringMaxLevel;
+    private int level;
+
+    private Paint paintBackground, paintLevel, paintMaxLevel, paintInfo, paintFill, paintStroke;
+
+    public UpgradeView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+
+        BITMAP_RESOURCE = getResources().obtainTypedArray(R.array.upgradeIcon);
+        UPGRADE_INFO = getResources().getStringArray(R.array.upgradeInfo);
+        MAX_LEVEL = getResources().getIntArray(R.array.upgradeMaxLevel);
+
+        BITMAP_MARGIN = getResources().getDimensionPixelSize(R.dimen.upgradeBitmapMargin);
+        BACKGROUND_RADIUS = getResources().getDimensionPixelSize(R.dimen.upgradeBackgroundRadius);
+
+        stringLevel = getResources().getString(R.string.upgradeLevel);
+        stringMaxLevel = getResources().getString(R.string.upgradeMaxLevel);
+
+        rectBackground = new RectF(0, 0, getWidth(), getHeight());
+
+        paintBackground = new Paint();
+        paintBackground.setColor(getResources().getColor(R.color.upgradeBackground));
+
+        paintLevel = new Paint();
+        paintLevel.setTextSize(getResources().getDimension(R.dimen.upgradeInfoLevelSize));
+
+        paintMaxLevel = new Paint();
+        paintMaxLevel.setTextSize(getResources().getDimension(R.dimen.upgradeInfoMaxSize));
+
+        paintInfo = new Paint();
+        paintInfo.setTextSize(getResources().getDimension(R.dimen.upgradeInfoTextSize));
+
+        paintFill = new Paint();
+        paintFill.setColor(getResources().getColor(R.color.upgradeFill));
+
+        paintStroke = new Paint();
+        paintStroke.setColor(getResources().getColor(R.color.upgradeStroke));
+        paintStroke.setStyle(Paint.Style.STROKE);
+        paintStroke.setStrokeWidth(getResources().getDimension(R.dimen.upgradeStrokeWidth));
+        paintStroke.setStrokeCap(Paint.Cap.SQUARE);
+    }
+
+    public void setUpgrade(int upgrade, int level) {
+        this.upgrade = upgrade;
+        this.level = level;
+
+        makeObjects();
+    }
+
+    private void makeObjects() {
+        if (icon != null) {
+            icon.recycle();
+            icon = null;
+        }
+        rects = null;
+
+        if (0 <= upgrade && upgrade < BITMAP_RESOURCE.length()) {
+            Bitmap temp = BitmapFactory.decodeResource(getResources(), BITMAP_RESOURCE.getResourceId(upgrade, -1));
+            int size = height - 2 * BITMAP_MARGIN;
+            icon = Bitmap.createScaledBitmap(temp, size, size, false);
+            temp.recycle();
+
+            rects = new RectF[MAX_LEVEL[upgrade]];
+            for (int i = 0; i < rects.length; i++)
+                rects[i] = new RectF(height, height / 2, height + (width - height) * (i + 1) / rects.length, height);
+        }
+
+        rectBackground = new RectF(0, 0, width, height);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        width = w;
+        height = h;
+
+        makeObjects();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        canvas.drawRoundRect(rectBackground, BACKGROUND_RADIUS, BACKGROUND_RADIUS, paintBackground);
+
+        if (icon != null)
+            canvas.drawBitmap(icon, BITMAP_MARGIN, BITMAP_MARGIN, null);
+
+        if (upgrade != -1)
+            canvas.drawText(UPGRADE_INFO[upgrade], getHeight(), getHeight() / 2, paintInfo);
+
+        if (rects != null) {
+            for (int i = 0; i < Math.min(rects.length, level); i++)
+                canvas.drawRect(rects[i], paintFill);
+            for (int i = 0; i < rects.length; i++)
+                canvas.drawRect(rects[i], paintStroke);
+        }
+    }
+}
