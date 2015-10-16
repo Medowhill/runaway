@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
@@ -34,6 +35,7 @@ public class UpgradeView extends View {
     private RectF rectBackground;
 
     private String stringLevel, stringMaxLevel;
+    private int stringInfoHeight;
     private int level;
 
     private Paint paintBackground, paintLevel, paintMaxLevel, paintInfo, paintFill, paintStroke;
@@ -97,7 +99,13 @@ public class UpgradeView extends View {
 
             rects = new RectF[MAX_LEVEL[upgrade]];
             for (int i = 0; i < rects.length; i++)
-                rects[i] = new RectF(height, height / 2, height + (width - height) * (i + 1) / rects.length, height);
+                rects[i] = new RectF(height, height / 2 + BITMAP_MARGIN,
+                        height + (width - BITMAP_MARGIN - height) * (i + 1) / rects.length, height - BITMAP_MARGIN);
+
+            Rect bounds = new Rect();
+            String text = UPGRADE_INFO[upgrade];
+            paintInfo.getTextBounds(text, 0, text.length(), bounds);
+            stringInfoHeight = bounds.height();
         }
 
         rectBackground = new RectF(0, 0, width, height);
@@ -119,7 +127,7 @@ public class UpgradeView extends View {
             canvas.drawBitmap(icon, BITMAP_MARGIN, BITMAP_MARGIN, null);
 
         if (upgrade != -1)
-            canvas.drawText(UPGRADE_INFO[upgrade], getHeight(), getHeight() / 2, paintInfo);
+            canvas.drawText(UPGRADE_INFO[upgrade], getHeight(), BITMAP_MARGIN / 2 + getHeight() / 4 + stringInfoHeight / 2, paintInfo);
 
         if (rects != null) {
             for (int i = 0; i < Math.min(rects.length, level); i++)

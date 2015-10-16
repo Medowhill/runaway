@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="upgradeBackground">#c0c0c0</color>
+    <color name="upgradeBackground">#dddddd</color>
     <color name="upgradeFill">#d0d030</color>
     <color name="upgradeStroke">#333333</color>
 
