@@ -16,7 +16,7 @@ public class UpgradeActivity extends Activity {
 
     final int[] ID = new int[]{R.id.upgrade_upgrade0, R.id.upgrade_upgrade1, R.id.upgrade_upgrade2,
             R.id.upgrade_upgrade3, R.id.upgrade_upgrade4, R.id.upgrade_upgrade5, R.id.upgrade_upgrade6,
-            R.id.upgrade_upgrade7, R.id.upgrade_upgrade8, R.id.upgrade_upgrade9, R.id.upgrade_upgrade10};
+            R.id.upgrade_upgrade7, R.id.upgrade_upgrade8};
 
     UpgradeView[] upgradeViews;
 

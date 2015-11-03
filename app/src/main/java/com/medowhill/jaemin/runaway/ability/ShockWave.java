@@ -26,17 +26,17 @@ public class ShockWave extends Ability {
 
     private final boolean player;
 
-    public ShockWave(int levelRange, int levelDistance, boolean player) {
+    public ShockWave(int levelDistance, boolean player) {
         super(R.drawable.ability_icon_shockwave, context.getResources().getString(R.string.abilityShockWaveName));
 
         if (player) {
             WAITING_FRAME = context.getResources().getInteger(R.integer.shockWavePlayerCool);
-            range = context.getResources().getIntArray(R.array.shockWavePlayerRange)[levelRange - 1];
+            range = context.getResources().getInteger(R.integer.shockWavePlayerRange);
             distance = context.getResources().getIntArray(R.array.shockWavePlayerDistance)[levelDistance - 1];
             frame = context.getResources().getInteger(R.integer.shockWavePlayerFrame);
         } else {
             WAITING_FRAME = context.getResources().getInteger(R.integer.shockWaveEnemyCool);
-            range = context.getResources().getIntArray(R.array.shockWaveEnemyRange)[levelRange - 1];
+            range = context.getResources().getInteger(R.integer.shockWaveEnemyRange);
             distance = context.getResources().getIntArray(R.array.shockWaveEnemyDistance)[levelDistance - 1];
             frame = context.getResources().getInteger(R.integer.shockWaveEnemyFrame);
         }

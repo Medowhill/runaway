@@ -18,7 +18,7 @@ public class UpQuark extends Enemy {
                 context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.upQuarkSight),
                 context.getResources().getString(R.string.enemyUpQuarkName), 'u');
 
-        ShockWave shockWave = new ShockWave(1, 1, false);
+        ShockWave shockWave = new ShockWave(1, false);
         abilities.add(shockWave);
         range = shockWave.getRange();
     }

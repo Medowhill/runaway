@@ -149,10 +149,13 @@
     <integer name="teleportationEnemyFrame">10</integer>
 
     <integer name="shockWavePlayerFrame">10</integer>
-    <integer name="shockWaveStrokeWidth">8</integer>
+    <integer name="shockWavePlayerRange">700</integer>
     <integer name="shockWaveEnemyFrame">5</integer>
+    <integer name="shockWaveEnemyRange">700</integer>
+    <integer name="shockWaveStrokeWidth">8</integer>
 
     <integer name="distortionFieldPlayerFrame">80</integer>
+    <integer name="distortionFieldPlayerRange">450</integer>
     <integer name="distortionFieldEnemyFrame">80</integer>
     <integer name="distortionFieldEnemyRange">400</integer>
     <integer name="distortionFieldEnemyDSpeed">-50</integer>

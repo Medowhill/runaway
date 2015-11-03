@@ -18,7 +18,7 @@ public class TopQuark extends Enemy {
                 context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.topQuarkSight),
                 context.getResources().getString(R.string.enemyTopQuarkName), 'q');
 
-        ShockWave shockWave = new ShockWave(1, 1, false);
+        ShockWave shockWave = new ShockWave(2, false);
         abilities.add(shockWave);
         range = shockWave.getRange();
     }

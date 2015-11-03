@@ -258,7 +258,7 @@ public class GameActivity extends Activity {
                 fileInputStream.read(abilityLevel);
                 fileInputStream.close();
             } catch (IOException e) {
-                abilityLevel = new byte[11];
+                abilityLevel = new byte[9];
                 abilityLevel[0] = 1;
                 try {
                     FileOutputStream fileOutputStream = openFileOutput("abilityLevel", MODE_PRIVATE);
@@ -284,9 +284,9 @@ public class GameActivity extends Activity {
             case 5:
                 return new Illusion(abilityLevel[6]);
             case 6:
-                return new ShockWave(abilityLevel[7], abilityLevel[8], true);
+                return new ShockWave(abilityLevel[7], true);
             default:
-                return new DistortionField(abilityLevel[9], abilityLevel[10]);
+                return new DistortionField(abilityLevel[8]);
         }
     }
 

@@ -10,15 +10,11 @@
         <item>@drawable/ability_icon_illusion</item>
         <item>@drawable/ability_icon_shadow</item>
         <item>@drawable/ability_icon_shockwave</item>
-        <item>@drawable/ability_icon_shockwave</item>
-        <item>@drawable/ability_icon_distortionfield</item>
         <item>@drawable/ability_icon_distortionfield</item>
     </integer-array>
 
     <integer-array name="upgradeMaxLevel">
         <item>10</item>
-        <item>5</item>
-        <item>5</item>
         <item>5</item>
         <item>5</item>
         <item>5</item>
@@ -37,10 +33,20 @@
         <item>방어막 스킬의 지속 시간이 길어집니다.</item>
         <item>환영 스킬의 지속 시간이 길어집니다.</item>
         <item>그림자 스킬의 지속 시간이 길어집니다.</item>
-        <item>충격파 스킬의 사정 거리가 길어집니다.</item>
         <item>충격파 스킬이 적을 밀쳐내는 길이가 길어집니다.</item>
-        <item>시공간 왜곡 스킬이 영향을 미치는 범위가 넓어집니다.</item>
         <item>시공간 왜곡 스킬이 적이 더 느려지도록 만듭니다.</item>
+    </string-array>
+
+    <string-array name="abilityName">
+        <item></item>
+        <item>Dash</item>
+        <item>Teleportation</item>
+        <item>Hiding</item>
+        <item>Protection</item>
+        <item>Illusion</item>
+        <item>Shadow</item>
+        <item>Shockwave</item>
+        <item>Distortion Field</item>
     </string-array>
 
     <string-array name="worldShape">
@@ -178,13 +184,6 @@
         <item>80</item>
     </integer-array>
     <!--ShockWave-->
-    <integer-array name="shockWavePlayerRange">
-        <item>600</item>
-        <item>650</item>
-        <item>700</item>
-        <item>750</item>
-        <item>800</item>
-    </integer-array>
     <integer-array name="shockWavePlayerDistance">
         <item>600</item>
         <item>650</item>
@@ -192,22 +191,11 @@
         <item>750</item>
         <item>800</item>
     </integer-array>
-    <integer-array name="shockWaveEnemyRange">
-        <item>500</item>
-        <item>700</item>
-    </integer-array>
     <integer-array name="shockWaveEnemyDistance">
         <item>-300</item>
         <item>-500</item>
     </integer-array>
     <!--DistortionField-->
-    <integer-array name="distortionFieldPlayerRange">
-        <item>400</item>
-        <item>450</item>
-        <item>500</item>
-        <item>550</item>
-        <item>600</item>
-    </integer-array>
     <integer-array name="distortionFieldPlayerDSpeed">
         <item>-50</item>
         <item>-55</item>

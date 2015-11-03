@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.view.EnemyPreView;
@@ -243,8 +244,48 @@ public class GameReadyActivity extends Activity {
 
                         int[] open = getResources().getIntArray(R.array.abilityOpenStage);
                         for (int i = 0; i < open.length; i++) {
-                            if (open[i] == stage) {
+                            if (open[i] == world * 25 + stage) {
+                                byte[] abilityLevel = null;
+                                try {
+                                    FileInputStream fileInputStream = openFileInput("abilityLevel");
+                                    abilityLevel = new byte[fileInputStream.available()];
+                                    fileInputStream.read(abilityLevel);
+                                    fileInputStream.close();
+                                } catch (IOException e) {
+                                    abilityLevel = new byte[9];
+                                    abilityLevel[0] = 1;
+                                }
 
+                                abilityLevel[i] = 1;
+                                try {
+                                    FileOutputStream fileOutputStream = openFileOutput("abilityLevel", MODE_PRIVATE);
+                                    fileOutputStream.write(abilityLevel);
+                                    fileOutputStream.flush();
+                                    fileOutputStream.close();
+                                } catch (IOException e1) {
+                                }
+
+                                switch (i) {
+                                    case 1:
+                                        buttonAbility1.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_dash));
+                                        ability1 = 0;
+                                        break;
+                                    case 3:
+                                        buttonAbility2.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_hiding));
+                                        ability2 = 0;
+                                        break;
+                                    case 5:
+                                        buttonAbility3.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shadow));
+                                        ability3 = 0;
+                                        break;
+                                    case 7:
+                                        buttonAbility4.setBackgroundDrawable(getResources().getDrawable(R.drawable.ability_icon_shockwave));
+                                        ability4 = 0;
+                                        break;
+                                }
+
+                                Toast.makeText(getApplicationContext(), getResources().getStringArray(R.array.abilityName)[i], Toast.LENGTH_LONG).show();
+                                break;
                             }
                         }
                         star += 2;

@@ -67,18 +67,6 @@
                 android:layout_height="@dimen/upgradeUpgradeViewHeight"
                 android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
 
-            <com.medowhill.jaemin.runaway.view.UpgradeView
-                android:id="@+id/upgrade_upgrade9"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/upgradeUpgradeViewHeight"
-                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
-
-            <com.medowhill.jaemin.runaway.view.UpgradeView
-                android:id="@+id/upgrade_upgrade10"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/upgradeUpgradeViewHeight"
-                android:layout_marginBottom="@dimen/upgradeUpgradeViewMargin" />
-
         </LinearLayout>
 
     </ScrollView>
