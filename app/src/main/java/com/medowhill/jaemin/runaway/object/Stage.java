@@ -189,7 +189,7 @@ public class Stage {
                     if (!forPreview) {
                         x = Float.parseFloat(datas[1]);
                         y = Float.parseFloat(datas[2]);
-                        Star star = new Star(this, x, y, true);
+                        Star star = new Star(this, x, y);
                         stars.add(star);
                     }
                     break;

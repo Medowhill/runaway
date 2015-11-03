@@ -1,6 +1,8 @@
 package com.medowhill.jaemin.runaway.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
@@ -16,23 +18,32 @@ public class StarCollectionView extends View {
     private final float SIZE_RATIO = 0.8f, SIZE;
 
     private float ratio;
-    private Star[] stars;
+    private boolean[] stars;
 
     private boolean visible = false;
+
+    private Bitmap bitmapCollect, bitmapNotCollect;
 
     public StarCollectionView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         SIZE = getResources().getInteger(R.integer.baseSize) * getResources().getInteger(R.integer.starSize) * 2 / SIZE_RATIO;
 
-        stars = new Star[3];
-        for (int i = 0; i < stars.length; i++)
-            stars[i] = new Star(null, SIZE * (2 * i + 1) / 2, SIZE / 2);
+        stars = new boolean[3];
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         ratio = w / (SIZE * stars.length);
+
+
+        Bitmap temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.star_collect);
+        bitmapCollect = Bitmap.createScaledBitmap(temp, (int) (RADIUS * 2), (int) (RADIUS * 2), false);
+        temp.recycle();
+
+        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.star_uncollect);
+        bitmapNotCollect = Bitmap.createScaledBitmap(temp, (int) (RADIUS * 2), (int) (RADIUS * 2), false);
+        temp.recycle();
     }
 
     @Override
@@ -45,14 +56,18 @@ public class StarCollectionView extends View {
         }
     }
 
+    public int size() {
+        return stars.length;
+    }
+
     public void setStarCollect(int index, boolean collect) {
         if (0 <= index && index < stars.length)
-            stars[index].setCollect(collect);
+            stars[index] = collect;
     }
 
     public void initialize(boolean[] starCollection) {
         for (int i = 0; i < stars.length; i++)
-            stars[i].setCollect(starCollection[i]);
+            stars[i] = starCollection[i];
         invalidate();
     }
 

@@ -112,6 +112,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:orientation="horizontal">
 
@@ -130,7 +131,7 @@
                     android:id="@+id/gameReady_textView_firstClear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center"
                     android:text="@string/gameReadyFirstClear"
                     android:textColor="@color/gameReadyFirstClearText"
                     android:textSize="@dimen/gameReadyFirstClearTextSize"
@@ -139,9 +140,10 @@
 
             <TextView
                 android:id="@+id/gameReady_textView_star"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/gameReadyStarTextWidth"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:textColor="@color/gameReadyStarText"
                 android:textSize="@dimen/gameReadyStarTextSize" />
 

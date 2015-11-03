@@ -51,6 +51,9 @@ public class GameReadyActivity extends Activity {
     int ability1 = -1, ability2 = -1, ability3 = -1, ability4 = -1;
     int stage, world;
     int finalStar = -1;
+    int showingTotalStar, finalTotalStar;
+    boolean firstClear;
+    int delay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,8 @@ public class GameReadyActivity extends Activity {
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        delay = getResources().getInteger(R.integer.gameReadyStarShowDelay);
 
         buttonStart = (Button) findViewById(R.id.gameReady_button_start);
         buttonAbility1 = (ImageButton) findViewById(R.id.gameReady_button_ability1);
@@ -183,6 +188,7 @@ public class GameReadyActivity extends Activity {
         buttonReplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finalStarView();
                 linearLayoutReady.setVisibility(View.VISIBLE);
                 linearLayoutResult.setVisibility(View.INVISIBLE);
             }
@@ -191,6 +197,7 @@ public class GameReadyActivity extends Activity {
         buttonStage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finalStarView();
                 Intent intent = new Intent();
                 intent.putExtra("result", StageSelectActivity.RESULT_NEXT);
                 intent.putExtra("next", false);
@@ -202,6 +209,7 @@ public class GameReadyActivity extends Activity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finalStarView();
                 Intent intent = new Intent();
                 intent.putExtra("result", StageSelectActivity.RESULT_NEXT);
                 intent.putExtra("next", true);
@@ -220,30 +228,49 @@ public class GameReadyActivity extends Activity {
                 case RESULT_NEXT:
                     linearLayoutReady.setVisibility(View.INVISIBLE);
                     linearLayoutResult.setVisibility(View.VISIBLE);
+                    textViewFirst.setVisibility(View.INVISIBLE);
+
+                    int star = sharedPreferences.getInt("star", 0);
+                    textViewStar.setText(star + "");
+                    showingTotalStar = star;
 
                     int previousStage = sharedPreferences.getInt("stage" + world, 1);
-                    boolean firstClear = previousStage == stage;
+                    firstClear = previousStage == stage;
                     if (firstClear) {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt("stage", stage + 1);
+                        editor.putInt("stage" + world, stage + 1);
                         editor.apply();
 
                         int[] open = getResources().getIntArray(R.array.abilityOpenStage);
-                        for (int i = 0; i < open.length; i++)
-                            if (open[i] == stage) ;
+                        for (int i = 0; i < open.length; i++) {
+                            if (open[i] == stage) {
+
+                            }
+                        }
+                        star += 2;
                     }
 
                     int starInitial = data.getIntExtra("starCollectionInitial", 0);
+                    for (int i = 0; i < starCollectionView.size(); i++)
+                        starCollectionView.setStarCollect(i, false);
                     for (int i = 0; i < starInitial; i++)
                         starCollectionView.setStarCollect(i, true);
                     starCollectionView.invalidate();
 
                     finalStar = data.getIntExtra("starCollectionFinal", 0);
-                    if (starInitial < finalStar)
-                        gameResultHandler.sendEmptyMessageDelayed(starInitial, getResources().getInteger(R.integer.gameReadyStarShowDelay));
-                    else
+                    if (starInitial < finalStar) {
+                        star += finalStar - starInitial;
+                        gameResultHandler.sendEmptyMessageDelayed(starInitial, delay);
+                    } else {
                         finalStar = -1;
+                        if (firstClear)
+                            gameResultHandler.sendEmptyMessageDelayed(-1, delay);
+                    }
 
+                    finalTotalStar = star;
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("star", star);
+                    editor.apply();
                     break;
                 case RESULT_STAGE:
                     intent.putExtra("result", StageSelectActivity.RESULT_FIN);
@@ -291,6 +318,7 @@ public class GameReadyActivity extends Activity {
         Intent intent = new Intent(getApplicationContext(), GameActivity.class);
         intent.putExtra("Ability", new int[]{ability1, ability2, ability3, ability4});
         intent.putExtra("stage", stage);
+        intent.putExtra("world", world);
         startActivityForResult(intent, REQUEST_CODE_GAME);
     }
 
@@ -301,11 +329,32 @@ public class GameReadyActivity extends Activity {
     }
 
     void showStar(int current) {
+        if (current == -1) {
+            textViewFirst.setVisibility(View.VISIBLE);
+            showingTotalStar += 2;
+            textViewStar.setText(showingTotalStar + "");
+            return;
+        }
+
         starCollectionView.setStarCollect(current, true);
         starCollectionView.invalidate();
         current++;
+        showingTotalStar++;
+        textViewStar.setText(showingTotalStar + "");
+
         if (current < finalStar)
-            gameResultHandler.sendEmptyMessageDelayed(current, getResources().getInteger(R.integer.gameReadyStarShowDelay));
+            gameResultHandler.sendEmptyMessageDelayed(current, delay);
+        else if (current == finalStar && firstClear)
+            gameResultHandler.sendEmptyMessageDelayed(-1, delay);
+    }
+
+    void finalStarView() {
+        for (int i = 0; i < finalStar; i++)
+            starCollectionView.setStarCollect(i, true);
+        starCollectionView.invalidate();
+        if (firstClear)
+            textViewFirst.setVisibility(View.VISIBLE);
+        textViewStar.setText(finalTotalStar + "");
     }
 }
 

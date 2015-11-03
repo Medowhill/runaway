@@ -40,6 +40,7 @@
     <dimen name="gameReadyStarCollectionHeight">100dp</dimen>
     <dimen name="gameReadyFirstClearTextSize">20sp</dimen>
     <dimen name="gameReadyStarTextSize">75sp</dimen>
+    <dimen name="gameReadyStarTextWidth">100dp</dimen>
 
     <dimen name="enemyInfoEnemyNameSize">40sp</dimen>
     <dimen name="enemyInfoEnemyStatusTitleSize">25sp</dimen>
