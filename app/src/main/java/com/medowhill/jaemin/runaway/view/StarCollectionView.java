@@ -8,16 +8,14 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.medowhill.jaemin.runaway.R;
-import com.medowhill.jaemin.runaway.object.Star;
 
 /**
  * Created by Jaemin on 2015-10-01.
  */
 public class StarCollectionView extends View {
 
-    private final float SIZE_RATIO = 0.8f, SIZE;
+    private final float SIZE_RATIO = 0.8f;
 
-    private float ratio;
     private boolean[] stars;
 
     private boolean visible = false;
@@ -27,32 +25,34 @@ public class StarCollectionView extends View {
     public StarCollectionView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        SIZE = getResources().getInteger(R.integer.baseSize) * getResources().getInteger(R.integer.starSize) * 2 / SIZE_RATIO;
-
         stars = new boolean[3];
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        ratio = w / (SIZE * stars.length);
+        int size = (int) (SIZE_RATIO * getWidth() / stars.length);
 
-
-        Bitmap temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.star_collect);
-        bitmapCollect = Bitmap.createScaledBitmap(temp, (int) (RADIUS * 2), (int) (RADIUS * 2), false);
+        Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.star_collect);
+        bitmapCollect = Bitmap.createScaledBitmap(temp, size, size, false);
         temp.recycle();
 
-        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.star_uncollect);
-        bitmapNotCollect = Bitmap.createScaledBitmap(temp, (int) (RADIUS * 2), (int) (RADIUS * 2), false);
+        temp = BitmapFactory.decodeResource(getResources(), R.drawable.star_uncollect);
+        bitmapNotCollect = Bitmap.createScaledBitmap(temp, size, size, false);
         temp.recycle();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (visible && stars != null) {
-            canvas.scale(ratio, ratio);
+        int width = getWidth() / stars.length;
+        int height = getHeight();
+        int size = (int) (SIZE_RATIO * getWidth() / stars.length);
 
-            for (Star star : stars)
-                star.draw(canvas);
+        if (visible && stars != null) {
+            for (int i = 0; i < stars.length; i++)
+                if (stars[i])
+                    canvas.drawBitmap(bitmapCollect, width * i + width / 2 - size / 2, height / 2 - size / 2, null);
+                else
+                    canvas.drawBitmap(bitmapNotCollect, width * i + width / 2 - size / 2, height / 2 - size / 2, null);
         }
     }
 

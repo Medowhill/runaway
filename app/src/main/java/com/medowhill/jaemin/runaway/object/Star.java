@@ -11,6 +11,8 @@ import com.medowhill.jaemin.runaway.R;
  */
 public class Star extends GameObject {
 
+    private boolean collect = false;
+
     private Bitmap bitmapCollect;
 
     public Star(Stage stage, float x, float y) {
@@ -23,10 +25,19 @@ public class Star extends GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmapCollect, x - RADIUS, y - RADIUS, null);
+        if (!collect)
+            canvas.drawBitmap(bitmapCollect, x - RADIUS, y - RADIUS, null);
     }
 
     @Override
     void modifyMove(Wall wall) {
+    }
+
+    public boolean isCollect() {
+        return collect;
+    }
+
+    public void setCollect(boolean collect) {
+        this.collect = collect;
     }
 }
