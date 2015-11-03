@@ -1,8 +1,8 @@
 package com.medowhill.jaemin.runaway.object;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Path;
 
 import com.medowhill.jaemin.runaway.R;
 
@@ -11,32 +11,22 @@ import com.medowhill.jaemin.runaway.R;
  */
 public class Star extends GameObject {
 
-    private final float RATIO1 = 0.7f, RATIO2 = 0.4f;
-    private final float DEGREE1 = (float) Math.PI / 15, DEGREE2 = (float) Math.PI / 4;
-
-    private Paint paintNotCollect;
-
     private boolean collect = false, forGameView = false;
 
-    private Path path;
+    private Bitmap bitmapCollect, bitmapNotCollect;
 
     public Star(Stage stage, float x, float y, boolean forGameView) {
-        super(stage, context.getResources().getInteger(R.integer.starSize) * context.getResources().getInteger(R.integer.baseSize),
-                context.getResources().getColor(R.color.starNormal), x, y, 0);
+        super(stage, context.getResources().getInteger(R.integer.starSize) * context.getResources().getInteger(R.integer.baseSize), 0, x, y, 0);
 
         this.forGameView = forGameView;
 
-        paintNotCollect = new Paint();
-        paintNotCollect.setColor(context.getResources().getColor(R.color.starNotCollect));
+        Bitmap temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.star_collect);
+        bitmapCollect = Bitmap.createScaledBitmap(temp, (int) (RADIUS * 2), (int) (RADIUS * 2), false);
+        temp.recycle();
 
-        path = new Path();
-        path.moveTo(x, y - RADIUS);
-        path.lineTo(x - RADIUS * RATIO1 * (float) Math.cos(DEGREE1), y - RADIUS * RATIO1 * (float) Math.sin(DEGREE1));
-        path.lineTo(x + RADIUS * RATIO2 * (float) Math.cos(DEGREE2), y + RADIUS * RATIO2 * (float) Math.sin(DEGREE2));
-        path.lineTo(x, y + RADIUS);
-        path.lineTo(x + RADIUS * RATIO1 * (float) Math.cos(DEGREE1), y + RADIUS * RATIO1 * (float) Math.sin(DEGREE1));
-        path.lineTo(x - RADIUS * RATIO2 * (float) Math.cos(DEGREE2), y - RADIUS * RATIO2 * (float) Math.sin(DEGREE2));
-        path.lineTo(x, y - RADIUS);
+        temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.star_uncollect);
+        bitmapNotCollect = Bitmap.createScaledBitmap(temp, (int) (RADIUS * 2), (int) (RADIUS * 2), false);
+        temp.recycle();
     }
 
     public Star(Stage stage, float x, float y) {
@@ -47,12 +37,12 @@ public class Star extends GameObject {
     public void draw(Canvas canvas) {
         if (forGameView) {
             if (!collect)
-                canvas.drawPath(path, paintNormal);
+                canvas.drawBitmap(bitmapCollect, x - RADIUS, y - RADIUS, null);
         } else {
             if (collect)
-                canvas.drawPath(path, paintNormal);
+                canvas.drawBitmap(bitmapCollect, x - RADIUS, y - RADIUS, null);
             else
-                canvas.drawPath(path, paintNotCollect);
+                canvas.drawBitmap(bitmapNotCollect, x - RADIUS, y - RADIUS, null);
         }
     }
 

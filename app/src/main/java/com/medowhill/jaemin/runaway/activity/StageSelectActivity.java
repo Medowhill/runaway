@@ -29,13 +29,15 @@ public class StageSelectActivity extends Activity {
 
     Handler stageSelectHandler, resumeActivityHandler;
 
+    int world;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stageselect);
 
         Intent intent = getIntent();
-        int world = intent.getIntExtra("world", 0);
+        world = intent.getIntExtra("world", 0);
 
         Ability.setContext(this);
         GameObject.setContext(this);
@@ -44,7 +46,7 @@ public class StageSelectActivity extends Activity {
         resumeActivityHandler = new ResumeActivityHandler(this);
 
         sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
-        int lastStage = sharedPreferences.getInt("stage", 1);
+        int lastStage = sharedPreferences.getInt("stage" + world, 1);
 
         stageSelectView = (StageSelectView) findViewById(R.id.stageSelectView);
         stageSelectView.setWorld(world);
@@ -83,13 +85,14 @@ public class StageSelectActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        int stage = sharedPreferences.getInt("stage", 1);
+        int stage = sharedPreferences.getInt("stage" + world, 1);
         stageSelectView.openNewStage(stage);
     }
 
     void startStage(int stage) {
         Intent intent = new Intent(getApplicationContext(), GameReadyActivity.class);
         intent.putExtra("stage", stage);
+        intent.putExtra("world", world);
         startActivityForResult(intent, REQUEST_GAME_READY);
     }
 

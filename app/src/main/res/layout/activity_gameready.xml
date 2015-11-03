@@ -118,7 +118,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical">
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
 
                 <com.medowhill.jaemin.runaway.view.StarCollectionView
                     android:id="@+id/gameReady_starCollection"
@@ -130,14 +131,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/gameReadyFirstClear" />
+                    android:text="@string/gameReadyFirstClear"
+                    android:textColor="@color/gameReadyFirstClearText"
+                    android:textSize="@dimen/gameReadyFirstClearTextSize"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/gameReady_textView_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/gameReadyStarText"
+                android:textSize="@dimen/gameReadyStarTextSize" />
 
         </LinearLayout>
 

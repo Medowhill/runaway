@@ -49,7 +49,7 @@ public class GameReadyActivity extends Activity {
     SharedPreferences sharedPreferences;
 
     int ability1 = -1, ability2 = -1, ability3 = -1, ability4 = -1;
-    int stage;
+    int stage, world;
     int finalStar = -1;
 
     @Override
@@ -88,6 +88,7 @@ public class GameReadyActivity extends Activity {
 
         Intent intent = getIntent();
         stage = intent.getIntExtra("stage", 1);
+        world = intent.getIntExtra("world", 0);
 
         textViewStage.setText(textViewStage.getText().toString() + " " + stage);
 
@@ -220,7 +221,7 @@ public class GameReadyActivity extends Activity {
                     linearLayoutReady.setVisibility(View.INVISIBLE);
                     linearLayoutResult.setVisibility(View.VISIBLE);
 
-                    int previousStage = sharedPreferences.getInt("stage", 1);
+                    int previousStage = sharedPreferences.getInt("stage" + world, 1);
                     boolean firstClear = previousStage == stage;
                     if (firstClear) {
                         SharedPreferences.Editor editor = sharedPreferences.edit();

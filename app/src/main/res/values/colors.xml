@@ -23,6 +23,8 @@
     <color name="gameReadyStageText">#ffffff</color>
     <color name="gameReadyEnemiesText">#ffffff</color>
     <color name="gameReadySkillSlotsText">#ffffff</color>
+    <color name="gameReadyFirstClearText">#ffffff</color>
+    <color name="gameReadyStarText">#ffffff</color>
 
     <color name="enemyPreViewBackground">#33999999</color>
 
@@ -48,9 +50,6 @@
     <color name="slowBulletFireBullet">#0d4d40</color>
 
     <color name="finish">#689f38</color>
-
-    <color name="starNormal">#d0d030</color>
-    <color name="starNotCollect">#a0a0a0</color>
 
     <color name="playerNormal">#388e3c</color>
     <color name="playerInvisible">#81c784</color>
