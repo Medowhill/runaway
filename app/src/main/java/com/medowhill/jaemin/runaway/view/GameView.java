@@ -240,6 +240,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                                         enemy.decreaseAbilityWaiting();
                                         enemy.controlBuff();
                                         enemy.move();
+                                        if (true)
+                                            continue;
                                         if (player.isMortal() && !gameFinish && player.touch(enemy)) {
                                             gameFinish = true;
                                             gameFail = true;

@@ -96,7 +96,7 @@ public class EnemyPreView extends View {
         colors.clear();
         sizes.clear();
 
-        String stageData = getResources().getStringArray(R.array.stageInfo)[stage - 1];
+        String stageData = getResources().getStringArray(R.array.stageInfo1)[stage - 1];
         String[] stageDatas = stageData.split("/");
 
         for (int i = 0; i < stageDatas.length; i++) {

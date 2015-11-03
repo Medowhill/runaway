@@ -59,7 +59,7 @@ public class Stage {
     public Stage(Context context, int stage, boolean forPreview) {
         MAP_RADIUS = context.getResources().getInteger(R.integer.mapRadius);
 
-        String stageData = context.getResources().getStringArray(R.array.stageInfo)[stage - 1];
+        String stageData = context.getResources().getStringArray(R.array.stageInfo1)[stage - 1];
 
         String[] stageDatas = stageData.split("/");
 
@@ -86,8 +86,8 @@ public class Stage {
                         player = new Player(this, x, y, false);
                     break;
                 case 'w':
-                    x = 0;
-                    y = 0;
+                    x = Float.parseFloat(datas[datas.length - 2]);
+                    y = Float.parseFloat(datas[datas.length - 1]);
                     boolean yInc = false, xInc = false;
 
                     for (int j = 1; j < datas.length; j++) {

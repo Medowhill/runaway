@@ -25,7 +25,8 @@ import com.medowhill.jaemin.runaway.object.Wall;
 
 public class StageSelectView extends View {
 
-    static final int INERTIA = 0, SCALE = 1, MOVE = 2;
+    final static int INERTIA = 0, SCALE = 1, MOVE = 2;
+    private static final int[] WORLD_ID = new int[]{R.array.stageInfo1, R.array.stageInfo2, R.array.stageInfo3, R.array.stageInfo4};
 
     private final int WIDTH;
     private final int FRAME, FRAME_LENGTH;
@@ -56,7 +57,7 @@ public class StageSelectView extends View {
     private Paint paintUnableMap;
     private Paint paintBoundary;
 
-    private int stageCount;
+    private int stageCount = 0;
     private Path[] maps;
     private RectF[] boundaries;
 
@@ -91,33 +92,8 @@ public class StageSelectView extends View {
         paintBoundary.setColor(getResources().getColor(R.color.stageSelectBoundary));
         paintBoundary.setStyle(Paint.Style.STROKE);
 
-        stageCount = getResources().getStringArray(R.array.stageInfo).length;
         maps = new Path[stageCount];
         boundaries = new RectF[stageCount];
-
-        float fx = WIDTH * DECREASING_RATIO / 4, fy = WIDTH * DECREASING_RATIO / 4;
-        for (int i = 0; i < stageCount; i++) {
-            Stage stage = new Stage(context, i + 1, true);
-            fx -= stage.getxStart();
-            fy -= stage.getyStart();
-
-            Path path = new Path();
-            path.moveTo(fx / DECREASING_RATIO, fy / DECREASING_RATIO);
-            for (Wall wall : stage.walls) {
-                if (wall.HORIZONTAL)
-                    path.lineTo((fx + wall.LAST) / DECREASING_RATIO, (fy + wall.LOCATION) / DECREASING_RATIO);
-                else
-                    path.lineTo((fx + wall.LOCATION) / DECREASING_RATIO, (fy + wall.LAST) / DECREASING_RATIO);
-            }
-            maps[i] = path;
-
-            RectF rect = new RectF((int) (fx - BOUNDARY_MARGIN) / DECREASING_RATIO, (int) (fy - BOUNDARY_MARGIN) / DECREASING_RATIO,
-                    (int) (fx + stage.getxMax() + BOUNDARY_MARGIN) / DECREASING_RATIO, (int) (fy + stage.getyMax() + BOUNDARY_MARGIN) / DECREASING_RATIO);
-            boundaries[i] = rect;
-
-            fx += stage.getxFinish();
-            fy += stage.getyFinish();
-        }
 
         inertiaHandler = new InertiaHandler(this);
     }
@@ -371,6 +347,37 @@ public class StageSelectView extends View {
 
     public void setStageSelectHandler(Handler stageSelectHandler) {
         this.stageSelectHandler = stageSelectHandler;
+    }
+
+    public void setWorld(int world) {
+        stageCount = getResources().getStringArray(WORLD_ID[world]).length;
+        maps = new Path[stageCount];
+        boundaries = new RectF[stageCount];
+
+        float fx = WIDTH * DECREASING_RATIO / 4, fy = WIDTH * DECREASING_RATIO / 4;
+        for (int i = 0; i < stageCount; i++) {
+            Stage stage = new Stage(getContext(), i + 1, true);
+            fx -= stage.getxStart();
+            fy -= stage.getyStart();
+
+            Path path = new Path();
+            path.moveTo(fx / DECREASING_RATIO, fy / DECREASING_RATIO);
+            for (Wall wall : stage.walls) {
+                if (wall.HORIZONTAL)
+                    path.lineTo((fx + wall.LAST) / DECREASING_RATIO, (fy + wall.LOCATION) / DECREASING_RATIO);
+                else
+                    path.lineTo((fx + wall.LOCATION) / DECREASING_RATIO, (fy + wall.LAST) / DECREASING_RATIO);
+            }
+            maps[i] = path;
+
+            RectF rect = new RectF((int) (fx - BOUNDARY_MARGIN) / DECREASING_RATIO, (int) (fy - BOUNDARY_MARGIN) / DECREASING_RATIO,
+                    (int) (fx + stage.getxMax() + BOUNDARY_MARGIN) / DECREASING_RATIO, (int) (fy + stage.getyMax() + BOUNDARY_MARGIN) / DECREASING_RATIO);
+            boundaries[i] = rect;
+
+            fx += stage.getxFinish();
+            fy += stage.getyFinish();
+        }
+        invalidate();
     }
 }
 

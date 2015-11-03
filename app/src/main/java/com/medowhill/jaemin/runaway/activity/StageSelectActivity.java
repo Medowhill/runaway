@@ -34,6 +34,9 @@ public class StageSelectActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stageselect);
 
+        Intent intent = getIntent();
+        int world = intent.getIntExtra("world", 0);
+
         Ability.setContext(this);
         GameObject.setContext(this);
 
@@ -44,6 +47,7 @@ public class StageSelectActivity extends Activity {
         int lastStage = sharedPreferences.getInt("stage", 1);
 
         stageSelectView = (StageSelectView) findViewById(R.id.stageSelectView);
+        stageSelectView.setWorld(world);
         stageSelectView.setStageSelectHandler(stageSelectHandler);
         stageSelectView.setLastStage(lastStage);
     }
