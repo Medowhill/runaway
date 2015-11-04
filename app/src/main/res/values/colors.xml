@@ -4,6 +4,7 @@
     <color name="upgradeBackground">#dddddd</color>
     <color name="upgradeFill">#d0d030</color>
     <color name="upgradeStroke">#333333</color>
+    <color name="upgradeStarTextColor">#ffffff</color>
 
     <color name="worldSelectWorld">#c5cae9</color>
     <color name="worldSelectUnableWorld">#e8eaf6</color>
@@ -33,7 +34,9 @@
     <color name="gameMenuText">#ffffff</color>
 
     <color name="directionControlPad">#f0f0f0</color>
-    <color name="directionControlBall">#c0c0c0</color>
+    <color name="directionControlDirectionPad">#404040</color>
+    <color name="directionControlArrow">#303030</color>
+    <color name="directionControlDirectionArrow">#e0e0e0</color>
 
     <color name="abilityButtonBorder">#b0b0b0</color>
     <color name="abilityButtonTouched">#50ffffff</color>
