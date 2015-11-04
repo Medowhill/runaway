@@ -28,7 +28,7 @@
                     android:layout_height="@dimen/upgradeStarSize"
                     android:background="@drawable/star_collect" />
 
-                <TextView
+                <com.medowhill.jaemin.runaway.view.FontTextView
                     android:id="@+id/upgrade_textView_Star"
                     android:layout_width="@dimen/upgradeStarTextWidth"
                     android:layout_height="wrap_content"

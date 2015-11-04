@@ -70,7 +70,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <Button
+        <com.medowhill.jaemin.runaway.view.FontButton
             android:id="@+id/game_button_restart"
             android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
             android:textSize="@dimen/gameMenuTextSize"
             android:visibility="invisible" />
 
-        <Button
+        <com.medowhill.jaemin.runaway.view.FontButton
             android:id="@+id/game_button_reselectAbilities"
             android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
             android:textSize="@dimen/gameMenuTextSize"
             android:visibility="invisible" />
 
-        <Button
+        <com.medowhill.jaemin.runaway.view.FontButton
             android:id="@+id/game_button_selectStage"
             android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
             android:textSize="@dimen/gameMenuTextSize"
             android:visibility="invisible" />
 
-        <Button
+        <com.medowhill.jaemin.runaway.view.FontButton
             android:id="@+id/game_button_goToMainMenu"
             android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
             android:textSize="@dimen/gameMenuTextSize"
             android:visibility="invisible" />
 
-        <Button
+        <com.medowhill.jaemin.runaway.view.FontButton
             android:id="@+id/game_button_options"
             android:layout_width="@dimen/gameMenuWidth"
             android:layout_height="wrap_content"

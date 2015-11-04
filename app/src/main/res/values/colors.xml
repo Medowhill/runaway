@@ -2,7 +2,7 @@
 <resources>
 
     <color name="upgradeBackground">#dddddd</color>
-    <color name="upgradeUnlock">#80000000</color>
+    <color name="upgradeUnlock">#c0000000</color>
     <color name="upgradeFill">#d0d030</color>
     <color name="upgradeStroke">#333333</color>
     <color name="upgradeStarTextColor">#ffffff</color>

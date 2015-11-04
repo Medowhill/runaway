@@ -17,7 +17,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
+            <com.medowhill.jaemin.runaway.view.FontTextView
                 android:id="@+id/gameReady_textView_stage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
                 android:textColor="@color/gameReadyStageText"
                 android:textSize="@dimen/gameReadyStageTextSize" />
 
-            <Button
+            <com.medowhill.jaemin.runaway.view.FontButton
                 android:id="@+id/gameReady_button_start"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -41,7 +41,7 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <TextView
+            <com.medowhill.jaemin.runaway.view.FontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/gameReadyEnemies"
@@ -54,7 +54,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <TextView
+            <com.medowhill.jaemin.runaway.view.FontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/gameReadyInternalMargin"
@@ -127,7 +127,7 @@
                     android:layout_width="@dimen/gameReadyStarCollectionWidth"
                     android:layout_height="@dimen/gameReadyStarCollectionHeight" />
 
-                <TextView
+                <com.medowhill.jaemin.runaway.view.FontTextView
                     android:id="@+id/gameReady_textView_firstClear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
                     android:visibility="invisible" />
             </LinearLayout>
 
-            <TextView
+            <com.medowhill.jaemin.runaway.view.FontTextView
                 android:id="@+id/gameReady_textView_star"
                 android:layout_width="@dimen/gameReadyStarTextWidth"
                 android:layout_height="wrap_content"

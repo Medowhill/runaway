@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.medowhill.jaemin.runaway.R;
  * Created by Jaemin on 2015-10-16.
  */
 public class UpgradeView extends View {
+
+    private static Typeface typeface;
 
     private final TypedArray BITMAP_RESOURCE;
     private final String[] UPGRADE_INFO;
@@ -30,6 +33,7 @@ public class UpgradeView extends View {
     private int upgrade = -1;
 
     private Bitmap icon;
+    private Bitmap bitmapLocked;
 
     private RectF[] rects;
 
@@ -39,10 +43,13 @@ public class UpgradeView extends View {
     private int stringInfoHeight;
     private int level;
 
-    private Paint paintBackground, paintUnlock, paintLevel, paintMaxLevel, paintInfo, paintFill, paintStroke;
+    private Paint paintBackground, paintUnlock, paintInfo, paintFill, paintStroke;
 
     public UpgradeView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        if (typeface == null)
+            typeface = Typeface.createFromAsset(context.getAssets(), getResources().getString(R.string.font_name));
 
         BITMAP_RESOURCE = getResources().obtainTypedArray(R.array.upgradeIcon);
         UPGRADE_INFO = getResources().getStringArray(R.array.upgradeInfo);
@@ -62,14 +69,9 @@ public class UpgradeView extends View {
         paintUnlock = new Paint();
         paintUnlock.setColor(getResources().getColor(R.color.upgradeUnlock));
 
-        paintLevel = new Paint();
-        paintLevel.setTextSize(getResources().getDimension(R.dimen.upgradeInfoLevelSize));
-
-        paintMaxLevel = new Paint();
-        paintMaxLevel.setTextSize(getResources().getDimension(R.dimen.upgradeInfoMaxSize));
-
         paintInfo = new Paint();
         paintInfo.setTextSize(getResources().getDimension(R.dimen.upgradeInfoTextSize));
+        paintInfo.setTypeface(typeface);
 
         paintFill = new Paint();
         paintFill.setColor(getResources().getColor(R.color.upgradeFill));
@@ -93,12 +95,21 @@ public class UpgradeView extends View {
             icon.recycle();
             icon = null;
         }
+        if (bitmapLocked != null) {
+            bitmapLocked.recycle();
+            bitmapLocked = null;
+        }
         rects = null;
 
-        if (0 <= upgrade && upgrade < BITMAP_RESOURCE.length()) {
+        if (0 <= upgrade && upgrade < BITMAP_RESOURCE.length() && height > 0) {
             Bitmap temp = BitmapFactory.decodeResource(getResources(), BITMAP_RESOURCE.getResourceId(upgrade, -1));
             int size = height - 2 * BITMAP_MARGIN;
             icon = Bitmap.createScaledBitmap(temp, size, size, false);
+            temp.recycle();
+
+            temp = BitmapFactory.decodeResource(getResources(), R.drawable.locked);
+            size = height / 3;
+            bitmapLocked = Bitmap.createScaledBitmap(temp, size, size, false);
             temp.recycle();
 
             rects = new RectF[MAX_LEVEL[upgrade]];
@@ -142,6 +153,7 @@ public class UpgradeView extends View {
 
         if (level == 0) {
             canvas.drawRoundRect(rectBackground, BACKGROUND_RADIUS, BACKGROUND_RADIUS, paintUnlock);
+            canvas.drawBitmap(bitmapLocked, getWidth() / 2 - getHeight() / 6, getHeight() / 3, null);
         }
     }
 
