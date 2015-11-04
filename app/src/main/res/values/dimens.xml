@@ -12,8 +12,11 @@
     <dimen name="upgradeInfoLevelSize">25sp</dimen>
     <dimen name="upgradeInfoMaxSize">20sp</dimen>
     <dimen name="upgradeStrokeWidth">2dp</dimen>
-    <dimen name="upgradeStarSize">30dp</dimen>
+    <dimen name="upgradeStarSize">25dp</dimen>
     <dimen name="upgradeStarTextSize">25sp</dimen>
+    <dimen name="upgradeStarTextWidth">40dp</dimen>
+    <dimen name="upgradeStarMargin">5dp</dimen>
+    <dimen name="upgradeScrollViewMargin">10dp</dimen>
 
     <dimen name="worldSelectWorldSelectViewSize">300dp</dimen>
 

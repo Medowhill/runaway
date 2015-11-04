@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.medowhill.jaemin.runaway.R;
@@ -38,7 +39,7 @@ public class UpgradeView extends View {
     private int stringInfoHeight;
     private int level;
 
-    private Paint paintBackground, paintLevel, paintMaxLevel, paintInfo, paintFill, paintStroke;
+    private Paint paintBackground, paintUnlock, paintLevel, paintMaxLevel, paintInfo, paintFill, paintStroke;
 
     public UpgradeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -57,6 +58,9 @@ public class UpgradeView extends View {
 
         paintBackground = new Paint();
         paintBackground.setColor(getResources().getColor(R.color.upgradeBackground));
+
+        paintUnlock = new Paint();
+        paintUnlock.setColor(getResources().getColor(R.color.upgradeUnlock));
 
         paintLevel = new Paint();
         paintLevel.setTextSize(getResources().getDimension(R.dimen.upgradeInfoLevelSize));
@@ -135,5 +139,14 @@ public class UpgradeView extends View {
             for (int i = 0; i < rects.length; i++)
                 canvas.drawRect(rects[i], paintStroke);
         }
+
+        if (level == 0) {
+            canvas.drawRoundRect(rectBackground, BACKGROUND_RADIUS, BACKGROUND_RADIUS, paintUnlock);
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
     }
 }

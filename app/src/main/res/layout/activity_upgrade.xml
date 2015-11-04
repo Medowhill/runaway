@@ -6,17 +6,21 @@
     <ScrollView
         android:layout_width="@dimen/upgradeScrollViewWidth"
         android:layout_height="match_parent"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:scrollbars="@null">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/upgradeScrollViewMargin"
+            android:paddingTop="@dimen/upgradeScrollViewMargin">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:layout_marginBottom="@dimen/upgradeStarMargin"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -26,8 +30,9 @@
 
                 <TextView
                     android:id="@+id/upgrade_textView_Star"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/upgradeStarTextWidth"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
                     android:textColor="@color/upgradeStarTextColor"
                     android:textSize="@dimen/upgradeStarTextSize" />
 
