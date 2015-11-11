@@ -20,6 +20,8 @@ import java.util.ArrayList;
  */
 public class EnemyPreView extends View {
 
+    private static final int[] WORLD_ID = new int[]{R.array.stageInfo1, R.array.stageInfo2, R.array.stageInfo3, R.array.stageInfo4};
+
     private final int RATIO;
     private final int BASE_SIZE;
     private final int RADIUS;
@@ -92,11 +94,11 @@ public class EnemyPreView extends View {
         this.enemyInfoHandler = enemyInfoHandler;
     }
 
-    public void setStage(int stage) {
+    public void setStage(int world, int stage) {
         colors.clear();
         sizes.clear();
 
-        String stageData = getResources().getStringArray(R.array.stageInfo1)[stage - 1];
+        String stageData = getResources().getStringArray(WORLD_ID[world])[stage - 1];
         String[] stageDatas = stageData.split("/");
 
         for (int i = 0; i < stageDatas.length; i++) {

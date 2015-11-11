@@ -25,6 +25,7 @@ public class UpgradeView extends View {
     private final TypedArray BITMAP_RESOURCE;
     private final String[] UPGRADE_INFO;
     private final int[] MAX_LEVEL;
+    private final int[] COST;
 
     private final int BITMAP_MARGIN, BACKGROUND_RADIUS;
 
@@ -32,18 +33,16 @@ public class UpgradeView extends View {
 
     private int upgrade = -1;
 
-    private Bitmap icon;
-    private Bitmap bitmapLocked;
+    private Bitmap icon, bitmapLocked, bitmapStar;
 
     private RectF[] rects;
 
     private RectF rectBackground;
 
-    private String stringLevel, stringMaxLevel;
-    private int stringInfoHeight;
-    private int level;
+    private int stringInfoHeight, stringCostHeight, stringCostWidth;
+    private int level, maxLevel, cost, star;
 
-    private Paint paintBackground, paintUnlock, paintInfo, paintFill, paintStroke;
+    private Paint paintBackground, paintUnlock, paintInfo, paintCost, paintFill, paintStroke;
 
     public UpgradeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -54,12 +53,10 @@ public class UpgradeView extends View {
         BITMAP_RESOURCE = getResources().obtainTypedArray(R.array.upgradeIcon);
         UPGRADE_INFO = getResources().getStringArray(R.array.upgradeInfo);
         MAX_LEVEL = getResources().getIntArray(R.array.upgradeMaxLevel);
+        COST = getResources().getIntArray(R.array.abilityLevelUpCost);
 
         BITMAP_MARGIN = getResources().getDimensionPixelSize(R.dimen.upgradeBitmapMargin);
         BACKGROUND_RADIUS = getResources().getDimensionPixelSize(R.dimen.upgradeBackgroundRadius);
-
-        stringLevel = getResources().getString(R.string.upgradeLevel);
-        stringMaxLevel = getResources().getString(R.string.upgradeMaxLevel);
 
         rectBackground = new RectF(0, 0, getWidth(), getHeight());
 
@@ -73,6 +70,10 @@ public class UpgradeView extends View {
         paintInfo.setTextSize(getResources().getDimension(R.dimen.upgradeInfoTextSize));
         paintInfo.setTypeface(typeface);
 
+        paintCost = new Paint();
+        paintCost.setTextSize(getResources().getDimension(R.dimen.upgradeCostTextSize));
+        paintCost.setTypeface(typeface);
+
         paintFill = new Paint();
         paintFill.setColor(getResources().getColor(R.color.upgradeFill));
 
@@ -83,9 +84,10 @@ public class UpgradeView extends View {
         paintStroke.setStrokeCap(Paint.Cap.SQUARE);
     }
 
-    public void setUpgrade(int upgrade, int level) {
+    public void setUpgrade(int upgrade, int level, int star) {
         this.upgrade = upgrade;
         this.level = level;
+        this.star = star;
 
         makeObjects();
     }
@@ -98,6 +100,10 @@ public class UpgradeView extends View {
         if (bitmapLocked != null) {
             bitmapLocked.recycle();
             bitmapLocked = null;
+        }
+        if (bitmapStar != null) {
+            bitmapStar.recycle();
+            bitmapStar = null;
         }
         rects = null;
 
@@ -112,7 +118,8 @@ public class UpgradeView extends View {
             bitmapLocked = Bitmap.createScaledBitmap(temp, size, size, false);
             temp.recycle();
 
-            rects = new RectF[MAX_LEVEL[upgrade]];
+            maxLevel = MAX_LEVEL[upgrade];
+            rects = new RectF[maxLevel];
             for (int i = 0; i < rects.length; i++)
                 rects[i] = new RectF(height, height / 2 + BITMAP_MARGIN,
                         height + (width - BITMAP_MARGIN - height) * (i + 1) / rects.length, height - BITMAP_MARGIN);
@@ -121,9 +128,28 @@ public class UpgradeView extends View {
             String text = UPGRADE_INFO[upgrade];
             paintInfo.getTextBounds(text, 0, text.length(), bounds);
             stringInfoHeight = bounds.height();
+
+            cost = COST[upgrade] * level;
+            if (0 < level && level < maxLevel) {
+                text = cost + "";
+                paintCost.getTextBounds(text, 0, text.length(), bounds);
+                stringCostHeight = bounds.height();
+                stringCostWidth = bounds.width();
+
+                temp = BitmapFactory.decodeResource(getResources(), R.drawable.star_collect);
+                bitmapStar = Bitmap.createScaledBitmap(temp, stringCostHeight, stringCostHeight, false);
+                temp.recycle();
+
+                if (star < cost)
+                    paintCost.setColor(getResources().getColor(R.color.upgradeCostImpossibleTextColor));
+                else
+                    paintCost.setColor(getResources().getColor(R.color.upgradeCostTextColor));
+            }
         }
 
         rectBackground = new RectF(0, 0, width, height);
+
+        invalidate();
     }
 
     @Override
@@ -154,11 +180,23 @@ public class UpgradeView extends View {
         if (level == 0) {
             canvas.drawRoundRect(rectBackground, BACKGROUND_RADIUS, BACKGROUND_RADIUS, paintUnlock);
             canvas.drawBitmap(bitmapLocked, getWidth() / 2 - getHeight() / 6, getHeight() / 3, null);
+        } else if (level < maxLevel && upgrade != -1) {
+            canvas.drawText(cost + "", width - BITMAP_MARGIN - stringCostWidth, BITMAP_MARGIN / 2 + getHeight() / 4 + stringCostHeight / 2, paintCost);
+            canvas.drawBitmap(bitmapStar, width - BITMAP_MARGIN * 2 - stringCostWidth - stringCostHeight,
+                    BITMAP_MARGIN / 2 + getHeight() / 4 - stringCostHeight / 2, null);
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return super.onTouchEvent(event);
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public boolean isMaxLevel() {
+        return level == maxLevel;
     }
 }

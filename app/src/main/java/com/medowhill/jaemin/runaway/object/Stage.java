@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 public class Stage {
 
+    private static final int[] WORLD_ID = new int[]{R.array.stageInfo1, R.array.stageInfo2, R.array.stageInfo3, R.array.stageInfo4};
+
     public final int MAP_RADIUS;
 
     public final ArrayList<Enemy> enemies;
@@ -52,14 +54,14 @@ public class Stage {
         area = new Path();
     }
 
-    public Stage(Context context, int stage) {
-        this(context, stage, false);
+    public Stage(Context context, int world, int stage) {
+        this(context, world, stage, false);
     }
 
-    public Stage(Context context, int stage, boolean forPreview) {
+    public Stage(Context context, int world, int stage, boolean forPreview) {
         MAP_RADIUS = context.getResources().getInteger(R.integer.mapRadius);
 
-        String stageData = context.getResources().getStringArray(R.array.stageInfo1)[stage - 1];
+        String stageData = context.getResources().getStringArray(WORLD_ID[world])[stage - 1];
 
         String[] stageDatas = stageData.split("/");
 

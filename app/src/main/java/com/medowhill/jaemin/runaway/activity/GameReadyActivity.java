@@ -98,7 +98,7 @@ public class GameReadyActivity extends Activity {
 
         textViewStage.setText(textViewStage.getText().toString() + " " + stage);
 
-        enemyPreView.setStage(stage);
+        enemyPreView.setStage(world, stage);
         enemyPreView.setEnemyInfoHandler(enemyInfoHandler);
 
         starCollectionView.setVisible(true);

@@ -52,6 +52,7 @@ public class StageSelectActivity extends Activity {
         stageSelectView.setWorld(world);
         stageSelectView.setStageSelectHandler(stageSelectHandler);
         stageSelectView.setLastStage(lastStage);
+        stageSelectView.setInitialStage(lastStage);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.medowhill.jaemin.runaway.R;
 import com.medowhill.jaemin.runaway.view.UpgradeView;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -29,6 +31,7 @@ public class UpgradeActivity extends Activity {
     SharedPreferences sharedPreferences;
 
     private int star;
+    private byte[] abilityLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,12 @@ public class UpgradeActivity extends Activity {
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        byte[] abilityLevel;
+        textViewStar = (TextView) findViewById(R.id.upgrade_textView_Star);
+
+        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+        star = sharedPreferences.getInt("star", 0);
+        textViewStar.setText(star + "");
+
         try {
             FileInputStream fileInputStream = openFileInput("abilityLevel");
             abilityLevel = new byte[fileInputStream.available()];
@@ -54,11 +62,35 @@ public class UpgradeActivity extends Activity {
         upgradeViews = new UpgradeView[ID.length];
         for (int i = 0; i < ID.length; i++) {
             upgradeViews[i] = (UpgradeView) findViewById(ID[i]);
-            upgradeViews[i].setUpgrade(i, abilityLevel[i]);
-        }
-        textViewStar = (TextView) findViewById(R.id.upgrade_textView_Star);
+            upgradeViews[i].setUpgrade(i, abilityLevel[i], star);
+            final int k = i;
+            upgradeViews[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int cost = upgradeViews[k].getCost();
+                    if (star >= cost && !upgradeViews[k].isMaxLevel()) {
+                        star -= cost;
+                        abilityLevel[k]++;
 
-        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+                        try {
+                            FileOutputStream fileOutputStream = openFileOutput("abilityLevel", MODE_PRIVATE);
+                            fileOutputStream.write(abilityLevel);
+                            fileOutputStream.flush();
+                            fileOutputStream.close();
+                        } catch (IOException e1) {
+                        }
+
+                        for (int j = 0; j < ID.length; j++)
+                            upgradeViews[j].setUpgrade(j, abilityLevel[j], star);
+                        textViewStar.setText(star + "");
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("star", star);
+                        editor.apply();
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -66,13 +98,5 @@ public class UpgradeActivity extends Activity {
         super.finish();
 
         overridePendingTransition(0, R.anim.upgrade_activityfinish);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        star = sharedPreferences.getInt("star", 0);
-        textViewStar.setText(star + "");
     }
 }

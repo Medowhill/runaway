@@ -35,7 +35,7 @@ public class StageSelectView extends View {
     private final int BOUNDARY_STROKE, BOUNDARY_RADIUS, BOUNDARY_MARGIN;
     private final int SHADOW_SIZE;
     private final int MAX_POINTER_MOVE;
-    private final float MAX_SCALE = 1.5f, MIN_SCALE = .2f, SELECT_SCALE = 1.f, GAME_SCALE = 2.5f;
+    private final float MAX_SCALE = 1.5f, MIN_SCALE = .33f, SELECT_SCALE = 1.f, GAME_SCALE = 2.5f;
     private final float MIN_SPEED = .25f;
     private final float ACCELERATION = -0.005f;
     private final float SCALE_SPEED = .004f, MOVE_SPEED = 1.9f;
@@ -43,6 +43,7 @@ public class StageSelectView extends View {
 
     private float ratio = 0;
     private float xShift = 0, yShift = 0, xPivot, yPivot, scale = 1;
+    private float minX, minY, maxX, maxY;
     private float prevX, prevY, prevD;
     private boolean secondaryPointerUp = false;
     private boolean checkingSpeed = false;
@@ -103,6 +104,9 @@ public class StageSelectView extends View {
         ratio = 1.f * w / WIDTH;
         xPivot = w / 2;
         yPivot = h / 2;
+
+        minX = -WIDTH * DECREASING_RATIO / 2;
+        minY = -WIDTH * DECREASING_RATIO / 2;
     }
 
     @Override
@@ -167,7 +171,7 @@ public class StageSelectView extends View {
                             if (scale >= SELECT_SCALE) {
                                 float x_ = (x - xPivot) / (scale * ratio) + xPivot - xShift;
                                 float y_ = (y - yPivot) / (scale * ratio) + yPivot - yShift;
-                                for (int i = lastStage - 1; i >= 0; i--) {
+                                for (int i = Math.min(lastStage, boundaries.length) - 1; i >= 0; i--) {
                                     RectF rectF = boundaries[i];
                                     if (rectF.left < x_ && x_ < rectF.right && rectF.top < y_ && y_ < rectF.bottom) {
                                         gameStart = true;
@@ -215,6 +219,8 @@ public class StageSelectView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        regulate();
+
         canvas.drawColor(BACKGROUND_COLOR);
 
         canvas.scale(scale * ratio, scale * ratio, xPivot, yPivot);
@@ -312,6 +318,31 @@ public class StageSelectView extends View {
         stageSelectHandler.sendEmptyMessage(startStage);
     }
 
+    void regulate() {
+        if (xPivot * (1 + 1 / scale) - xShift > maxX) {
+            xShift = xPivot * (1 + 1 / scale) - maxX;
+            handlerID++;
+        } else if (xPivot * (1 - 1 / scale) - xShift < minX) {
+            xShift = xPivot * (1 - 1 / scale) - minX;
+            handlerID++;
+        }
+
+        if (yPivot * (1 + 1 / scale) - yShift > maxY) {
+            yShift = yPivot * (1 + 1 / scale) - maxY;
+            handlerID++;
+        } else if (yPivot * (1 - 1 / scale) - yShift < minY) {
+            yShift = yPivot * (1 - 1 / scale) - minY;
+            handlerID++;
+        }
+    }
+
+    public void setInitialStage(int stage) {
+        RectF rectF = boundaries[stage - 1];
+        xShift = -(rectF.left + rectF.right) / 2 + xPivot;
+        yShift = -(rectF.top + rectF.bottom) / 2 + yPivot;
+        invalidate();
+    }
+
     public void defaultScale(final boolean nextStage) {
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(GAME_SCALE, SELECT_SCALE);
         valueAnimator.setDuration((int) ((GAME_SCALE - SELECT_SCALE) / SCALE_SPEED));
@@ -354,9 +385,9 @@ public class StageSelectView extends View {
         maps = new Path[stageCount];
         boundaries = new RectF[stageCount];
 
-        float fx = WIDTH * DECREASING_RATIO / 4, fy = WIDTH * DECREASING_RATIO / 4;
+        float fx = 0, fy = 0;
         for (int i = 0; i < stageCount; i++) {
-            Stage stage = new Stage(getContext(), i + 1, true);
+            Stage stage = new Stage(getContext(), world, i + 1, true);
             fx -= stage.getxStart();
             fy -= stage.getyStart();
 
@@ -377,6 +408,9 @@ public class StageSelectView extends View {
             fx += stage.getxFinish();
             fy += stage.getyFinish();
         }
+        maxX = fx + WIDTH * DECREASING_RATIO / 2;
+        maxY = fy + WIDTH * DECREASING_RATIO / 2;
+
         invalidate();
     }
 }

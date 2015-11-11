@@ -2,10 +2,7 @@
 <resources>
     <string name="app_name">Run Away</string>
 
-    <string name="font_name">NanumBarunGothic.ttf</string>
-
-    <string name="upgradeLevel">Lv. </string>
-    <string name="upgradeMaxLevel">Max </string>
+    <string name="font_name">KoPubDotumMedium.ttf</string>
 
     <string name="gameReadyStart">Game\nStart</string>
     <string name="gameReadyEnemies">Enemies</string>

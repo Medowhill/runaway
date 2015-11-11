@@ -60,6 +60,7 @@ public class GameActivity extends Activity {
 
     private int stageNum;
     private int abilityNum;
+    private int world;
     private int[] abilities;
     private byte[] abilityLevel;
     private boolean[] starCollectionInitial;
@@ -231,6 +232,7 @@ public class GameActivity extends Activity {
 
         Intent intent = getIntent();
         stageNum = intent.getIntExtra("stage", 1);
+        world = intent.getIntExtra("world", 0);
         abilities = intent.getIntArrayExtra("Ability");
         starCollectionInitial = getStarCollection();
 
@@ -291,7 +293,7 @@ public class GameActivity extends Activity {
     }
 
     private void readyGame() {
-        Stage stage = new Stage(this, stageNum);
+        Stage stage = new Stage(this, world, stageNum);
         ArrayList<Ability> playerAbilities = stage.player.getAbilities();
         for (int i = 0; i < abilities.length; i++)
             if (abilities[i] != -1)
