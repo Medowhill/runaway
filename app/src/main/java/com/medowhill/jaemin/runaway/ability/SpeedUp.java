@@ -15,6 +15,7 @@ public class SpeedUp extends Ability {
     public SpeedUp() {
         super(0, context.getResources().getString(R.string.abilitySpeedUpName));
 
+        WAITING_FRAME = context.getResources().getInteger(R.integer.speedUpEnemyCool);
         frame = context.getResources().getInteger(R.integer.speedUPEnemyFrame);
         dSpeed = context.getResources().getInteger(R.integer.speedUpEnemyDSpeed) / 10.f;
     }

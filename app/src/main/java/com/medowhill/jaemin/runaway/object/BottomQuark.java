@@ -12,7 +12,7 @@ public class BottomQuark extends Enemy {
     public BottomQuark(Stage stage, float x, float y) {
         super(stage, context.getResources().getInteger(R.integer.baseSize) * context.getResources().getInteger(R.integer.bottomQuarkSize),
                 context.getResources().getColor(R.color.bottomQuarkNormal), context.getResources().getColor(R.color.bottomQuarkDetecting),
-                x, y, context.getResources().getInteger(R.integer.higgsBosonSpeed),
+                x, y, context.getResources().getInteger(R.integer.bottomQuarkSpeed),
                 context.getResources().getInteger(R.integer.baseSight) * context.getResources().getInteger(R.integer.bottomQuarkSight),
                 context.getResources().getString(R.string.enemyBottomQuarkName), 'b');
 
